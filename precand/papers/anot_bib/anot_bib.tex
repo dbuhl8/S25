@@ -1,0 +1,408 @@
+\documentclass{article}
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm} %proof environment
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{enumitem} %nice lists
+\usepackage{verbatim} %useful for something 
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{blindtext} % I have no idea what this is 
+\usepackage{caption}  % need this for unnumbered captions/figures
+\usepackage{natbib}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Pre-candidacy notes: }
+\author{Dante Buhl}
+
+\newcommand{\wrms}{w_{\text{rms}}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\bmp}[1]{\begin{minipage}{#1\textwidth}}
+\newcommand{\emp}{\end{minipage}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\K}{\bs{\mathrm{K}}}
+\newcommand{\m}{\bs{\mu}_*}
+\newcommand{\s}{\bs{\Sigma}_*}
+\newcommand{\dt}{\Delta t}
+\newcommand{\dx}{\Delta x}
+\newcommand{\tr}[1]{\text{Tr}(#1)}
+\newcommand{\Tr}[1]{\text{Tr}(#1)}
+\newcommand{\Div}{\nabla \cdot}
+\renewcommand{\div}{\nabla \cdot}
+\newcommand{\Curl}{\nabla \times}
+\newcommand{\Grad}{\nabla}
+\newcommand{\grad}{\nabla}
+\newcommand{\grads}{\nabla_s}
+\newcommand{\gradf}{\nabla_f}
+\newcommand{\xs}{x_s}
+\newcommand{\xf}{x_f}
+\newcommand{\ts}{t_s}
+\newcommand{\tf}{t_f}
+\newcommand{\pt}{\partial t}
+\newcommand{\pz}{\partial z}
+\newcommand{\uvec}{\bs{u}}
+\newcommand{\F}{\bs{F}}
+\newcommand{\T}{\tilde{T}}
+\newcommand{\ez}{\bs{e}_z}
+\newcommand{\ex}{\bs{e}_x}
+\newcommand{\ey}{\bs{e}_y}
+\newcommand{\eo}{\bs{e}_{\bs{\Omega}}}
+\newcommand{\ppt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\DDt}[1]{\frac{D #1}{D t}}
+\newcommand{\ppts}[1]{\frac{\partial #1}{\partial t_s}}
+\newcommand{\pptf}[1]{\frac{\partial #1}{\partial t_f}}
+\newcommand{\ppz}[1]{\frac{\partial #1}{\partial z}}
+\newcommand{\ddz}[1]{\frac{d #1}{d z}}
+\newcommand{\ppzetas}[1]{\frac{\partial^2 #1}{\partial \zeta^2}}
+\newcommand{\ppzs}[1]{\frac{\partial #1}{\partial z_s}}
+\newcommand{\ppzf}[1]{\frac{\partial #1}{\partial z_f}}
+\newcommand{\ppx}[1]{\frac{\partial #1}{\partial x}}
+\newcommand{\ppxi}[1]{\frac{\partial #1}{\partial x_i}}
+\newcommand{\ppxj}[1]{\frac{\partial #1}{\partial x_j}}
+\newcommand{\ppy}[1]{\frac{\partial #1}{\partial y}}
+\newcommand{\ppzeta}[1]{\frac{\partial #1}{\partial \zeta}}
+
+
+\maketitle 
+\tableofcontents
+\pagebreak
+% This line removes the automatic indentation on new paragraphs
+\setlength{\parindent}{0pt}
+
+\section{Billant \& Chomaz Papers}
+    \subsection{Experimental evidence for a new instability of a
+    vertical columnar vortex pair in a strongly
+    stratified fluid (2000)}
+    \begin{itemize}
+        \item The first paper in a series of papers by Billant and Chomaz describing
+        and investigating the properties of the so called ``zigzag'' instability
+        present in the Lamb-Chaplygin vortex pair (a counterrotating vortex dipole). 
+        \item This paper demonstrated the existence of such an instability from
+        experimental findings at sufficient stratification. For insufficient
+        stratification $Fr \ge 0.2 \pm 0.01$, the ellipitcal instability appears to
+        be the dominant instability and after its gravitational collapse, the vortex
+        pair appears to irregularly zigzag into layer formation. 
+        \item From what can be observed from the zigzag instability is that it
+        doesn't perturb the horizontal cross-section structure of the vortex column,
+        only its vertical structure. It is positted that this phenomenon may be
+        responsible for the layering phenomenon demonstrated in many stratified
+        flows. 
+        \item Over a long enough time frame the original vortex pair column ends up
+        divided into pancake dipole segments in the vertical direction, obtaining
+        what is usually described as pancake eddies in the flow. 
+    \end{itemize}
+
+    \subsection{Self-similarity of strongly stratified inviscid flows (2001)}
+
+    \begin{itemize}
+        \item Posits the scaling of an intrinsic vertical length scale of strongly
+        stratified flows, $l_z \propto U/N$. 
+        \item Third paper which describes the ``Zig-Zag'' instability. Two previous
+        papers conducted linear stability analysis of the instability. 
+        \item Zig-zag instability is self-similar with respect to $k_zU/N$ which
+        implies that the dominant vertical wavenumber of the flow is proportional to
+        $Fr$. 
+    \end{itemize}
+
+    \subsection{Three-dimensional stability of vertical columnar vortex pair in a
+    stratified fluid}
+
+    \begin{itemize}
+        \item This paper conducted a numerical stability analysis on the linearized
+        equations using mean-pertubation flow separation. They found for flows
+        with sufficient stratification that the primary instability of the
+        counterrotating vortex pair was the ``zig-zag'' instability in which the
+        entire vortex column was destabilized and oscillationed ide to side with a
+        typical scale height, later found to be proportional to the froude number.
+        For insufficient stratification, the elliptical instability was the dominant
+        instabtility. 
+        \item Among their findings is the approximate scaling that the root mean
+        squared $u_z' \propto
+        1/Fr$ and $p' \propto Fr$ (normalized by the rms horizontal velocity).
+        Furthermore, these numerical findings for the growth rate of the zig-zag
+        instability concur with the experimental results
+        within reasonable error. 
+        \item Their nondimensionalization involved 
+        \begin{gather*}
+            Fr = \frac{U_{\text{prop}}}{NR}
+        \end{gather*}
+        where $U_{\text{prop}}$ is the propagation speed of the vortex pair, and $R$
+        is given by the dipole radius. This is similar to the non-dimensionalization
+        from Chini et al, in which the unit velocity and lengthscale are given by
+        the typical horizontal flow (i.e. horizontal forcing which is order 1 in
+        both $U$ and $L$). 
+    \end{itemize}
+
+
+\section{Hattori \& Hirota Papers}
+    \subsection{Stability of two-dimensional Taylor-Green vortices in rotating
+    stratified fluids (2023)}
+    \begin{itemize}
+        \item Conducted a local stability analysis as well as DNS and analyzed the
+        data using modal stability analysis. 
+        \item Linear Stability analysis is conducted on a linearized and inviscid
+        version of the governing equations.
+        \item Both the DNS and LSA begin with a base flow composed of Taylor-Green
+        vortices, which are arranged in a grid lattice. 
+        \item 5 instabilities are identified from the LSA, each with a different
+        mechanism and different instability/resonance conditions. 
+        \item Linear Stability analysis found that the pure hyperbolic instability
+        is often the fastest growing istability as also the most realizable.
+        Variation of the input rossby and froude numbers reveals characteristics of
+        other secondary instabilities which vary with vertical wavenumber, and
+        radius from vortex centers (as well as input parameters). 
+    \end{itemize}
+
+    \subsection{Modal stability analysis of arrays of stably stratified vortices
+    (2021)}
+    \begin{itemize}
+        \item This paper conducted a modal stability analysis for nonrotating
+        stratified Taylor-Green (and Stuart) vortices. They find three vital
+        hyperbolic instabilities which are primarily affected by stratification:
+        the pure hypebolic, strato-hyperbolic, and mixed-hyperbolic instability. 
+        \item One of the distinguishing metrics for these instabilities are
+        two integral quantities $s_1$, $s_2$. 
+        \begin{gather*}
+            s_1 = \frac{\int_{|\Phi| \le 0.1b} \omega_z'^2dV}{\int_V \omega_z^2
+            dV}\\
+            s_2 = \frac{\int_V \left(\div_h\uvec_h'\right)^2dV}{\int_V \omega_z^2
+            dV}\\
+        \end{gather*}
+        The stratohyperbolic instability is characterized by zero or near zero
+        values of $s_1$ ($< 0.1$). The pure hyperbolic instability is characterized by low
+        values of $s_2$ ($< 0.1$) and intermediate values of $s_1$ ($\sim 0.3$).
+        Finally, the mixed hyperbolic instability is seemingly unbounded by
+        either $s_1$ or $s_2$ (c.f. Figure 7 for visual representation). 
+        \item The modal stability analysis shows that the fastest growing mode
+        and instability of the taylor green vortices in the stratified case is
+        always the mixed hyperbolic instability and the fastest growing mode is
+        consistently near $k_zL_0 \approx 10$ (multiplied by $L_0$ to
+        non-dimensionalize $k_z$). 
+        \item This paper also discusses and demonstrates the modal stuctures of
+        these instabilities. Most important of these characteristics is its
+        vertical structure, however, there are modes with nontrivial structures
+        such as the mixed-hyperbolic ``spiral-mode'' which very closely
+        resembles the structure of the vertical velocity from my own rotating
+        stratified simulations (within the stable cyclones in the flow). 
+    \end{itemize}
+
+\subsection{Suzuki et al (2018), Strato-hyperbolic instability: a new mechanism
+of instability in stably stratified vortices}
+    \begin{itemize}
+        \item Need to read this, makes comparisons between the stratohypberolic
+        and zigzag instability
+    \end{itemize}
+
+
+\section{Miyazaki and Fukumoto}
+    \subsection{Three‐dimensional instability of strained vortices in a stably
+    stratified fluid (1992)}
+    \begin{itemize}
+        \item This paper conducts a linear stability analysis of ``unbounded
+        strained vortices''. The linear stability analysis is derived analytically
+        and then solved numerically by a floquet problem. The primary investigation
+        is into the elliptical instability of ``Pierrehumbertt type''. Two other
+        instability modes are noted which depend distinctly on the buoyancy
+        frequency $N$.
+    \end{itemize}
+
+    \subsection{Elliptical instability in a stably stratified rotating fluid
+    (1993)}
+    \begin{itemize}
+       \item This paper studies the elliptical instability present for
+       vorticies with an aspect ratio between the major and minor
+       axes of the ellipse created by the streamlines of the flow 
+       $\varepsilon \ne 1$. 
+       \item The problem assumed the flow is inviscid, incompressible, and
+       nondiffusive. Their nondimensionalization relies on the following:
+       \begin{gather*}
+            Ro = \frac{U}{\Omega L} = \frac{\gamma}{\Omega}, \quad Fr =
+            \frac{U}{NL} = \frac{\gamma^2 L}{g}
+       \end{gather*}
+       {\color{red} the paper may have a typo in the definition for $Ro$}
+       \item The problem is solved numerically using a linearized
+       mean-perturbation equation. The perturbation equations assume an ansantz
+       of fourier modes with a floquet multiplier and then are numerically
+       intergrated to determine the growth rate for varying rotation and
+       stratification. 
+       \item The paper divides this study into sections where first the effects
+       of stratification are ignored (similar to the 1992 papers), and then
+       rotation is ignored. Finally, they cover some cases where both rotation
+       and stratification are included and characterize phenomenon of the
+       elliptical instability. 
+       \item In the purely rotating case, specifically for strong cyclones, we see that there is a subharmonic and
+       superharmonic mode of the elliptical instability where the superharmonic
+       mode is very weak and exists for a very small range of vertical
+       wavenumbers. For strong anti-cyclones, we find that the superharmonic mode
+       disappears and the subharmonic mode becomes very realizable as
+       horizontal disturbances destabilize the vortex. 
+       \item When the anticyclones are weaker ($|Ro|$ is larger), the elliptical
+       instability's growth rate resembles that for the cyclones. 
+       \item Weak cyclones/anticyclones in the presence of stratification
+       and roation are very stable to the elliptical instabtility. Roughly we
+       can find if a particular strained vortex is unstable by seeing if its
+       initial $\varepsilon_0^*$ has any unstable modes. If not, it may be the
+       case that that particular vortex is stable in a specific configuration of
+       $Fr$ and $Ro$. 
+       \item {\color{red} mention their conclusion}
+    \end{itemize}
+
+\section{Linden Papers}
+    \subsection{The stability of vortices in a rotating, stratified fluid}
+        \begin{itemize}
+            \item experimental setup where two layer vortices are created in a
+            closed volume. A rotating tank whose center is aligned with the
+            axis of rotation, is spun up to a steady state and then a cylinder
+            immersed at a depth $H$ in the center is removed which contains dye.
+            When spun up, this 
+            cylinder will be rotating, and form a vortex in the flow (either at
+            the surface or at the bottom according to the density regime
+            ($\rho_1 > \rho_2$ or $\rho_1 < \rho_2$)
+            \item These closed volume vortices lose their intial structure over
+            time, whereby the dyed vortex will disperse radially in either an
+            axissymmetric or non-axissymmetric manner (need to clarify what
+            causes this)
+            \item Essentially, the disparity between the density layers causes
+            the vortex to become unstable and move (either upwards to downwards
+            and then radially)
+            according to the stratification. This movement is opposed by the
+            conservation of angular momentum, and we see either cyclonic or
+            anticyclonic movements within the vortex according to whether the
+            vortex expands or contracts radially. 
+            \item Non-axissymmtric movements are then induced due to a
+            baroclinic instability which fueled by potential energy stored
+            in the density gradient and by the kinetic energy contained in
+            the horizontal shear in the flow. 
+            \item The number of vortices shed radially from the original vortex
+            is given by a modal configuration $n$, which increases with the
+            depth ratio of the vortex. That is, for smaller vortex depth ratios,
+            the fastest growing unstable mode is $n=2$, whereas for larger depth
+            ratios the fastest growing unstable mode is $n=3$ (three
+            shed vortices). 
+            \item The shed vortices are in a dipole configuration, similar to
+            lamb-Chaplygin vortex pairs.
+        \end{itemize}
+
+\section{Herring and Metias}
+    \subsection{}
+    \begin{itemize}
+        \item stuff
+    \end{itemize}
+
+\section{Waite and Bartello}
+    \subsection{}
+    \begin{itemize}
+        \item stuff
+    \end{itemize}
+
+
+\section{GFD Group (Garaud, Chini, Shah, Caulfield \ldots)}
+    \subsection{Exploiting self-organized criticality in strongly stratified
+    turbulence (2021)}
+    \begin{itemize}
+        \item Developed a multiscale model for strongly stratified flows wherein an
+        aspect ratio $\alpha$ is used to describe scale separation of horizontal and
+        vertical motions recovering that $l_z \propto Fr$ as posited by
+        %\cite{BillantChomaz2001}. 
+    \end{itemize}
+
+    \subsection{Cope et al. 2020}
+
+    \subsection{Shah et al. 2023}
+
+    \subsection{Layering, Instabilities, and Mixing in Turbulent Stratified
+    Flows, Caulfield 2021}
+    \begin{itemize}
+        \item This is a review paper aimed at highlighting revcent findings in
+        density stratified flows as well as the importance of relevant
+        length scales, energy conversion mechanisms, and thermal/compoisitional
+        mixing in the flow. 
+        \item This paper dicusses many aspects of stratified flow. Some of the
+        most fundamental quantities which are still trying to be understood are
+        the mixing efficiency and turbulent flux coefficient as they depend on
+        flow parameters. The complication with this conceptualization, is that
+        it is unclear which flow paremeters are the right ones, and more
+        importnatly if the flow parameters exhibit dependence on one another. 
+        \item Caulfield also details several relevant lengthscales intrinsic to
+        stratified turbulence. Among these scales are a typical horizonal
+        length scale of the background flow $l_h$, the vertical length scale
+        from the anisotropic flow field $l_v$, the Ozmidov Length scale $l_O$
+        which describes the length scale seperating anisotropic dynamics from
+        the isotropic dynamics, and finally the Kolmorogov length scale $l_K$
+        which describes the smallest length scale where isotropic turbulence
+        occurs. According to Caulfield, in the ``Layered Anisotropic Stratified
+        Turbulence'' (LAST) regime there is an implicit asymptotic ordering of
+        these length scales given by, 
+        \begin{gather*}
+            l_K \ll l_O \ll l_v \ll l_h
+        \end{gather*}   
+    \end{itemize}
+
+\section{Praud, Sommeria, Fincham}
+    \begin{itemize}
+        \item Perform experiments of rotating grid turbulence in a strongly
+        stratified fluid. Using a scanning-image velocimetry technique, they
+        measure the flow field at discrete fime points. 
+        \item Generally, they find as quasi-geostrophy
+        predicts that a direct energy cascade is inhibitted. In the limit of
+        small froude and Rossby numbers, they find that the the flow is
+        non-dissipative and associated with an intermitant vorticity vield and
+        exhibits a $k_h^{-3}$ energy spectrum. 
+        \item For higher Rossby numbers, there are differences from the
+        Quasi-geostropic mnodel. A decay of kinetic energy (not dependent on Fr)
+        is observed. Both cyclones and anti-cyclones occur in the flow, but only
+        cyclones are specifically intense (high-amplitude). At later times, the
+        flow is composed of ``lens-like'' eddies which have an aspect ratio
+        $f/N$. 
+        \item They find similar to our DNS, that the flow is dominated by
+        cyclonic vortices and for strongly rotating flows also anticyclones. For
+        the moderately rotating case, the regions outside of the cyclones cannot
+        find geostropic balance and are not able to form coherent structure. 
+        \item They definte their Fr Ro and Re, 
+        \begin{gather*}
+            Fr_M = \frac{U}{MN}, \quad Ro_M = \frac{U}{Mf}, \quad Re_M =
+            \frac{UM}{\nu}
+        \end{gather*}
+    \end{itemize}
+
+\section{Guo, Taylor, Zhou}
+    \subsection{Zigzag instability of columnar Taylor-Green vortices in a
+    strongly stratified fluid}
+    \begin{itemize}
+        \item This paper performs a linear stability analysis of the primary
+        instability of the Taylor-Green vortex columns. They find that this
+        instability is the zig-zag instability, whereby it develops with a
+        vertical lengthscale and wavenumber which scale with $Fr^{-1}$ as shown
+        by Billant and Chomaz in their 2001 papers on the same instability. 
+        \item They also detail in a similar manner to the Hattori papers, the
+        modal structure of this fastest growing unable mode. Note that this
+        confirms that the mixed hyperbolic instability presented by the Hattori
+        papers (modal stability analysis of 2d taylor green vortices 2023) is in
+        fact the zigzag instability, which is reliably the fastest growing
+        instability for the 2D Taylor-Green vortices in a stratified fluid. 
+        \item The findings of this paper support the claim that the zig-zag
+        instability is a fundamental instability which transfers energy from
+        vertically invariant modes to three-dimensional turbulence characterized
+        by the Froude number. 
+        \item Notes on the study, this linear stability analysis shows only the
+        development of instability from the vortex columns and does not include
+        the effect of rotation in their study. 
+        \item They compute the most dominant lengthscale of the flow according
+        to an integrl over wavenumbers of the kinetic energy fo the flow, i.e.
+        grouping of energy is what they use to declare the dominant vertical
+        lengthscale of the instabiltiy (c.f. eqn 3.4)
+        \item 
+    \end{itemize}
+
+\colorbox{yellow}{Add a bibliography using natbib. Need to build a bib file for this}. 
+
+\end{document}
