@@ -24,7 +24,7 @@
 
 \begin{document}
 
-title{AM 260 - Computational Fluid Dynamics: Lecture Notes}
+\title{AM 260 - Computational Fluid Dynamics: Lecture Notes}
 \author{Dante Buhl}
 \doublespacing
 \newcommand{\wrms}{w_{\text{rms}}}
@@ -101,6 +101,54 @@ title{AM 260 - Computational Fluid Dynamics: Lecture Notes}
 
 \setlength{\parindent}{0pt}
 \setcounter{section}{1}
+
+\pagebreak
+
+\section{}
+
+\subsection{Deriving Integral Quantities using FCV}
+
+Using a finite control volume we can easily
+obtain the following equality for the divergence of the flow field in a
+compressible limit. 
+\begin{gather*}
+    \div{\uvec} = \frac{1}{\delta V} \DDt{\delta V}
+\end{gather*}
+
+Next we look at the continuity equation (density equation) using the FCV
+(fixed in space). We consider some arbitrary FCV V with surface S. We say, the
+net mass flow ``out'' of V through S is equal to the time rate of change
+of the ``decrease'' of mass inside V. That is, 
+\begin{gather*}
+    -\int_S \rho\uvec \cdot \bs{dS} = \ppt{}\left( \int_V \rho dV\right)\\
+    \int_V \ppt{\rho} + \div(\rho\uvec) dV = 0 
+\end{gather*}
+Note that here, the Reynolds transport theorem (adjustment to the density by
+transport of the FCV) is not necessary due to the volume begin fixed in space. 
+The same can be done with an FCV moving with the fluid although the derivation
+initially gives the equations in non-conservative form (which is more of a
+matter of notation than anything) 
+
+\subsection{Deriving Quantities using IFE}
+Looking at the fixed in space scenario using an infinitesimal fluid element. We consider a small
+infinitesimal volume element and the inflow/outflow from that element. 
+\begin{gather*}
+    \text{Inflow: } \rho\uvec dydx\\
+    \text{Outflow: } \rho\uvec + \grad(\rho\uvec)\cdot \bs{dV}\\
+    \ppt{\rho} + \grad\cdot(\rho\uvec) = 0
+\end{gather*}
+
+Using an IFE moving with the fluid, we have that the equation becomes, 
+\begin{gather*}
+    \DDt{\rho dV} + \rho\div{\uvec} = 0 
+\end{gather*}
+
+\subsection{Hyperbolic evolution equations}
+
+\begin{gather*}
+    \ppt{u} + a\ppx{u} = 0
+\end{gather*}
+
 
 
 

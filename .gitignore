@@ -1,0 +1,12 @@
+*.aux
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.log
+*.dat
+*.cdf
+*.nc
+*.npz
+*.model
+

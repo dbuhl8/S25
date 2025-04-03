@@ -62,6 +62,7 @@ def add_column(mat,l):
 vol_frac_30 = np.zeros([sim_num_files[0],num_samples])
 horiz_urms_30 = np.zeros_like(vol_frac_30)
 uhrms_in_turb_30 = np.zeros_like(vol_frac_30)
+t_30 = np.zeros_like(vol_frac_30)
 wt_30 = np.zeros_like(vol_frac_30)
 wt_in_turb_30 = np.zeros_like(vol_frac_30)
 wrms_30 = np.zeros_like(vol_frac_30)
@@ -74,6 +75,7 @@ enstr_in_turb_30 = np.zeros_like(vol_frac_30)
 enstr_in_lam_30 = np.zeros_like(vol_frac_30)
 
 vol_frac_100 = np.zeros([sim_num_files[1], num_samples])
+t_100 = np.zeros_like(vol_frac_100)
 wt_100 = np.zeros_like(vol_frac_100)
 wrms_100 = np.zeros_like(vol_frac_100)
 enstr_100 = np.zeros_like(vol_frac_100)
@@ -139,7 +141,8 @@ for i, fn in enumerate(simdat_files_30):
             uhrms_in_turb_30 = add_column(uhrms_in_turb_30,l)
             wrms_30 = add_column(wrms_30,l)
             wrms_in_turb_30 = add_column(wrms_in_turb_30,l)
-            wt_30 = add_column(wt_in_turb_30,l)
+            wt_30 = add_column(wt_30,l)
+            t_30 = add_column(t_30,l)
             wt_in_turb_30 = add_column(wt_in_turb_30,l)
             enstr_30 = add_column(enstr_30,l)
             enstr_in_turb_30 = add_column(enstr_in_turb_30,l)
@@ -153,6 +156,7 @@ for i, fn in enumerate(simdat_files_30):
         lam = np.where(Fr[0]*np.abs(np.sum(wz[j,:,:,:],axis=1)/Nz+invRo_30[i]) > 1)
 
         # volume average over whole domain
+        t_30[i,j] = tval
         horiz_urms_30[i,j] = np.sqrt(np.sum(ux[j,:,:,:]**2 +uy[j,:,:,:]**2)/(Nx*Ny*Nz))
         vol_frac_30[i,j] = len(idx[0])/(Nx*Ny)
         wrms_30[i,j] = np.sqrt(np.sum(uz[j,:,:,:]**2)/(Nz*Ny*Nx))
@@ -219,7 +223,8 @@ for i, fn in enumerate(simdat_files_100):
             uhrms_in_turb_100 = add_column(uhrms_in_turb_100,l)
             wrms_100 = add_column(wrms_100,l)
             wrms_in_turb_100 = add_column(wrms_in_turb_100,l)
-            wt_100 = add_column(wt_in_turb_100,l)
+            t_100 = add_column(t_100,l)
+            wt_100 = add_column(wt_100,l)
             wt_in_turb_100 = add_column(wt_in_turb_100,l)
             enstr_100 = add_column(enstr_100,l)
             enstr_in_turb_100 = add_column(enstr_in_turb_100,l)
@@ -229,10 +234,12 @@ for i, fn in enumerate(simdat_files_100):
             tdisp_in_lam_100 = add_column(tdisp_in_lam_100,l)
 
         # finding vertical pencils for turbulent and laminar regions
+        
         idx = np.where(Fr[1]*np.abs(np.sum(wz[j,:,:,:],axis=1)/Nz+invRo_100[i]) <= 1)
         lam = np.where(Fr[1]*np.abs(np.sum(wz[j,:,:,:],axis=1)/Nz+invRo_100[i]) > 1)
 
         # volume average over whole domain
+        t_100[i,j] = tval
         horiz_urms_100[i,j] = np.sqrt(np.sum(ux[j,:,:,:]**2 +uy[j,:,:,:]**2)/(Nx*Ny*Nz))
         vol_frac_100[i,j] = len(idx[0])/(Nx*Ny)
         wrms_100[i,j] = np.sqrt(np.sum(uz[j,:,:,:]**2)/(Nz*Ny*Nx))
@@ -343,10 +350,10 @@ for i, fn in enumerate(files_100):
     file.close()
 
 # save computed data as txt files
-np.savez("vort_frac", eInvRo_30=eInvRo_30, avg_wT_30=avg_wT_30,\
-    eInvRo_err_30=eInvRo_err_30, avg_wT_err_30=avg_wT_err_30,\
-    invRo_30=invRo_30, horiz_urms_30=horiz_urms_30, vol_frac_30=vol_frac_30,\
-    eInvRo_100=eInvRo_100, avg_wT_100=avg_wT_100,\
+np.savez("vort_frac", t_30=t_30, t_100=t_100,eInvRo_30=eInvRo_30,\
+    avg_wT_30=avg_wT_30, eInvRo_err_30=eInvRo_err_30,\
+    avg_wT_err_30=avg_wT_err_30,invRo_30=invRo_30, horiz_urms_30=horiz_urms_30,\
+    vol_frac_30=vol_frac_30, eInvRo_100=eInvRo_100, avg_wT_100=avg_wT_100,\
     eInvRo_err_100=eInvRo_err_100, avg_wT_err_100=avg_wT_err_100,\
     invRo_100=invRo_100, horiz_urms_100=horiz_urms_100,\
     vol_frac_100=vol_frac_100,\

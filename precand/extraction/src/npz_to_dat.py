@@ -40,6 +40,9 @@ sim_num_files = [len(simdat_files_30), len(simdat_files_100)]
 fn = "vort_frac.npz"
 npzfile = np.load(fn)
 
+t_30=npzfile["t_30"]
+t_100=npzfile["t_100"]
+
 eInvRo_30=npzfile["eInvRo_30"]
 eInvRo_100=npzfile["eInvRo_100"]
 
@@ -102,19 +105,20 @@ file.write("# Indices "+str(sim_num_files[0]-1)+"-"+\
 file.write("# Columns correspond to the following values\n")
 file.write("# Column 1: Inverse Rossby Number\n")
 file.write("# Column 2: Inverse Froude Number\n")
-file.write("# Column 3: Horizontal U rms\n")
-file.write("# Column 4: w rms\n")
-file.write("# Column 5: wT\n")
-file.write("# Column 6: Enstrophy\n")
-file.write("# Column 7: TDisp\n")
-file.write("# Column 8: Volume Frac (Fr|w_z + invRo| <= 1|)\n")
-file.write("# Column 9: Horizontal U rms (in turbulence)\n")
-file.write("# Column 10: w rms (in turbulence)\n")
-file.write("# Column 11: wT (in turbulence)\n")
-file.write("# Column 12: Enstrophy (in turbulence)\n")
-file.write("# Column 13: TDisp (in turbulence)\n")
-file.write("# Column 14: Enstrophy (in laminar)\n")
-file.write("# Column 15: TDisp (in laminar)\n")
+file.write("# Column 3: time\n")
+file.write("# Column 4: Horizontal U rms\n")
+file.write("# Column 5: w rms\n")
+file.write("# Column 6: wT\n")
+file.write("# Column 7: Enstrophy\n")
+file.write("# Column 8: TDisp\n")
+file.write("# Column 9: Volume Frac (Fr|w_z + invRo| <= 1|)\n")
+file.write("# Column 10: Horizontal U rms (in turbulence)\n")
+file.write("# Column 11: w rms (in turbulence)\n")
+file.write("# Column 12: wT (in turbulence)\n")
+file.write("# Column 13: Enstrophy (in turbulence)\n")
+file.write("# Column 14: TDisp (in turbulence)\n")
+file.write("# Column 15: Enstrophy (in laminar)\n")
+file.write("# Column 16: TDisp (in laminar)\n")
 
 
 
@@ -128,13 +132,14 @@ for i, iRo in enumerate(invRo_30):
     file.write("# File: "+simdat_files_30[i]+"\n") 
     file.write("\n")
 
-    # iRo, iFr, uhrms, wrms, wT, enstr, tdisp, vol_frac, uhrms_in_turb,
+    # iRo, iFr, t, uhrms, wrms, wT, enstr, tdisp, vol_frac, uhrms_in_turb,
     # wrms_in_turb, wT_in_turb, enstr_in_turb, tdisp_in_turb, enstr_in_lam,
     # tdisp_in_lam
     idx_list = np.where(horiz_urms_30[i,:] > 0)
     for j, idx in enumerate(idx_list[0]):
-        data_list = [iRo, invFr[0], horiz_urms_30[i,idx], wrms_30[i,idx],\
-        enstr_30[i,idx], tdisp_30[i,idx], vol_frac_30[i,idx],\
+        data_list = [iRo, invFr[0],t_30[i,idx], horiz_urms_30[i,idx],\
+        wrms_30[i,idx],\
+        wt_30[i,idx], enstr_30[i,idx], tdisp_30[i,idx], vol_frac_30[i,idx],\
         uhrms_in_turb_30[i,j],wrms_in_turb_30[i,j], wt_in_turb_30[i,j],\
         enstr_in_turb_30[i,j], tdisp_in_turb_30[i,j], enstr_in_lam_30[i,j],\
         tdisp_in_lam_30[i,j]]
@@ -155,8 +160,9 @@ for i, iRo in enumerate(invRo_100):
     # tdisp_in_lam
     idx_list = np.where(horiz_urms_100[i,:] > 0)
     for j, idx in enumerate(idx_list[0]):
-        data_list = [iRo, invFr[1], horiz_urms_100[i,idx], wrms_100[i,idx],\
-        enstr_100[i,idx], tdisp_100[i,idx], vol_frac_100[i,idx],\
+        data_list = [iRo, invFr[1], t_100[i,idx], horiz_urms_100[i,idx],\
+        wrms_100[i,idx],\
+        wt_100[i,idx],enstr_100[i,idx], tdisp_100[i,idx], vol_frac_100[i,idx],\
         uhrms_in_turb_100[i,j],wrms_in_turb_100[i,j], wt_in_turb_100[i,j],\
         enstr_in_turb_100[i,j], tdisp_in_turb_100[i,j], enstr_in_lam_100[i,j],\
         tdisp_in_lam_100[i,j]]
