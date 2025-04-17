@@ -1,0 +1,261 @@
+\documentclass[25pt, a0paper, landscape, blockverticalspace=1cm]{tikzposter}
+
+
+
+\title{\parbox{\linewidth}{\centering Swimming with Deep Learning
+}}
+\author{Samuel Armstrong, Dante Buhl, Garrett Hauser, Kristin Lloyd, Jazmin Sharp Mentors: Hervé Nganguia, Jia-an Yan}
+\date{July 17, 2023}
+\institute{Towson University REU}
+\usetheme{Default}
+\usecolorstyle{Australia}
+\usecolorpalette{Default}
+
+%Define color here
+\definecolor{background}{RGB}{234, 234, 234}
+\definecolor{tuYellow}{RGB}{254, 192, 14}
+\definecolor{tuBlack}{RGB}{58, 58, 56}
+
+\colorlet{backgroundcolor}{background}
+\colorlet{framecolor}{tuYellow}
+%\colorlet{titlefgcolor}{tuYellow}
+%\colorlet{titlebgcolor}{tuYellow}
+\colorlet{blocktitlebgcolor}{tuYellow}
+\colorlet{blockbodybgcolor}{white}
+\colorlet{blocktitlefgcolor}{tuBlack}
+\colorlet{blockbodyfgcolor}{black}
+%\colorlet{blockbodyfgcolor}{tuBlack}
+
+%% PACKAGES %%
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tikz}
+\usepackage{subfig}
+\usepackage{verbatim}
+\usepackage{bm}
+
+%for positioning nodes
+\usetikzlibrary{positioning}
+\usepackage[none]{hyphenat}
+
+%\theoremstyle{remark}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{oq}[theorem]{Open Question}
+\newtheorem{ques}[theorem]{Question}
+\newtheorem{lem}[theorem]{Lemma}
+\newtheorem{ex}[theorem]{Example}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{prob}[theorem]{Problem}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{fct}[theorem]{Fact}
+
+\newcommand{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\aut}{Aut}
+
+
+\begin{document}
+
+%% images in corners %%
+\node [below right=-1.5cm and 5cm] at (bottomleft |- topright) {\includegraphics[width=20cm]{Images/TowsonUlogo-vert-color-pos.png}};
+\node [below left=-.5cm and 7cm] at (topright) {\includegraphics[width=16.5cm]{Images/NSF-logo.png}};
+
+%% TITLE AND LOGOS %%
+\maketitle
+
+\begin{columns}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\column{0.33}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\block{Abstract}
+{
+The study of micro-organisms’ propulsion has intrinsic relevance for the development of micro-robots designed for targeted drug delivery and as a foundation for further studies on hydrodynamic interactions between micro-organisms in complex environments. Numerical simulations have been used extensively to investigate micro-organisms’ locomotion. Recently, physics-informed neural networks (PINNs) have shown promise for approximating solutions to differential equations that govern various physical problems. In this poster, we evaluate the effectiveness of using PINNs to predict the low Reynolds dynamics that characterize the propulsion of
+micro-organisms.
+}
+
+
+
+\block{Introduction}
+{
+\begin{itemize}
+\item We use deep learning, an artificial intelligence method, to verify the propulsion speed of a ciliated organism founded by James M. Lighthill. Lighthill found that the speed of a microorganism is two thirds the speed of the fluid's maximum speed at the squirmer's surface in a Newtonian fluid.
+
+
+\item We utilize DeepXDE, a Python library that is used to solve partial differential equations commonly used in fluid dynamics. DeepXDE uses PINNs to efficiently approximate solutions by combining deep learning with computational methods. This method allows us to experiment with customization through parameters, including activation functions, learning rates, and iterations to enhance the accuracy of this representation of a swimming microorganism.
+\item Our neural network represents a squirmer model, the mathematical framework of a swimming microorganism. For our model, we consider the three different swimming modes: pusher, puller, and neutral which describe the methods an organism moves through a fluid.  
+
+\item Squirmers that identify as pushers generate flow by pushing fluid away, pullers create a flow by pulling fluid toward, and neutral squirmers use both pushing and pulling methods to generate flow. 
+\end{itemize}
+
+
+%\begin{center}
+%    \label{fig:PINN_diagram}
+%    \resizebox{0.18\textwidth}{!}{
+%    \includegraphics{Images/Screen Shot 2023-07-10 at 2.41.51 PM.png}
+%    }
+%\end{center}
+
+%\begin{center}
+%\textbf{Ciliated Organism vs. Rigid Sphere}
+%\end{center}
+
+}
+
+
+
+
+\block{The Equations}
+{
+\begin{center}
+\begin{minipage}{.45\linewidth}
+    \centering
+    \textbf{The PDE}
+    \begin{align*}
+        \nabla  & p - \nabla^2 \vec{u}  = 0  \text{, Stokes Equation} \\ 
+        \nabla  & \cdot \vec{u} = 0  \text{, Continuity Equation} \\
+        \int_S  & \bm{\sigma} \cdot \mathbf{n} \; dS = 0 \text{, Force Free Condition} 
+    \end{align*}
+    \textbf{Boundary Conditions}
+    \begin{align*}
+        u_r(r=1,\theta) = & U\cos{\theta} \\
+        u_{\theta}(r=1,\theta) = & (1-U)\sin{\theta} + \alpha \sin \theta \cos \theta\\
+        u_r(r \to \infty, \theta) = & u_{\theta}(r \to \infty, \theta) = 0 \\
+    \end{align*}
+\end{minipage}\hfill
+
+
+
+\begin{minipage}{.45\linewidth}
+\centering
+%\textbf{Spherical Coordinates}
+%\begin{align*}
+%    \vec{u} &= \left<u_r, u_{\theta}, u_{\phi}\right>
+%    \\
+%    u_x &= u_r \cos{\theta} - r u_{\theta}\sin{\theta}
+%    \\
+%    u_y &= u_r \sin{\theta} + r u_{\theta}\cos{\theta}
+%    \\
+%    |\vec{u}| &= \sqrt{u_x^2 + u_y^2}
+%\end{align*}
+\end{minipage}
+\end{center}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\column{0.33}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\block{Physics-Informed Neural Networks (PINNS)}
+{
+
+\begin{center}
+    \label{fig:PINN_diagram}
+    \resizebox{0.299\textwidth}{!}{
+    \includegraphics{Images/Squirmer_PINN_Diagram_V3.jpg}
+    }
+
+\end{center}
+
+Our PINN...
+
+(w = $u_r$, v = $u_{\theta}$)
+\begin{itemize}
+    \item Has inputs $r$ and $\theta$.
+    \item Computes radial component $w$, tangential component $v$, and pressure $p$.
+    \item Takes derivatives of $w$,$v$, and $p$ and passes the values to our PDE.
+    \item Accounts for values at the boundaries for $w$, $v$, and $p$.
+    \item Minimizes loss to produce the flow field and propulsion speed for a squirmer.
+\end{itemize}
+
+}
+
+
+
+
+
+\block{Flow Field Results}
+{
+
+%\textbf{\underline{L2 Error}}
+%\begin{itemize}
+%    \item $u_r:0.15652$
+%    \item $u_\theta:0.14775$
+%    \item $p:0.01089$
+%\end{itemize}
+%\begin{figure}
+\begin{center}
+\resizebox{0.3\textwidth}{!}{
+\includegraphics{Images/NewSquirm3.png}
+}
+\end{center}
+
+    Comparison of flow field between the exact solution (blue) and PINN results (red) for a puller ($\alpha = 1$), neutral ($\alpha = 0$), and pusher ($\alpha = -1)$ in Cartesian coordinates. The stream plot represents the direction of the fluid flow and the colormap represents the magnitude of $\vec{u}.$ Currently, the error in the flow field is less than 2 \%. 
+
+    %\label{fig:figure3}
+%\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\column{0.33}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\block{Propulsion Speed Results }
+{
+\begin{center}
+\resizebox{0.25\textwidth}{!}{
+\includegraphics{Images/Speed update2.png}
+}
+\end{center}
+
+    Graph representing the speed of a pusher, neutral, and puller based on number of iterations the PINN is trained. The black dotted line represents a speed of 2/3.
+
+
+}
+
+
+\block{Future Directions}
+{
+Future work aims to...
+
+\begin{itemize}
+\item Optimize hyper parameters to reduce errors and increase accuracy of results.
+
+\item Simulate squirmer motion in Brinkman and shear-thinning fluids.
+
+\item Develop future simulations that model conditions inside the body in order to progress drug delivery systems. 
+
+
+\end{itemize}
+}
+
+
+\block{Bibliography}{
+Lighthill, Michael J. "On the squirming motion of nearly spherical deformable bodies through liquids at very small Reynolds numbers." Communications on pure and applied mathematics 5.2 (1952): 109-118.
+
+Lu, Lu, et al. "DeepXDE: A deep learning library for solving differential equations." SIAM review 63.1 (2021): 208-228.
+
+
+}
+
+\block{Acknowledgements}{
+This material is based upon work supported by the National Science Foundation under Grant DMS-2149865 and LSAMP Award 2207374. 
+Travel to JMM for GH is supported by the NSF under Grant No. 2015553. Travel to JMM for SA is supported by the Stine Endowment.
+We are very grateful to our mentors Dr. Nganguia and Dr. Yan, and program organizer Dr. Cornwell. 
+}
+
+%% Stine Endowment 
+
+\end{columns}
+
+
+\end{document}
