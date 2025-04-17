@@ -74,6 +74,7 @@
 % need to add UCSC logo
 \node [below right=-1cm and 5cm] at (bottomleft |- topright)
 {\includegraphics[width=21cm]{ucsc_logo_2.png}};
+\node [below left=-.5cm and 7cm] at (topright) {\includegraphics[width=15cm]{images/NSF-logo.png}};
 
 %% TITLE AND LOGOS %%
 \maketitle
@@ -123,37 +124,117 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 
 \block{The Equations}
 {
-\begin{align*}
-    \DDt{\uvec} + 2\bs{\Omega}\times\uvec = -\frac{1}{\rho}\grad p + \F + \alpha  g T \ez 
-    + \nu \grad^2 \uvec\\
-    \DDt{T} + w\ddz{\bar{T}} = \kappa \grad^2T\\
-    \div{\uvec} = 0
-\end{align*}
+\centering
+\begin{gather*}
+    \DDt{\uvec} + \frac{1}{Ro}\ez\times\uvec = -\grad p + \F + \frac{1}{Fr^2}T \ez 
+    + \frac{1}{Re} \grad^2 \uvec\\
+    \DDt{T} + w = \frac{1}{Pe} \grad^2T, \quad \div{\uvec} = 0\\
+    Re = \frac{UL}{\nu},\quad  Pe = \frac{UL}{\kappa_T},\quad Fr =
+    \frac{U}{NL},\quad  Ro =
+    \frac{U}{2\Omega L}
+\end{gather*}
+
+\includegraphics[width=.8\linewidth]{images/schematic.pdf}
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \column{0.33}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\block{Stochastic Forcing}{
+    We choose the forcing to be purely horizontal and divergence-free stochastic
+    process:
+    \[
+        \bs{F} = F_x\ex + F_y\ey, \quad \grad \cdot \bs{F} = 0
+    \]
+    The forcing is applied in spectral space and satisfies $\bs{k} \cdot \hat{\bs{F}} = 0$:
+    \begin{gather*}
+        \hat{F}_x = \frac{k_y}{|\bs{k}_h|}G(\bs{k}_h,t), \quad \hat{F}_y = \frac{-k_x}{|\bs{k}_h|}G(\bs{k}_h,t)\\
+    \end{gather*}
+    where $G(\bs{k}_h,t)$ is a Gaussian process of amplitude 1 and correlation
+    timescale 1, and $|\bs{k}_h| \le \sqrt{2}$. 
 
+    \begin{flushright}
+    c.f. Waite and Bartello (2004)\end{flushright}
+}
 
 \block{Quantitative Results}{
     % start showing data and results. Things to include in this block should be
     % quantitative datas, rms scaling laws with rossby and the such
+
+    \bmp{.49}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/urms_plot.pdf}
+    \emp
+    \bmp{.49}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/wrms_plot.pdf}
+    \emp
+
+
+    \bmp{.49}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/bflux_plot.pdf}
+    \emp
+    \bmp{.49}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/mixing_plot.pdf}
+    \emp
 }
+
+\block{Qualitative Results}{
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.85\linewidth]{images/chi_Om0.5_vr2.png}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.85\linewidth]{images/chi_Om2_vr2.png}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.85\linewidth]{images/chi_Om10_vr2.png}
+    \emp
+
+    % this may be the appropriate section to include the QR code. 
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.85\linewidth]{images/vortz_Om0.5_vr2.png}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.85\linewidth]{images/vortz_Om2_vr2.png}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.85\linewidth]{images/vortz_Om10_vr2.png}
+    \emp
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\column{0.33}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \block{Qualitative Results}{
     % show plots which show qualitative results, things like volume renderings,
     % flow fields, vertical-averaged quantities (top-down)
 
-    % this may be the appropriate section to include the QR code. 
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/Om0.5Spec.pdf}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/Om2Spec.pdf}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/Om5Spec.pdf}
+    \emp
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\column{0.33}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\block{Vertically Averaged Quantities}{
 
-
+}
 
 \block{References}{
 }
