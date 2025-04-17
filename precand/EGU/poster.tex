@@ -20,6 +20,8 @@
 \usepackage{tikz}
 \usepackage{subfig}
 \usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{graphicx}
 \usepackage{bm}
 
 %for positioning nodes
@@ -28,6 +30,10 @@
 
 
 \begin{document}
+
+
+\newcommand{\bmp}[1]{\begin{minipage}{#1\linewidth}}
+\newcommand{\emp}{\end{minipage}}
 
 %% images in corners %%
 % need to add UCSC logo
@@ -47,17 +53,37 @@
 
 \block{Abstract}
 {
-
+Recent interest in the dynamics of stratified turbulence has led to the
+development of new models for quantifying vertical transport of momentum and
+buoyancy (Chini {\em et al} 2022, Shah {\em et al} 2024). These models are still
+incomplete as they do not yet include all of the relevant dynamics often present
+in real physical settings such as rotation and magnetic fields. Here we expand
+on prior work by adding rotation. We conduct 3D direct numerical simulations of
+rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), and vary the Rossby number. We find that rotation gradually suppresses small-scale 3D motions and therefore inhibits vertical transport as Ro decreases towards Fr. The effect is particularly pronounced within the cores of emergent cyclonic vortices. For sufficiently strong rotation, vertical motions are entirely suppressed.
 }
-
 
 
 \block{Motivation}
 { 
     % TAKE FROM DFD PRESENTATION
+\bmp{.47}
+    
+    Nonrotating stratified turbulence is characterized by strongly
+    anisotropic pancake structures within the flow. 
+
+    \includegraphics[width=.9\linewidth]{images/pancakes.pdf}
+     %end small
+\emp
+\hfill
+\bmp{.47}
+    
+    Rotation promotes barotropic structures which are invariant along the axis
+    of rotation.
+
+    \includegraphics[width=.9\linewidth]{images/cylinders.pdf}
+     %end small
+\emp
 }
-
-
 
 
 \block{The Equations}
