@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import matplotlib.colors as colors
 import matplotlib.animation as animation
+import pyvista as pv
 from matplotlib.widgets import Slider
 from netCDF4 import MFDataset
 
@@ -23,7 +24,8 @@ Nx = len(x)
 Ny = len(y)
 Nz = len(z)
 Nt = len(t)
-gx = cdf_file.variables['Gammax'][0] gy = cdf_file.variables['Gammay'][0]
+gx = cdf_file.variables['Gammax'][0]
+gy = cdf_file.variables['Gammay'][0]
 gz = cdf_file.variables['Gammaz'][0]
 dx = gx/Nx
 dy = gy/Ny
