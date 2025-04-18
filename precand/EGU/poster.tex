@@ -1,4 +1,9 @@
-\documentclass[25pt, a0paper, landscape, blockverticalspace=1cm]{tikzposter}
+\documentclass[30pt, blockverticalspace=1cm]{tikzposter}
+\geometry{paperwidth=1978mm,paperheight=1183mm}
+\makeatletter
+\setlength{\TP@visibletextwidth}{\textwidth-2\TP@innermargin}
+\setlength{\TP@visibletextheight}{\textheight-2\TP@innermargin}
+\makeatother
 %\documentclass[]{beamer}
 
 
@@ -136,11 +141,6 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 
 \includegraphics[width=.8\linewidth]{images/schematic.pdf}
 }
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\column{0.33}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \block{Stochastic Forcing}{
     We choose the forcing to be purely horizontal and divergence-free stochastic
     process:
@@ -158,31 +158,44 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
     c.f. Waite and Bartello (2004)\end{flushright}
 }
 
-\block{Quantitative Results}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\column{0.33}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\block{Simulation Data and Visualization}{
     % start showing data and results. Things to include in this block should be
     % quantitative datas, rms scaling laws with rossby and the such
 
+    {\raggedright From simulations which have reached a statistically stationary state
+    (filled circles) we can observe adjustments to the rms horizontal and
+    vertical velocities (left and right respectively) as the inverse Rossby number
+    varies. }
+
+    \begin{center}
     \bmp{.49}
-        \centering
-        \includegraphics[width=.8\linewidth]{images/urms_plot.pdf}
+        \centering 
+        \includegraphics[width=\linewidth]{images/urms_plot.pdf}
     \emp
-    \bmp{.49}
-        \centering
-        \includegraphics[width=.8\linewidth]{images/wrms_plot.pdf}
+\bmp{.49}
+        \centering 
+        \includegraphics[width=\linewidth]{images/wrms_plot.pdf}
     \emp
 
 
-    \bmp{.49}
+    \bmp{.33}
         \centering
-        \includegraphics[width=.8\linewidth]{images/bflux_plot.pdf}
+        \includegraphics[width=.9\linewidth]{images/Om0.5Spec.pdf}
     \emp
-    \bmp{.49}
+    \bmp{.33}
         \centering
-        \includegraphics[width=.8\linewidth]{images/mixing_plot.pdf}
+        \includegraphics[width=.9\linewidth]{images/Om2Spec.pdf}
     \emp
-}
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/Om5Spec.pdf}
+    \emp
 
-\block{Qualitative Results}{
     \bmp{.33}
         \centering
         \includegraphics[width=.85\linewidth]{images/chi_Om0.5_vr2.png}
@@ -209,38 +222,46 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
         \centering
         \includegraphics[width=.85\linewidth]{images/vortz_Om10_vr2.png}
     \emp
+
+    \end{center}
 }
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \column{0.33}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\block{Qualitative Results}{
-    % show plots which show qualitative results, things like volume renderings,
-    % flow fields, vertical-averaged quantities (top-down)
-
-    \bmp{.33}
-        \centering
-        \includegraphics[width=.9\linewidth]{images/Om0.5Spec.pdf}
-    \emp
-    \bmp{.33}
-        \centering
-        \includegraphics[width=.9\linewidth]{images/Om2Spec.pdf}
-    \emp
-    \bmp{.33}
-        \centering
-        \includegraphics[width=.9\linewidth]{images/Om5Spec.pdf}
-    \emp
-}
-
 \block{Vertically Averaged Quantities}{
 
+    In order to isolate vertical mixing and transport in the flow, we use
+    vertical averaging to isolate pencils in the flow field which contribute on
+    average to vertical transport and thermal flux. 
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{images/flux_vol_frac_plot.pdf}
+
+    \bmp{.33}
+        \centering
+        \includegraphics[width=\linewidth]{images/Om0.5B100Re600Pe60_vert_avg.png}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=\linewidth]{images/Om2B100Re600Pe60_vert_avg.png}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=\linewidth]{images/Om8B100Re600Pe60_vert_avg.png}
+    \emp
+
+
+    \end{center}
 }
 
-\block{References}{
-}
 
-\block{Acknowledgements}{
-    NSF Grant, masters thesis, and other things
+\block{References \& Acknowledgements}{
+    This work is supported by NSF {\red grant number here}. 
+
+    \
 }
 
 \end{columns}
