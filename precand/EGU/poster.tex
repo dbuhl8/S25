@@ -163,67 +163,122 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\block{Simulation Data and Visualization}{
+\block{Simulation Visualization}{
     % start showing data and results. Things to include in this block should be
     % quantitative datas, rms scaling laws with rossby and the such
 
-    {\raggedright From simulations which have reached a statistically stationary state
-    (filled circles) we can observe adjustments to the rms horizontal and
-    vertical velocities (left and right respectively) as the inverse Rossby number
-    varies. }
+    Two series of simulations have been conducted each with a different fixed
+    Froude number. The following volume renderings and spectra plots are taken
+    from simulations with $Fr \approx 0.18$. These volume renderings demonstrate
+    the affect of rotation on the general structure of the flow field and where
+    thermal mixing occurs in the flow. The top row depicts the vertical
+    component of vorticity for simulations with different input Rossby numbers
+    (decreasing from left to right). The vorticity renderings depict the
+    formation of cyclones and anticyclones which exhibit increasing vertical
+    invariance as the global rotation becomes more rapid. Correlated with the
+    appearance of these cyclones and anticyclones, is the apparent confinement
+    of thermal dissipation within the anticyclones of the flow field (second
+    row). Alongside this reorganization of thermal transport and mixing, we also
+    note the appearance of an inverse energy cascade to the largest scales of
+    the flow. This is demonstrated by examining the horizonatal (red) and
+    vertical (blue) energies of the flow at various timesteps according to the
+    horizontal wavenumber (bottom row). It should be noted that since the
+    selected forcing injects energy up to $|\bs{k}_h| \le \sqrt{2}$, there is a
+    plateau in the horizontal energy at low wavenumbers. Plotted over the
+    spectra are a $\bs{k}_h^{-5/3}$ decay scaling (solid red line) and $|\bs{k}_h| =
+    \sqrt{2}$ marking the smallest scale that energy is forced onto (dashed blue
+    line). 
+
 
     \begin{center}
-    \bmp{.49}
-        \centering 
-        \includegraphics[width=\linewidth]{images/urms_plot.pdf}
+
+    % this may be the appropriate section to include the QR code. 
+    \bmp{.09}
+        
+        \centering
+        {\Large $\omega_z$}
     \emp
-\bmp{.49}
-        \centering 
-        \includegraphics[width=\linewidth]{images/wrms_plot.pdf}
+    \bmp{.3}
+        \centering
+        {\Large $Ro = 2$}
+        \vspace{10pt}
+
+        \includegraphics[width=.85\linewidth]{images/vortz_Om0.5_vr2.png}
+    \emp
+    \bmp{.3}
+        \centering
+        {\Large $Ro = .5$}
+
+        \vspace{10pt}
+        \includegraphics[width=.85\linewidth]{images/vortz_Om2_vr2.png}
+    \emp
+    \bmp{.3}
+        \centering
+        {\Large $Ro = .1$}
+
+        \vspace{10pt}
+        \includegraphics[width=.85\linewidth]{images/vortz_Om10_vr2.png}
     \emp
 
-
-    \bmp{.33}
+    \bmp{.09}
         \centering
-        \includegraphics[width=.9\linewidth]{images/Om0.5Spec.pdf}
+        {\Large $|\nabla T|^2$}
     \emp
-    \bmp{.33}
-        \centering
-        \includegraphics[width=.9\linewidth]{images/Om2Spec.pdf}
-    \emp
-    \bmp{.33}
-        \centering
-        \includegraphics[width=.9\linewidth]{images/Om5Spec.pdf}
-    \emp
-
-    \bmp{.33}
+    \bmp{.30}
         \centering
         \includegraphics[width=.85\linewidth]{images/chi_Om0.5_vr2.png}
     \emp
-    \bmp{.33}
+    \bmp{.30}
         \centering
         \includegraphics[width=.85\linewidth]{images/chi_Om2_vr2.png}
     \emp
-    \bmp{.33}
+    \bmp{.30}
         \centering
         \includegraphics[width=.85\linewidth]{images/chi_Om10_vr2.png}
     \emp
 
-    % this may be the appropriate section to include the QR code. 
-    \bmp{.33}
+    \bmp{0.09}
         \centering
-        \includegraphics[width=.85\linewidth]{images/vortz_Om0.5_vr2.png}
+        {\Large Energy Spectra}
     \emp
-    \bmp{.33}
+    \bmp{.3}
         \centering
-        \includegraphics[width=.85\linewidth]{images/vortz_Om2_vr2.png}
+        \includegraphics[width=.9\linewidth]{images/Om0.5Spec.pdf}
     \emp
-    \bmp{.33}
+    \bmp{.3}
         \centering
-        \includegraphics[width=.85\linewidth]{images/vortz_Om10_vr2.png}
+        \includegraphics[width=.9\linewidth]{images/Om2Spec.pdf}
     \emp
-
+    \bmp{.3}
+        \centering
+        \includegraphics[width=.9\linewidth]{images/Om5Spec.pdf}
+    \emp
     \end{center}
+}
+
+\block{RMS Data}{
+    \centering
+
+    \bmp{.3}
+    From simulations which have reached a statistically stationary state
+    (filled circles) we can observe adjustments to the rms horizontal and
+    vertical velocities (top left and right) and to the rms temperature
+    flux and mixing efficiency (bottom left and right) as the inverse Rossby number
+    varies. Each of these quantities react differently to the
+    changes by the Rossby number, however, most prominent is the increase in the
+    average horizontal velocity and appears to scale by twice the inverse Rossby
+    number. The vertical velocity in the nonrotating case should scale by the
+    Froude number ({\red CITE CHINI ET AL HERE}). This scale separation between
+    simulation sets becomes less distinct as the inverse Rossby number
+    increases. Adjustments to the temperature flux and mixing efficiency are
+    less much less prominent, and the effect of rotation on these quantities is
+    unclear from these plots.
+
+    \emp
+    \bmp{.7}
+        \centering
+        \includegraphics[width=\linewidth]{images/subplots.pdf}
+    \emp
 }
 
 
@@ -238,15 +293,13 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
     average to vertical transport and thermal flux. 
 
     \begin{center}
-    \includegraphics[width=\linewidth]{images/flux_vol_frac_plot.pdf}
-
     \bmp{.33}
         \centering
-        \includegraphics[width=\linewidth]{images/Om0.5B100Re600Pe60_vert_avg.png}
+        %\includegraphics[width=\linewidth]{images/Om0.5B100Re600Pe60_vert_avg.png}
     \emp
     \bmp{.33}
         \centering
-        \includegraphics[width=\linewidth]{images/Om2B100Re600Pe60_vert_avg.png}
+        %\includegraphics[width=\linewidth]{images/Om2B100Re600Pe60_vert_avg.png}
     \emp
     \bmp{.33}
         \centering
