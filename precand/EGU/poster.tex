@@ -130,32 +130,57 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 \block{The Equations}
 {
 \centering
+\bmp{.4}
 \begin{gather*}
     \DDt{\uvec} + \frac{1}{Ro}\ez\times\uvec = -\grad p + \F + \frac{1}{Fr^2}T \ez 
-    + \frac{1}{Re} \grad^2 \uvec\\
-    \DDt{T} + w = \frac{1}{Pe} \grad^2T, \quad \div{\uvec} = 0\\
+    + \frac{1}{Re} \grad^2 \uvec
+\end{gather*}
+\begin{gather*}
+    \DDt{T} + w = \frac{1}{Pe} \grad^2T, \quad \div{\uvec} = 0
+\end{gather*}
+\begin{gather*}
     Re = \frac{UL}{\nu},\quad  Pe = \frac{UL}{\kappa_T},\quad Fr =
     \frac{U}{NL},\quad  Ro =
     \frac{U}{2\Omega L}
 \end{gather*}
-
-\includegraphics[width=.8\linewidth]{images/schematic.pdf}
+\emp
+\bmp{.6}
+\centering
+\includegraphics[width=.9\linewidth]{images/schematic.pdf}
+\emp
 }
 \block{Stochastic Forcing}{
-    We choose the forcing to be purely horizontal and divergence-free stochastic
-    process:
-    \[
-        \bs{F} = F_x\ex + F_y\ey, \quad \grad \cdot \bs{F} = 0
-    \]
-    The forcing is applied in spectral space and satisfies $\bs{k} \cdot \hat{\bs{F}} = 0$:
-    \begin{gather*}
-        \hat{F}_x = \frac{k_y}{|\bs{k}_h|}G(\bs{k}_h,t), \quad \hat{F}_y = \frac{-k_x}{|\bs{k}_h|}G(\bs{k}_h,t)\\
-    \end{gather*}
-    where $G(\bs{k}_h,t)$ is a Gaussian process of amplitude 1 and correlation
-    timescale 1, and $|\bs{k}_h| \le \sqrt{2}$. 
 
-    \begin{flushright}
-    c.f. Waite and Bartello (2004)\end{flushright}
+    \bmp{.45}
+        We choose the forcing to be purely horizontal and divergence-free stochastic
+        process:
+        \[
+            \bs{F} = F_x\ex + F_y\ey, \quad \grad \cdot \bs{F} = 0
+        \]
+        The forcing is applied in spectral space and satisfies $\bs{k} \cdot \hat{\bs{F}} = 0$:
+        \begin{gather*}
+            \hat{F}_x = \frac{k_y}{|\bs{k}_h|}G(\bs{k}_h,t), \quad \hat{F}_y = \frac{-k_x}{|\bs{k}_h|}G(\bs{k}_h,t)\\
+        \end{gather*}
+        where $G(\bs{k}_h,t)$ is a Gaussian process of amplitude 1 and correlation
+        timescale 1, and $|\bs{k}_h| \le \sqrt{2}$. The gaussian process
+        timeseries are
+        autoregressively generated in spectral space using a pseudo-inverse
+        algorithm. The gaussian kernel is generated using the exponential
+        squared kernel function
+        \begin{gather*}
+            K(t, t') = \exp\left(\frac{-(t - t')^2}{2\tau^2}\right)
+        \end{gather*}
+        in order to improve smoothness and differentiability of the forcing in
+        time. The image on the right depicts an example of the forcing in time
+        for a single wavenumber taken from one of the non-rotating simulations. 
+
+        \begin{flushright}
+        c.f. Waite and Bartello (2004)\end{flushright}
+    \emp
+    \bmp{.55}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/forcing_example.pdf}
+    \emp
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -288,26 +313,41 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 
 \block{Vertically Averaged Quantities}{
 
-    In order to isolate vertical mixing and transport in the flow, we use
-    vertical averaging to isolate pencils in the flow field which contribute on
-    average to vertical transport and thermal flux. 
+    We use
+    vertical averaging to visualize and compare the local rotation of the flow
+    to average temperature flux, thermal dissipation, and rms vertical velocity
+    within the corresponding pencils.
+    A likely quantity to
+    correlate empirical flow data with regions of thermal mixing and vertical
+    transport appears to be the local rotation rate of the flow, 
+    \begin{gather*}
+        Ro_{\text{eff}}^{-1} = |\omega_z + Ro^{-1}|
+    \end{gather*}
+    This method of correlation is heavily dependent on the colorbar used to
+    measure the local rotation rate. Without a sufficient theoretical model to
+    test, so far, we only have empirical results which appear to satisfy the
+    data to some level of accuracy. 
 
     \begin{center}
     \bmp{.33}
         \centering
-        %\includegraphics[width=\linewidth]{images/Om0.5B100Re600Pe60_vert_avg.png}
+        \includegraphics[width=\linewidth]{images/Om0.5B100Re600Pe60_vert_avg.pdf}
     \emp
     \bmp{.33}
         \centering
-        %\includegraphics[width=\linewidth]{images/Om2B100Re600Pe60_vert_avg.png}
+        \includegraphics[width=\linewidth]{images/Om2B100Re600Pe60_vert_avg.pdf}
     \emp
     \bmp{.33}
         \centering
-        \includegraphics[width=\linewidth]{images/Om8B100Re600Pe60_vert_avg.png}
+        \includegraphics[width=\linewidth]{images/Om8B100Re600Pe60_vert_avg.pdf}
     \emp
 
 
     \end{center}
+
+    \begin{gather*}
+
+    \end{gather*}
 }
 
 
