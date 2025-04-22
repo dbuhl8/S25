@@ -12,7 +12,8 @@
 }}
 \author{Dante Buhl, Pascale Garaud, Hongyun Wang}
 \date{April 29, 2025}
-\institute{University of California Santa Cruz}
+\institute{University of California Santa Cruz, Department of Applied
+Mathematics}
 \usetheme{Default}
 \usecolorstyle{Default}
 \usecolorpalette{Default}
@@ -132,20 +133,25 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 \block{The Equations}
 {
 \centering
-\bmp{.4}
+\bmp{.35}
+We consider a triply periodic domain stably stratified by a mean temperature
+profile $\bar{T}$ in the vertical direciton. 
+
 \begin{gather*}
-    \DDt{\uvec} + \frac{1}{Ro}\ez\times\uvec = -\grad p + \F + \frac{1}{Fr^2}T \ez 
-    + \frac{1}{Re} \grad^2 \uvec
+    \DDt{\uvec} + \frac{1}{Ro}\ez\times\uvec = -\grad p + \F +
+    \frac{1}{Fr^2}\tilde{T} \ez 
+    + \frac{1}{Re} \grad^2 \uvec\end{gather*}
+\begin{gather*}
+    \div{\uvec} = 0, \quad 
+    T = \bar{T}(z) + \tilde{T}, \quad \DDt{\tilde{T}} + w = \frac{1}{Pe} \grad^2\tilde{T}
 \end{gather*}
 \begin{gather*}
-    \DDt{T} + w = \frac{1}{Pe} \grad^2T, \quad \div{\uvec} = 0
-\end{gather*}
-\begin{gather*}
-    Re = \frac{UL}{\nu},\quad  Pe = \frac{UL}{\kappa_T},\quad Fr =
+     Re = \frac{UL}{\nu},\quad  Pe = \frac{UL}{\kappa_T},\quad Fr =
     \frac{U}{NL},\quad  Ro =
     \frac{U}{2\Omega L}
 \end{gather*}
 \emp
+\hspace{10pt}
 \bmp{.6}
 \centering
 \includegraphics[width=.9\linewidth]{images/schematic.pdf}
@@ -164,10 +170,10 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
             \hat{F}_x = \frac{k_y}{|\bs{k}_h|}G(\bs{k}_h,t), \quad \hat{F}_y = \frac{-k_x}{|\bs{k}_h|}G(\bs{k}_h,t)\\
         \end{gather*}
         where $G(\bs{k}_h,t)$ is a Gaussian process of amplitude 1 and correlation
-        timescale 1, and $|\bs{k}_h| \le \sqrt{2}$. The gaussian process
+        timescale 1, and $|\bs{k}_h| \le \sqrt{2}$. The Gaussian process
         timeseries are
         autoregressively generated in spectral space using a pseudo-inverse
-        algorithm. The gaussian kernel is generated using the exponential
+        algorithm. The Gaussian kernel is generated using the exponential
         squared kernel function
         \begin{gather*}
             K(t, t') = \exp\left(\frac{-(t - t')^2}{2\tau^2}\right)
@@ -194,28 +200,21 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
     % start showing data and results. Things to include in this block should be
     % quantitative datas, rms scaling laws with rossby and the such
 
-    Two series of simulations have been conducted each with a different fixed
-    Froude number. The following volume renderings and spectra plots are taken
-    from simulations with $Fr \approx 0.18$. These volume renderings demonstrate
-    the affect of rotation on the general structure of the flow field and where
-    thermal mixing occurs in the flow. The top row depicts the vertical
-    component of vorticity for simulations with different input Rossby numbers
-    (decreasing from left to right). The vorticity renderings depict the
+    Two series of simulations have been conducted with $Re = 600, Pe = 60$
+    at two different
+    Froude numbers (moderately stratified case $Fr = 0.18$, strongly stratified
+    case $Fr = 0.1$). The Rossby number varies in $[0.1, 2]$. The figures below show
+    results for $Fr = 0.18$, and increasing rotation rate from left to right. 
+    The top row shows volume renderings of the vertical
+    component of vorticity. The middle row shows the temperature dissipation.
+    The bottom row shows kinetic energy spectra for the horizontal and vertical
+    flows. The vorticity renderings illustrates the
     formation of cyclones and anticyclones which exhibit increasing vertical
-    invariance as the global rotation becomes more rapid. Correlated with the
-    appearance of these cyclones and anticyclones, is the apparent confinement
-    of thermal dissipation within the anticyclones of the flow field (second
-    row). Alongside this reorganization of thermal transport and mixing, we also
-    note the appearance of an inverse energy cascade to the largest scales of
-    the flow. This is demonstrated by examining the horizonatal (red) and
-    vertical (blue) energies of the flow at various timesteps according to the
-    horizontal wavenumber (bottom row). It should be noted that since the
-    selected forcing injects energy up to $|\bs{k}_h| \le \sqrt{2}$, there is a
-    plateau in the horizontal energy at low wavenumbers. Plotted over the
-    spectra are a $\bs{k}_h^{-5/3}$ decay scaling (solid red line) and $|\bs{k}_h| =
-    \sqrt{2}$ marking the smallest scale that energy is forced onto (dashed blue
-    line). 
-
+    invariance as the rotation rate increases. 
+    Associated with the emergence of vertically cohearent vortices, we also
+    note the appearance of an inverse energy cascade characterized by a
+    $\bs{k}_h^{-3}$ spectrum for the horizontal flow. Finally, we see that the
+    thermal dissipation becomes negligible inside the cyclones. 
 
     \begin{center}
 
@@ -288,18 +287,33 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 
     \bmp{.3}
     From simulations which have reached a statistically stationary state
-    (filled circles) we can observe adjustments to the rms horizontal and
-    vertical velocities (top left and right) and to the rms temperature
-    flux and mixing efficiency (bottom left and right) as the inverse Rossby number
-    varies. Each of these quantities react differently to the
-    changes by the Rossby number, however, most prominent is the increase in the
-    average horizontal velocity and appears to scale by twice the inverse Rossby
-    number. The vertical velocity in the nonrotating case should scale by the
-    Froude number (Chini {\em et al} 2022, Shah {\em et al} 2024). This scale separation between
-    simulation sets becomes less distinct as the inverse Rossby number
-    increases. Adjustments to the temperature flux and mixing efficiency are
-    less much less prominent, and the effect of rotation on these quantities is
-    unclear from these plots.
+    (filled circles) we extract time and volume averages of quantities of
+    interest (open circles have not reached a statistically stationary state
+    yet, but are shown for comparison).
+    \begin{gather*}
+        |\uvec_h|_{\text{rms}} = \langle u^2 + v^2\rangle^{1/2}\\
+        \chi = \left<|\grad T|^2\right>\\
+        \eta = \frac{\chi/(PeFr^2)}{\chi/(PeFr^2) + \left<|\grad \uvec|^2\right>/Re}
+    \end{gather*}
+    They are shown on the right as a function of the inverse Rossby number for
+    both moderate and strong stratification. The horizontal velocities increase
+    proportionally to the rotation rate owing to the inverse cascade. For very
+    large rotation rates, we see a decrease in the rms vertical velocity as well
+    as the temperature dissipation $\chi$ associated with the increasing volume
+    fraction of the domain occupied by the vortices. 
+
+    %can observe adjustments to the rms horizontal and
+    %vertical velocities (top left and right) and to the rms temperature
+    %flux and mixing efficiency (bottom left and right) as the inverse Rossby number
+    %varies. Each of these quantities react differently to the
+    %changes by the Rossby number, however, most prominent is the increase in the
+    %average horizontal velocity and appears to scale by twice the inverse Rossby
+    %number. The vertical velocity in the nonrotating case should scale by the
+    %Froude number (Chini {\em et al} 2022, Shah {\em et al} 2024). This scale separation between
+    %simulation sets becomes less distinct as the inverse Rossby number
+    %increases. Adjustments to the temperature flux and mixing efficiency are
+    %less much less prominent, and the effect of rotation on these quantities is
+    %unclear from these plots.
 
     \emp
     \bmp{.7}
@@ -315,26 +329,26 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 
 \block{Vertically Averaged Quantities}{
 
-    We use
-    vertical averaging to visualize and compare the local rotation of the flow
-    to average temperature flux, thermal dissipation, and rms vertical velocity
-    within the corresponding pencils. The vertical averaging technique used is,
+
+    We aim to characterize the properties of the vortices. We define an
+    effective Rossby number,
     \begin{gather*}
-        \widehat{(\cdot)} = \frac{1}{L_z}\int (\cdot) dz
+        Ro_{\text{eff}}^{-1} = |\widehat{\omega}_z + Ro^{-1}|, \quad
+        \text{ where } \widehat{(\cdot)} = \frac{1}{L_z}\int (\cdot) dz
     \end{gather*}
-    A likely quantity to
-    correlate empirical flow data with regions of thermal mixing and vertical
-    transport appears to be the local rotation rate of the flow, 
-    \begin{gather*}
-        Ro_{\text{eff}}^{-1} = |\widehat{\omega}_z + Ro^{-1}|
-    \end{gather*}
-    This method of correlation is heavily dependent on the colorbar used to
-    measure the local rotation rate. Using $2\sqrt{Fr^{-1}}$ as the center of
-    a divergent colormap appears to demonstrate a strong correlation between the
-    regions of rapid cyclonic rotation and regions of little thermal mixing and
-    vertical flow. Further investigation into the criterion for vertical mixing
-    and flow in the domain is necessary to better understand exactly how the
-    barotropic structures inhibit mixing and vertical motion within the flow. 
+    The following figures compare 2D maps of $Ro_{\text{eff}}^{-1}$,
+    $\widehat{w^2}^{1/2}$, $\widehat{|\grad T|^2}$, $\widehat{wT}$ for 4 different
+    simulations at moderate and strong stratification and moderate and strong
+    rotation. We see that when $Ro_{text{eff}}^{-1}$ exceeds a critical
+    threshold, which appears to depend on the Froude number,  
+    thermal dissipation and vertical velocity are suppressed. 
+    %This method of correlation is heavily dependent on the colorbar used to
+    %measure the local rotation rate. Using $2\sqrt{Fr^{-1}}$ as the center of
+    %a divergent colormap appears to demonstrate a strong correlation between the
+    %regions of rapid cyclonic rotation and regions of little thermal mixing and
+    %vertical flow. Further investigation into the criterion for vertical mixing
+    %and flow in the domain is necessary to better understand exactly how the
+    %barotropic structures inhibit mixing and vertical motion within the flow. 
 
     \begin{center}
     \bmp{.5}
