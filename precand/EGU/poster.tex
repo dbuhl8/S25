@@ -23,6 +23,8 @@
 \usepackage{mathtools}
 \usepackage[shortlabels]{enumitem}
 \usepackage{tikz}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
 \usepackage{subfig}
 \usepackage{verbatim}
 \usepackage{enumerate}
@@ -293,7 +295,7 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
     changes by the Rossby number, however, most prominent is the increase in the
     average horizontal velocity and appears to scale by twice the inverse Rossby
     number. The vertical velocity in the nonrotating case should scale by the
-    Froude number ({\red CITE CHINI ET AL HERE}). This scale separation between
+    Froude number (Chini {\em et al} 2022, Shah {\em et al} 2024). This scale separation between
     simulation sets becomes less distinct as the inverse Rossby number
     increases. Adjustments to the temperature flux and mixing efficiency are
     less much less prominent, and the effect of rotation on these quantities is
@@ -316,45 +318,66 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
     We use
     vertical averaging to visualize and compare the local rotation of the flow
     to average temperature flux, thermal dissipation, and rms vertical velocity
-    within the corresponding pencils.
+    within the corresponding pencils. The vertical averaging technique used is,
+    \begin{gather*}
+        \widehat{(\cdot)} = \frac{1}{L_z}\int (\cdot) dz
+    \end{gather*}
     A likely quantity to
     correlate empirical flow data with regions of thermal mixing and vertical
     transport appears to be the local rotation rate of the flow, 
     \begin{gather*}
-        Ro_{\text{eff}}^{-1} = |\omega_z + Ro^{-1}|
+        Ro_{\text{eff}}^{-1} = |\widehat{\omega}_z + Ro^{-1}|
     \end{gather*}
     This method of correlation is heavily dependent on the colorbar used to
-    measure the local rotation rate. Without a sufficient theoretical model to
-    test, so far, we only have empirical results which appear to satisfy the
-    data to some level of accuracy. 
+    measure the local rotation rate. Using $2\sqrt{Fr^{-1}}$ as the center of
+    a divergent colormap appears to demonstrate a strong correlation between the
+    regions of rapid cyclonic rotation and regions of little thermal mixing and
+    vertical flow. Further investigation into the criterion for vertical mixing
+    and flow in the domain is necessary to better understand exactly how the
+    barotropic structures inhibit mixing and vertical motion within the flow. 
 
     \begin{center}
-    \bmp{.33}
+    \bmp{.5}
         \centering
-        \includegraphics[width=\linewidth]{images/Om0.5B100Re600Pe60_vert_avg.pdf}
+        \includegraphics[width=.95\linewidth]{images/Om2B100Re600Pe60_vert_avg.png}
     \emp
-    \bmp{.33}
+    \bmp{.5}
         \centering
-        \includegraphics[width=\linewidth]{images/Om2B100Re600Pe60_vert_avg.pdf}
-    \emp
-    \bmp{.33}
-        \centering
-        \includegraphics[width=\linewidth]{images/Om8B100Re600Pe60_vert_avg.pdf}
+        \includegraphics[width=.95\linewidth]{images/Om8B100Re600Pe60_vert_avg.png}
     \emp
 
-
+    \bmp{.5}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/Om2B30Re600Pe60_vert_avg.png}
+    \emp
+    \bmp{.5}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/Om8B30Re600Pe60_vert_avg.png}
+    \emp
     \end{center}
-
-    \begin{gather*}
-
-    \end{gather*}
 }
 
 
 \block{References \& Acknowledgements}{
-    This work is supported by NSF {\red grant number here}. 
+This work is supported by NSF AST-2408025. 
+\\
 
-    \
+\textbf{References}\\
+Gregory P. Chini, Guillaume Michel, Keith Julien, Cesar B. Rocha, and Colm-
+cille P. Caulfield. Exploiting self-organized criticality in strongly stratified
+turbulence. Journal of Fluid Mechanics, 933:A22, February 2022. doi:
+10.1017/jfm.2021.1060.
+\\
+
+Kasturi Shah, Gregory P. Chini, Colm-cille P. Caulfield, and Pascale Garaud.
+Regimes of stratified turbulence at low Prandtl number. arXiv e-prints, art.
+arXiv:2311.06424, November 2023.
+\\
+
+Michael L. Waite and Peter Bartello. Stratified turbulence dominated by
+vertical motion. Journal of Fluid Mechanics, 517:281–308, 2004. doi:
+10.1017/S0022112004000977.
+
 }
 
 \end{columns}
