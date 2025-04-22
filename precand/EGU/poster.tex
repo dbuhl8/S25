@@ -12,8 +12,7 @@
 }}
 \author{Dante Buhl, Pascale Garaud, Hongyun Wang}
 \date{April 29, 2025}
-\institute{University of California Santa Cruz, Department of Applied
-Mathematics}
+\institute{University of California Santa Cruz, Baskin School of Engineering, Department of Applied Mathematics}
 \usetheme{Default}
 \usecolorstyle{Default}
 \usecolorpalette{Default}
@@ -110,21 +109,44 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 \block{Motivation}
 { 
     % TAKE FROM DFD PRESENTATION
+    Stratified turbulence is a crucial phenomenon for mixing and tranport in
+    many stably-stratified rotating geophysical fluid systems such as Earth's oceans and atmosphere,
+    Jupiter's stratophere, and the solar tachocline. Rotation and stratification
+    have competing influence on the dynamics and flow structure of geophysical
+    systems. 
+
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.6\linewidth]{images/earth.png}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.6\linewidth]{images/jupiter.png}
+    \emp
+    \bmp{.33}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/tachocline.jpg}
+    \emp
+
 \bmp{.47}
+    \begin{center}
+        \includegraphics[width=.6\linewidth]{images/pancakes.pdf}
+    \end{center}
     
     Nonrotating stratified turbulence is characterized by strongly
     anisotropic pancake structures within the flow. 
 
-    \includegraphics[width=.9\linewidth]{images/pancakes.pdf}
      %end small
 \emp
 \hfill
 \bmp{.47}
+    \begin{center}
+        \includegraphics[width=.6\linewidth]{images/cylinders.pdf}
+    \end{center}
     
     Rotation promotes barotropic structures which are invariant along the axis
     of rotation.
 
-    \includegraphics[width=.9\linewidth]{images/cylinders.pdf}
      %end small
 \emp
 }
@@ -159,8 +181,8 @@ profile $\bar{T}$ in the vertical direciton.
 }
 \block{Stochastic Forcing}{
 
-    \bmp{.45}
-        We choose the forcing to be purely horizontal and divergence-free stochastic
+    \bmp{.55}
+        We choose the forcing to be a vertically invariant divergence-free stochastic
         process:
         \[
             \bs{F} = F_x\ex + F_y\ey, \quad \grad \cdot \bs{F} = 0
@@ -179,15 +201,21 @@ profile $\bar{T}$ in the vertical direciton.
             K(t, t') = \exp\left(\frac{-(t - t')^2}{2\tau^2}\right)
         \end{gather*}
         in order to improve smoothness and differentiability of the forcing in
-        time. The image on the right depicts an example of the forcing in time
-        for a single wavenumber taken from one of the non-rotating simulations. 
+        time. The image on the right shows an example of the forcing
+        for a single wavenumber. 
 
         \begin{flushright}
         c.f. Waite and Bartello (2004)\end{flushright}
     \emp
-    \bmp{.55}
+    \hspace{10pt}
+    \bmp{.4}
         \centering
-        \includegraphics[width=.95\linewidth]{images/forcing_example.pdf}
+        \bmp{.1}
+           \begin{flushright} $G(t)$\end{flushright}
+        \emp
+        \bmp{.9}
+            \includegraphics[width=.95\linewidth]{images/forcing_example.pdf}
+        \emp
     \emp
 }
 
@@ -353,20 +381,20 @@ profile $\bar{T}$ in the vertical direciton.
     \begin{center}
     \bmp{.5}
         \centering
-        \includegraphics[width=.95\linewidth]{images/Om2B100Re600Pe60_vert_avg.png}
+        \includegraphics[width=\linewidth]{images/Om2B100Re600Pe60_vert_avg.png}
     \emp
     \bmp{.5}
         \centering
-        \includegraphics[width=.95\linewidth]{images/Om8B100Re600Pe60_vert_avg.png}
+        \includegraphics[width=\linewidth]{images/Om8B100Re600Pe60_vert_avg.png}
     \emp
 
     \bmp{.5}
         \centering
-        \includegraphics[width=.95\linewidth]{images/Om2B30Re600Pe60_vert_avg.png}
+        \includegraphics[width=\linewidth]{images/Om2B30Re600Pe60_vert_avg.png}
     \emp
     \bmp{.5}
         \centering
-        \includegraphics[width=.95\linewidth]{images/Om8B30Re600Pe60_vert_avg.png}
+        \includegraphics[width=\linewidth]{images/Om8B30Re600Pe60_vert_avg.png}
     \emp
     \end{center}
 }
@@ -377,17 +405,6 @@ This work is supported by NSF AST-2408025.
 \\
 
 \textbf{References}\\
-Gregory P. Chini, Guillaume Michel, Keith Julien, Cesar B. Rocha, and Colm-
-cille P. Caulfield. Exploiting self-organized criticality in strongly stratified
-turbulence. Journal of Fluid Mechanics, 933:A22, February 2022. doi:
-10.1017/jfm.2021.1060.
-\\
-
-Kasturi Shah, Gregory P. Chini, Colm-cille P. Caulfield, and Pascale Garaud.
-Regimes of stratified turbulence at low Prandtl number. arXiv e-prints, art.
-arXiv:2311.06424, November 2023.
-\\
-
 Michael L. Waite and Peter Bartello. Stratified turbulence dominated by
 vertical motion. Journal of Fluid Mechanics, 517:281–308, 2004. doi:
 10.1017/S0022112004000977.
