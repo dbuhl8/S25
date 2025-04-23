@@ -111,9 +111,7 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
     % TAKE FROM DFD PRESENTATION
     Stratified turbulence is a crucial phenomenon for mixing and tranport in
     many stably-stratified rotating geophysical fluid systems such as Earth's oceans and atmosphere,
-    Jupiter's stratophere, and the solar tachocline. Rotation and stratification
-    have competing influence on the dynamics and flow structure of geophysical
-    systems. 
+    Jupiter's stratophere, and the solar tachocline.  
 
     \bmp{.33}
         \centering
@@ -127,6 +125,12 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
         \centering
         \includegraphics[width=.8\linewidth]{images/tachocline.jpg}
     \emp
+
+    \vspace{10pt}
+
+    Rotation and stratification
+    have competing influence on the dynamics and flow structure of geophysical
+    systems.
 
 \bmp{.47}
     \begin{center}
@@ -157,7 +161,7 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 \centering
 \bmp{.35}
 We consider a triply periodic domain stably stratified by a mean temperature
-profile $\bar{T}$ in the vertical direciton. 
+profile $\bar{T}(z) = z$ in the vertical direciton. 
 
 \begin{gather*}
     \DDt{\uvec} + \frac{1}{Ro}\ez\times\uvec = -\grad p + \F +
@@ -321,8 +325,10 @@ profile $\bar{T}$ in the vertical direciton.
     \begin{gather*}
         |\uvec_h|_{\text{rms}} = \langle u^2 + v^2\rangle^{1/2}\\
         \chi = \left<|\grad T|^2\right>\\
-        \eta = \frac{\chi/(PeFr^2)}{\chi/(PeFr^2) + \left<|\grad \uvec|^2\right>/Re}
+        \eta = \frac{\chi/(PeFr^2)}{\chi/(PeFr^2) + \left<|\grad
+        \uvec|^2\right>/Re},
     \end{gather*}
+    where $\left<\cdot\right>$ denotes a volume and time average.
     They are shown on the right as a function of the inverse Rossby number for
     both moderate and strong stratification. The horizontal velocities increase
     proportionally to the rotation rate owing to the inverse cascade. For very
@@ -361,11 +367,11 @@ profile $\bar{T}$ in the vertical direciton.
     We aim to characterize the properties of the vortices. We define an
     effective Rossby number,
     \begin{gather*}
-        Ro_{\text{eff}}^{-1} = |\widehat{\omega}_z + Ro^{-1}|, \quad
+        Ro_{\text{eff}}^{-1} = \widehat{\omega}_z + Ro^{-1}, \quad
         \text{ where } \widehat{(\cdot)} = \frac{1}{L_z}\int (\cdot) dz
     \end{gather*}
     The following figures compare 2D maps of $Ro_{\text{eff}}^{-1}$,
-    $\widehat{w^2}^{1/2}$, $\widehat{|\grad T|^2}$, $\widehat{wT}$ for 4 different
+    $\sqrt{\widehat{w^2}}$, $\widehat{|\grad T|^2}$, $\widehat{wT}$ for 4 different
     simulations at moderate and strong stratification and moderate and strong
     rotation. We see that when $Ro_{text{eff}}^{-1}$ exceeds a critical
     threshold, which appears to depend on the Froude number,  
@@ -381,22 +387,34 @@ profile $\bar{T}$ in the vertical direciton.
     \begin{center}
     \bmp{.5}
         \centering
-        \includegraphics[width=\linewidth]{images/Om2B100Re600Pe60_vert_avg.png}
+        \includegraphics[width=.95\linewidth]{images/Om2B100Re600Pe60_vert_avg.pdf}
     \emp
     \bmp{.5}
         \centering
-        \includegraphics[width=\linewidth]{images/Om8B100Re600Pe60_vert_avg.png}
+        \includegraphics[width=.95\linewidth]{images/Om8B100Re600Pe60_vert_avg.pdf}
     \emp
 
     \bmp{.5}
         \centering
-        \includegraphics[width=\linewidth]{images/Om2B30Re600Pe60_vert_avg.png}
+        \includegraphics[width=.95\linewidth]{images/Om2B30Re600Pe60_vert_avg.pdf}
     \emp
     \bmp{.5}
         \centering
-        \includegraphics[width=\linewidth]{images/Om8B30Re600Pe60_vert_avg.png}
+        \includegraphics[width=.95\linewidth]{images/Om8B30Re600Pe60_vert_avg.pdf}
     \emp
     \end{center}
+}
+
+\block{Conclusion}{
+    \begin{itemize}
+        \item Inverse energy cascade moves energy into large scale horizontal
+        flow characterized by vertically coherent vortices at moderate to low
+        $Ro$.
+        \item Vertical motion, thermal dissipation, and temperature flux are suppressed in cyclones.
+        \item RMS horizontal velocity scales with $Ro^{-1}$, rms vertical
+        velocity's dependence on Fr weakens as $Ro \to 0$.
+        \item Local effective Rossby number appears to be an ideal candidate for determining what regions can support turbulence and mixing. 
+    \end{itemize}
 }
 
 
