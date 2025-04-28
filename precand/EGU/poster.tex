@@ -109,7 +109,7 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 \block{Motivation}
 { 
     % TAKE FROM DFD PRESENTATION
-    Stratified turbulence is a crucial phenomenon for mixing and tranport in
+    Stratified turbulence is a crucial phenomenon for mixing and transport in
     many stably-stratified rotating geophysical fluid systems such as Earth's oceans and atmosphere,
     Jupiter's stratophere, and the solar tachocline.  
 
@@ -129,8 +129,7 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
     \vspace{10pt}
 
     Rotation and stratification
-    have competing influence on the dynamics and flow structure of geophysical
-    systems.
+    have competing influence on the dynamics and flow structure.
 
 \bmp{.47}
     \begin{center}
@@ -153,6 +152,8 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 
      %end small
 \emp
+
+{\large What happens when these two effects compete?}
 }
 
 
@@ -161,7 +162,7 @@ rotating, stochastically forced, strongly stratified turbulence ($Fr \ll  1$), a
 \centering
 \bmp{.35}
 We consider a triply periodic domain stably stratified by a mean temperature
-profile $\bar{T}(z) = z$ in the vertical direciton. 
+profile $\bar{T}(z) = z$ in the vertical direction. 
 
 \begin{gather*}
     \DDt{\uvec} + \frac{1}{Ro}\ez\times\uvec = -\grad p + \F +
@@ -186,17 +187,17 @@ profile $\bar{T}(z) = z$ in the vertical direciton.
 \block{Stochastic Forcing}{
 
     \bmp{.55}
-        We choose the forcing to be a vertically invariant divergence-free stochastic
-        process:
-        \[
+        We drive the flow using a vertically invariant divergence-free
+        stochasticly varying body force $\bs{F}$:
+        \begin{gather*}
             \bs{F} = F_x\ex + F_y\ey, \quad \grad \cdot \bs{F} = 0
-        \]
+        \end{gather*}
         The forcing is applied in spectral space and satisfies $\bs{k} \cdot \hat{\bs{F}} = 0$:
         \begin{gather*}
-            \hat{F}_x = \frac{k_y}{|\bs{k}_h|}G(\bs{k}_h,t), \quad \hat{F}_y = \frac{-k_x}{|\bs{k}_h|}G(\bs{k}_h,t)\\
+            \hat{F}_x = \frac{k_y}{|\bs{k}_h|}G(\bs{k}_h,t), \quad \hat{F}_y = \frac{-k_x}{|\bs{k}_h|}G(\bs{k}_h,t)
         \end{gather*}
         where $G(\bs{k}_h,t)$ is a Gaussian process of amplitude 1 and correlation
-        timescale 1, and $|\bs{k}_h| \le \sqrt{2}$. The Gaussian process
+        timescale 1, and we restrict the forcing to wavenumbers  $|\bs{k}_h| \le \sqrt{2}$. The Gaussian process
         timeseries are
         autoregressively generated in spectral space using a pseudo-inverse
         algorithm. The Gaussian kernel is generated using the exponential
@@ -205,8 +206,7 @@ profile $\bar{T}(z) = z$ in the vertical direciton.
             K(t, t') = \exp\left(\frac{-(t - t')^2}{2\tau^2}\right)
         \end{gather*}
         in order to improve smoothness and differentiability of the forcing in
-        time. The image on the right shows an example of the forcing
-        for a single wavenumber. 
+        time. 
 
         \begin{flushright}
         c.f. Waite and Bartello (2004)\end{flushright}
@@ -214,6 +214,9 @@ profile $\bar{T}(z) = z$ in the vertical direciton.
     \hspace{10pt}
     \bmp{.4}
         \centering
+        \begin{flushleft}
+        The figure below shows an example of the forcing
+        for a single wavenumber. \end{flushleft}
         \bmp{.1}
            \begin{flushright} $G(t)$\end{flushright}
         \emp
@@ -243,7 +246,7 @@ profile $\bar{T}(z) = z$ in the vertical direciton.
     flows. The vorticity renderings illustrates the
     formation of cyclones and anticyclones which exhibit increasing vertical
     invariance as the rotation rate increases. 
-    Associated with the emergence of vertically cohearent vortices, we also
+    Associated with the emergence of vertically coherent vortices, we also
     note the appearance of an inverse energy cascade characterized by a
     $\bs{k}_h^{-3}$ spectrum for the horizontal flow. Finally, we see that the
     thermal dissipation becomes negligible inside the cyclones. 
@@ -333,8 +336,9 @@ profile $\bar{T}(z) = z$ in the vertical direciton.
     both moderate and strong stratification. The horizontal velocities increase
     proportionally to the rotation rate owing to the inverse cascade. For very
     large rotation rates, we see a decrease in the rms vertical velocity as well
-    as the temperature dissipation $\chi$ associated with the increasing volume
-    fraction of the domain occupied by the vortices. 
+    as the temperature dissipation $\chi$. We believe this is caused by the increasing volume
+    fraction of the domain occupied by the vortices within which turbulence is
+    suppressed. 
 
     %can observe adjustments to the rms horizontal and
     %vertical velocities (top left and right) and to the rms temperature
@@ -373,7 +377,7 @@ profile $\bar{T}(z) = z$ in the vertical direciton.
     The following figures compare 2D maps of $Ro_{\text{eff}}^{-1}$,
     $\sqrt{\widehat{w^2}}$, $\widehat{|\grad T|^2}$, $\widehat{wT}$ for 4 different
     simulations at moderate and strong stratification and moderate and strong
-    rotation. We see that when $Ro_{text{eff}}^{-1}$ exceeds a critical
+    rotation. We see that when $Ro_{\text{eff}}^{-1}$ exceeds a critical
     threshold, which appears to depend on the Froude number,  
     thermal dissipation and vertical velocity are suppressed. 
     %This method of correlation is heavily dependent on the colorbar used to
@@ -387,20 +391,20 @@ profile $\bar{T}(z) = z$ in the vertical direciton.
     \begin{center}
     \bmp{.5}
         \centering
-        \includegraphics[width=.95\linewidth]{images/Om2B100Re600Pe60_vert_avg.pdf}
+        \includegraphics[width=.9\linewidth]{images/Om2B100Re600Pe60_vert_avg.pdf}
     \emp
     \bmp{.5}
         \centering
-        \includegraphics[width=.95\linewidth]{images/Om8B100Re600Pe60_vert_avg.pdf}
+        \includegraphics[width=.9\linewidth]{images/Om8B100Re600Pe60_vert_avg.pdf}
     \emp
 
     \bmp{.5}
         \centering
-        \includegraphics[width=.95\linewidth]{images/Om2B30Re600Pe60_vert_avg.pdf}
+        \includegraphics[width=.9\linewidth]{images/Om2B30Re600Pe60_vert_avg.pdf}
     \emp
     \bmp{.5}
         \centering
-        \includegraphics[width=.95\linewidth]{images/Om8B30Re600Pe60_vert_avg.pdf}
+        \includegraphics[width=.9\linewidth]{images/Om8B30Re600Pe60_vert_avg.pdf}
     \emp
     \end{center}
 }
@@ -423,6 +427,15 @@ This work is supported by NSF AST-2408025.
 \\
 
 \textbf{References}\\
+Gregory P. Chini, Guillaume Michel, Keith Julien, Cesar B. Rocha, and Colm-
+cille P. Caulfield. Exploiting self-organized criticality in strongly stratified
+turbulence. Journal of Fluid Mechanics, 933:A22, February 2022. doi:
+10.1017/jfm.2021.1060.\\
+
+Kasturi Shah, Gregory P. Chini, Colm-cille P. Caulfield, and Pascale Garaud.
+Regimes of stratified turbulence at low Prandtl number. arXiv e-prints, art.
+arXiv:2311.06424, November 2023.\\
+
 Michael L. Waite and Peter Bartello. Stratified turbulence dominated by
 vertical motion. Journal of Fluid Mechanics, 517:281–308, 2004. doi:
 10.1017/S0022112004000977.
