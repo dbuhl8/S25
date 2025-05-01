@@ -1,0 +1,12 @@
+Poster Pitch:
+
+Hello, I'm Dante Buhl and I'll be presenting the work I've done with Pascale Garaud and Hongyun Wang at the University of California Santa Cruz. 
+
+Today, I'll be showing results from fully 3D, triply periodic, pseudospectral DNS of a rotating and stably stratified fluid. The fluid is forced using a purely horizontal, gaussian process body force in order to drive turbulence. 
+
+The DNS show an inverse energy cascade as the Rossby number decreases below 1. This is characterized by vertically coherent cyclones and shown using volume renderings of the vertical vorticity and thermal dissipation. Within these cyclones, vertical transport and irreversible mixing are suppressed.
+
+I also present RMS data taken from statistically stationary simulations. Notably, the RMS horizontal velocity appears to scale with the input inverse Rossby number, and the RMS vertical velocity's dependence on the Froude number weakens as the input Rossby number tends toward zero. 
+
+Finally, vertical averaging analysis of the data shows that the local Rossby number may be useful to determine which regions of the flow can support turbulence and mixing. 
+

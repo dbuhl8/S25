@@ -141,6 +141,50 @@ The characteristics can be sketched as shown in Figure \ref{fig:prob2_plot}
         \end{cases}
 \end{gather*}
 
+We begin to solve this problem by determining which type of discontinuity we
+have present in the initial condition. We notice that the IC produces values of
+$u$ such that at $x = 1$ we have a shock wave, and at $x = -1$ we have a
+rarefraction wave. Thus we determine the solution by identifying the shock speed
+$s$ and filling in the rarefraction wave. In order to do so we first resolve the
+shock. 
+
+\begin{gather*}
+    F(u) = F'(u) = \frac{1}{2}e^{u}\\
+    s = \frac{F(2) - F(0)}{2 - 0} \approx \frac{3.19}{2} = 1.595
+\end{gather*}
+
+We find that the shock propagates with a speed in the x-t plane of 1.595. Note
+that with this information we can find the time $t_b$ in which the shock front
+intersects with the tail of the rarefraction wave. We have that the shock front
+and the right most tail of the rarefraction wave are separated by $\Delta x =
+2$. The right tail of the shock has a speed of $c \approx 3.69$. Therefore, we
+have,
+\begin{gather*}
+    3.69t_b = 1.595t_b + 2\\
+    t_b = \frac{2}{2.095} \approx 0.954
+\end{gather*}
+
+In order to fill in the rarefraction wave, we adjust the initial condition to be
+continuous near the discontinuity at $x = -1$. We have,
+
+\begin{gather*}
+    x = \begin{cases}
+        \frac{t}{2} + s & \text{if } s + 1 \le -\epsilon\\
+        \frac{te^{s/\epsilon + 1}}{2} - 1 & \text{if } -\epsilon <  s + 1 < \epsilon\\
+        \frac{te^2}{2} + s & \text{if } s + 1 \ge \epsilon
+        \end{cases}
+\end{gather*}
+We can then complete the inverse mapping, 
+\begin{gather*}
+    s = \begin{cases}
+        x - \frac{t}{2} & \text{if } x \le \frac{t}{2} - 1 \\
+        \epsilon \left(\ln\left(\frac{2(x-1)}{t}\right) + 1\right) & \text{if } \frac{t}{2} - 1 < x < \frac{te^2}{2} -1\\
+        x - \frac{te^2}{2} & \text{if } x \ge  \frac{te^2}{2} -1 
+    \end{cases}
+\end{gather*}
+
+
+
 \section{Weak solutions of the conservation laws}
 
 \section{Review on WENO and Numerical Methodology (no response required)}
