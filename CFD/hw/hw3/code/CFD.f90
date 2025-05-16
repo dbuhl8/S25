@@ -29,13 +29,28 @@ module CFD
     NU(2:nx-1,1) = (U(1:nx-2,1) + U(3:nx,1))/2 - (dt/dx)*(FU(1:nx-2,1) - FU(3:nx,1))/2
 
     ! on the boundary (periodic conditions)
-    NU(1,1) = (U(nx,1) + U(2,1))/2 - (dt/dx)*(FU(nx,1) - FU(2,1))/2
+    NU(1,1) = (U(nx,1) + U(2,1))/2 - (dt/dx)*(FU(2,1) - FU(nx,1))/2
     NU(nx,1) = (U(1,1) + U(nx-1,1))/2 - (dt/dx)*(FU(1,1) - FU(nx-1,1))/2
-  end function LF_update()
+  end function LF_update_1D
 
-  subroutine LW_method()
+  function LW_method_1D(U, a, dt, dx, nx) result(NU)
+    implicit none
+    ! input
+    real(kind=kr) :: U(:,:), a, dt, dx
+    integer :: nx
+    ! output 
+    real(kind=kr), dimension(nx, 1) :: NU
 
-  end subroutine LW_method
+    ! in the boundary
+    NU(2:nx-1,1) = U(2:nx-1,1) - (a*dt/dx)(U(1:nx-2,1) - U(3:nx,1))/2 +&
+      (a*dt/dx)**2*(U(1:nx-2,1) -2*U(2:nx-1,1)+ U(3:nx,1))/2
+
+    ! on the boundary (periodic conditions enforced)
+    NU(1,1) = U(1,1) - (a*dt/dx)(U(2,1) - U(nx,1))/2 + (a*dt/dx)**2*(U(2,1) -&
+      2*U(1,1) + U(nx,1))/2
+    NU(nx,1) = U(nx,1) -(a*dt/dx)*(U(1,1) +U(nx-1,1))/2 +(a*dt/dx)**2*(U(1,1) -&
+      2*U(nx,1) + U(nx-1,1))/2
+  end function LW_method_1D
 
 end module CFD
  
