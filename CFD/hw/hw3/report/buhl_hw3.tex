@@ -18,6 +18,16 @@
 \usepackage{tikz}
 \usepackage{hyperref}
 
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
 \titleformat{\section}{\bfseries\Large}{Problem \thesection:}{5pt}{}
 
 \begin{document}
@@ -96,6 +106,82 @@
 
 \section{Lax-Friedrichs Method}
 
+\begin{enumerate}[label = (\alph*)]
+    \item Show that the LW method is convergent if $|C_a| \le 1$. 
+
+    \textbf{Consistency}
+        Here are the taylor expansions which will be used to show consistency
+        both for 1.a. and 2.a.
+        \begin{align*}
+            U_j^{n+1} &= U_j^n + \Delta t U_{t, j}^n + 
+            \frac{\Delta t^2}{2}U_{tt, j}^n + \frac{\Delta t^3}{6}U_{ttt, j}^n
+            + \frac{\Delta t^4}{24}U_{tttt, j}^n + O(\Delta t^5)\\
+            U_{j+1}^{n} &= U_j^n + \Delta x U_{x, j}^n + 
+            \frac{\Delta x^2}{2}U_{xx, j}^n + \frac{\Delta x^3}{6}U_{xxx, j}^n
+            + \frac{\Delta x^4}{24}U_{xxxx, j}^n + O(\Delta x^5)\\
+            U_{j-1}^{n} &= U_j^n - \Delta x U_{x, j}^n + 
+            \frac{\Delta x^2}{2}U_{xx, j}^n - \frac{\Delta x^3}{6}U_{xxx, j}^n
+            + \frac{\Delta x^4}{24}U_{xxxx, j}^n + O(\Delta x^5)
+        \end{align*}
+        \begin{align*}
+            \Delta t E_{LT} &= 
+            U_j^n + \Delta t U_{j, t}^n + \frac{\Delta t^2}{2} U_{j, tt}^n +
+            \ldots \\
+            &-\frac{1}{2}\left(U_j^n + \Delta x U_{j, x}^n + \frac{\Delta
+            x^2}{2}U_{j, xx}^n + \ldots\right)\\
+            &-\frac{1}{2}\left(U_j^n - \Delta x U_{j, x}^n + \frac{\Delta
+            x^2}{2}U_{j, xx}^n + \ldots\right) \\
+            &+\frac{a\Delta t}{2\Delta x}\left(U_j^n + \Delta x U_{j, x}^n + \frac{\Delta
+            x^2}{2}U_{j, xx}^n + \ldots\right)\\
+            &-\frac{a\Delta t}{2\Delta x}\left(U_j^n - \Delta x U_{j, x}^n + \frac{\Delta
+            x^2}{2}U_{j, xx}^n + \ldots\right)\\
+        \end{align*}
+        \begin{gather*}
+            \lim_{\Delta t, \Delta x \to 0} E_{LT} = \lim_{\Delta t, \Delta x
+            \to 0} \frac{1}{\Delta t}\left( U_j^{n+1} -
+            \frac{1}{2}\left(U_{j+1}^n + U_{j-1}^n\right) + \frac{a\Delta
+            t}{2\Delta x}\left(U_{j+1}^n - U_{j-1}^n\right)\\
+            = \lim_{\Delta t, \Delta x \to 0} U_{t, j}^n + 
+            \frac{\Delta t}{2}U_{tt, j}^n + O(\Delta t^2) 
+            + \frac{\Delta x^2}{2\Delta t}U_{xx, j}^n + O(\Delta x^3) +
+            U_{x, j}^n + \frac{\Delta x^2}{6}U_{xxx,j}^n\\
+            = \lim_{\Delta t, \Delta x \to 0}\frac{\Delta t}{2}U_{tt, j}^n+ 
+            \frac{\Delta x^2}{2\Delta t}U_{xx, j}^n + O(\Delta^2)
+        \end{gather*}
+        In order to simplify this, we take the limit (as $\Delta t = a\Delta x
+        \to 0$). 
+        \begin{gather*}
+            \lim_{\Delta t = a\Delta x \to 0} E_{LT} = 
+            \frac{\Delta t}{2}U_{tt, j}^n+ 
+            \frac{\Delta x}{2a}U_{xx, j}^n + O(\Delta^2)
+        \end{gather*}
+        Therefore, we have shown that the local truncation error is bounded by
+        $\Delta t + \Delta x$ with order 1. 
+
+    \textbf{Stability}
+    Next to show stability we look at the von Neumann stability analysis. We
+    have, 
+    \begin{gather*}
+        G = \frac{1}{2}\left(e^{ik_x\Delta x} + e^{-ik+x\Delta x}\right) -
+        \frac{C_a}{2}\left(e^{ik_x\Delta x} - e^{-ik+x\Delta x}\right)\\
+        = \cos(k_x\Delta x) - iC_a\sin(k_x\Delta x)\\
+        |G| = \cos^2(k_x\Delta x) + C_a^2\sin^2(k_x\Delta x)\\
+        = \cos^2(k_x\Delta x) + \sin^2(k_x\Delta x) + (C_a^2 -1)\sin^2(k_x\Delta
+        x) = 1 - (1 - C_a^2)\sin^2(k_x\Delta
+        x) \le 1
+    \end{gather*}
+    Where here, since $|C_a| \le 1$  we must have that $C_a^2 \le 1$ and the
+    right most term is negative semi-definite, thereby bounding $|G|$ to ensure
+    stability. 
+
+    \item Show that the LF method is $O(\Delta t + \Delta x)$. 
+
+    This has been shown in the proof for consistency in 1.a.
+
+    \item Rewrite the LF method in the conservative form, 
+
+
+\end{enumerate}
 
 \section{Lax-Wendroff Method}
 
@@ -108,17 +194,6 @@
         stability.
 
         \textbf{Consistency}
-        \begin{align*}
-            U_j^{n+1} &= U_j^n + \Delta t U_{t, j}^n + 
-            \frac{\Delta t^2}{2}U_{tt, j}^n + \frac{\Delta t^3}{6}U_{ttt, j}^n
-            + \frac{\Delta t^4}{24}U_{tttt, j}^n + O(\Delta t^5)\\
-            U_{j+1}^{n} &= U_j^n + \Delta x U_{x, j}^n + 
-            \frac{\Delta x^2}{2}U_{xx, j}^n + \frac{\Delta x^3}{6}U_{xxx, j}^n
-            + \frac{\Delta x^4}{24}U_{xxxx, j}^n + O(\Delta x^5)\\
-            U_{j-1}^{n} &= U_j^n - \Delta x U_{x, j}^n + 
-            \frac{\Delta x^2}{2}U_{xx, j}^n - \frac{\Delta x^3}{6}U_{xxx, j}^n
-            + \frac{\Delta x^4}{24}U_{xxxx, j}^n + O(\Delta x^5)
-        \end{align*}
         \begin{gather*}
             \lim_{\Delta t, \Delta x \to 0} E_{LT} = 
             \lim_{\Delta t, \Delta x \to 0} \frac{1}{\Delta t} U_j^{n+1} - U_j^n
@@ -154,14 +229,21 @@
             |G| = 1 + 2\cos - 2 + 1 - 2\cos + 1 = 1
         \end{gather*}
         in which case, the method is stable. 
-        We next consider $|C_a| \le 1$.
-        \begin{gather*}
-            
-        \end{gather*}
+        We next consider $|C_a| \le 1$, for this case, it is hard to simplify
+        the RHS (due to the Sinusoidal terms)
+        in order to show that $|G| - 1$ is negative semi-definite. This
+        can however easily be verified using any plotting routine. 
+        \href{https://www.desmos.com/calculator/znn8cfqqxg}{Here is a
+        link} to a desmos graph which shows an animation of $|G| - 1$ and
+        demonstrates the fact that it is a negative semi-definite term . 
 
     
 
     \item Show that the LW method is $O(\Delta t^2 + \Delta x^2)$.
+
+    This has already been shown in the proof for consistency of the Lax-Wendroff
+    method, whereby the Local Truncation Error is shown to be bounded by $\Delta
+    t^2$ and $\Delta x^2$. 
 \end{enumerate}
 
 \section{von Neumann Stability Analysis}
