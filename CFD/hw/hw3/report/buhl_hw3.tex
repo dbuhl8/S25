@@ -1,0 +1,194 @@
+\documentclass{article}
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry} \usepackage{amsmath}
+\usepackage{amsthm} %proof environment
+\usepackage{amsthm} %proof environment
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{enumitem} %nice lists
+\usepackage{verbatim} %useful for something 
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{blindtext} % I have no idea what this is 
+\usepackage{caption}  % need this for unnumbered captions/figures
+\usepackage{natbib}
+\usepackage{appendix}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\titleformat{\section}{\bfseries\Large}{Problem \thesection:}{5pt}{}
+
+\begin{document}
+
+\title{AM 260 - Computational Fluid Dynamis: Homework 3}
+\author{Dante Buhl}
+
+
+\newcommand{\wrms}{w_{\text{rms}}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\bmp}[1]{\begin{minipage}{#1\textwidth}}
+\newcommand{\emp}{\end{minipage}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathcal{N}}
+%\newcommand{\K}{\bs{\mathrm{K}}}
+\newcommand{\m}{\bs{\mu}_*}
+\newcommand{\s}{\bs{\Sigma}_*}
+\newcommand{\dt}{\Delta t}
+\newcommand{\dx}{\Delta x}
+\newcommand{\tr}[1]{\text{Tr}(#1)}
+\newcommand{\Tr}[1]{\text{Tr}(#1)}
+\newcommand{\Div}{\nabla \cdot}
+\renewcommand{\div}{\nabla \cdot}
+\newcommand{\Curl}{\nabla \times}
+\newcommand{\Grad}{\nabla}
+\newcommand{\grad}{\nabla}
+\newcommand{\grads}{\nabla_s}
+\newcommand{\gradf}{\nabla_f}
+\newcommand{\xs}{x_s}
+\newcommand{\x}{\bs{x}}
+\newcommand{\xf}{x_f}
+\newcommand{\ts}{t_s}
+\newcommand{\tf}{t_f}
+\newcommand{\pt}{\partial t}
+\newcommand{\pz}{\partial z}
+\newcommand{\uvec}{\bs{u}}
+\newcommand{\bvec}{\bs{B}}
+\newcommand{\nvec}{\hat{\bs{n}}}
+\newcommand{\tu}{\tilde{\uvec}}
+\newcommand{\B}{\bs{B}}
+\newcommand{\A}{\bs{A}}
+\newcommand{\jvec}{\bs{j}}
+\newcommand{\F}{\bs{F}}
+\newcommand{\T}{\tilde{T}}
+\newcommand{\ez}{\bs{e}_z}
+\newcommand{\ex}{\bs{e}_x}
+\newcommand{\ey}{\bs{e}_y}
+\newcommand{\eo}{\bs{e}_{\bs{\Omega}}}
+\newcommand{\ppt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\pp}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pptwo}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\ddtwo}[2]{\frac{d^2 #1}{d #2^2}}
+\newcommand{\DDt}[1]{\frac{D #1}{D t}}
+\newcommand{\ppts}[1]{\frac{\partial #1}{\partial t_s}}
+\newcommand{\pptf}[1]{\frac{\partial #1}{\partial t_f}}
+\newcommand{\ppz}[1]{\frac{\partial #1}{\partial z}}
+\newcommand{\ddz}[1]{\frac{d #1}{d z}}
+\newcommand{\ppzetas}[1]{\frac{\partial^2 #1}{\partial \zeta^2}}
+\newcommand{\ppzs}[1]{\frac{\partial #1}{\partial z_s}}
+\newcommand{\ppzf}[1]{\frac{\partial #1}{\partial z_f}}
+\newcommand{\ppx}[1]{\frac{\partial #1}{\partial x}}
+\newcommand{\ddx}[1]{\frac{d #1}{d x}}
+\newcommand{\ppxi}[1]{\frac{\partial #1}{\partial x_i}}
+\newcommand{\ppxj}[1]{\frac{\partial #1}{\partial x_j}}
+\newcommand{\ppy}[1]{\frac{\partial #1}{\partial y}}
+\newcommand{\ppzeta}[1]{\frac{\partial #1}{\partial \zeta}}
+\renewcommand{\k}{\bs{k}}
+\newcommand{\real}[1]{\text{Re}\left[#1\right]}
+
+
+\maketitle 
+% This line removes the automatic indentation on new paragraphs
+\setlength{\parindent}{0pt}
+
+\section{Lax-Friedrichs Method}
+
+
+\section{Lax-Wendroff Method}
+
+\begin{enumerate}[label = (\alph*)]
+    \item Show that the LW method is convergent if $|C_a| \le 1$. 
+    
+        In order to demonstrate consistency and stability, we perform taylor
+        expansions to demonstrate consistency (and at which order it is
+        consistent), and then von Neumann stability analysis in order to prove
+        stability.
+
+        \textbf{Consistency}
+        \begin{align*}
+            U_j^{n+1} &= U_j^n + \Delta t U_{t, j}^n + 
+            \frac{\Delta t^2}{2}U_{tt, j}^n + \frac{\Delta t^3}{6}U_{ttt, j}^n
+            + \frac{\Delta t^4}{24}U_{tttt, j}^n + O(\Delta t^5)\\
+            U_{j+1}^{n} &= U_j^n + \Delta x U_{x, j}^n + 
+            \frac{\Delta x^2}{2}U_{xx, j}^n + \frac{\Delta x^3}{6}U_{xxx, j}^n
+            + \frac{\Delta x^4}{24}U_{xxxx, j}^n + O(\Delta x^5)\\
+            U_{j-1}^{n} &= U_j^n - \Delta x U_{x, j}^n + 
+            \frac{\Delta x^2}{2}U_{xx, j}^n - \frac{\Delta x^3}{6}U_{xxx, j}^n
+            + \frac{\Delta x^4}{24}U_{xxxx, j}^n + O(\Delta x^5)
+        \end{align*}
+        \begin{gather*}
+            \lim_{\Delta t, \Delta x \to 0} E_{LT} = 
+            \lim_{\Delta t, \Delta x \to 0} \frac{1}{\Delta t} U_j^{n+1} - U_j^n
+            + \frac{1}{2}C_a\left(U_{j+1}^n - U_{j-1}^n\right)
+            - \frac{1}{2}C_a^2\left(U_{j+1}^n - 2U_j^n + U_{j-1}^n\right)\\
+           =  \lim_{\Delta t, \Delta x \to 0} U_{t, j}^n + 
+            \frac{\Delta t}{2}U_{tt, j}^n + \frac{\Delta t^2}{6}U_{ttt, j}^n +
+            O(\Delta t^3)
+            + aU_{x, j}^n + a\frac{\Delta
+            x^2}{6}U_{xxx, j}^n + O(\Delta x^4) \\- aC_a\left(
+            \frac{\Delta x}{2}U_{xx, j}^n + \frac{\Delta x^3}{24}U_{xxxx, j}^n
+            + O(\Delta x^5)\right)\\
+            = \lim_{\Delta t, \Delta x \to 0} \frac{\Delta t^2}{6}U_{ttt, j}^n +
+            a \frac{\Delta x^2}{6}U_{xxx, j}^n + O(\Delta^3)
+        \end{gather*}
+        Therefore, we have that this method is consistent with $O(\Delta t^2 +
+        \Delta x^2)$. 
+
+        \textbf{Stability} 
+        \begin{gather*}
+            G = (1 - C_a^2) + \frac{1}{2}\left(C_a^2 - C_a\right) e^{ik_x\Delta
+            x} + \frac{1}{2}\left(C_a^2 + C_a\right) e^{-ik_x\Delta x}\\
+            G = (1 - C_a^2) + C_a^2\cos(k_x \Delta x) - iC_a\sin(k_x \Delta x)\\
+            |G| = (1 - C_a^2)^2 + C_a^4\cos^2(k_x \Delta x) + 2(1 -
+            C_a^2)C_a^2\cos(k_x\Delta x) + C_a^2\sin^2(k_x\Delta x)\\
+            = 1 - 2C_a^2 + C_a^4 + C_a^4\cos^2() + 2C_a^2\cos() - 2C_a^4\cos() +
+            C_a^2\sin^2()\\
+            = 1 + C_a^2\left(2\cos + \sin^2 - 2\right) + C_a^4\left(1 + \cos^2 -
+            2\cos\right)
+        \end{gather*}
+        We proceed from here casewise. Take, $|C_a| = 1$. We have, 
+        \begin{gather*}
+            |G| = 1 + 2\cos - 2 + 1 - 2\cos + 1 = 1
+        \end{gather*}
+        in which case, the method is stable. 
+        We next consider $|C_a| \le 1$.
+        \begin{gather*}
+            
+        \end{gather*}
+
+    
+
+    \item Show that the LW method is $O(\Delta t^2 + \Delta x^2)$.
+\end{enumerate}
+
+\section{von Neumann Stability Analysis}
+We can show that this method is unconditionally unstable with only a few lines
+of algebra. 
+\begin{gather*}
+    U_j^{n+1} = U_j^n - \frac{a\Delta t}{2\Delta x}\left(U_{j+1}^n -
+    U_{j-1}^n\right), \quad U_{j}^n = G^ne^{i j k_x \Delta x}\\
+    G = 1 - \frac{a\Delta t}{2\Delta x}\left(e^{ik_x\Delta x}  - e^{-ik_x\Delta
+    x}\right)\\
+    G = 1 - \frac{a\Delta t}{2\Delta x}i\sin(k_x\Delta x)\\
+    |G| = 1 + \left(\frac{a\Delta t}{2\Delta x}\right)^2\sin(k_x\Delta x)^2 > 1
+\end{gather*}
+Therefore, we have that this method is unconditionally unstable, i.e. there is
+no condition on which $|G| \le 1$. 
+
+\section{Modified Lax-Friedrichs Coefficient}
+
+\section{von Neumann Analysis of the Heat Equation}
+
+\section{Sinusoidal Adv. with LF}
+
+\section{Discontinuous IC with LF}
+
+\section{Sinusoidal Adv. with LW}
+
+\section{Discontinuous IC with LW}
+
+
+\end{document}
