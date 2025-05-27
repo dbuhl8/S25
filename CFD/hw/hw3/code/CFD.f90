@@ -30,7 +30,7 @@ module CFD
 
     ! on the boundary (periodic conditions)
     NU(1) = (U(nx) + U(2))/2 - (dt/dx)*(FU(2) - FU(nx))/2
-    NU(nx) = (U(1) + U(nx-1))/2 - (dt/dx)*(FU(1) - FU(nx-1))/2
+    NU(nx) = (U(nx-1) + U(1))/2 - (dt/dx)*(FU(nx-1) - FU(1))/2
   end function LF_update_1D
 
   function LW_update_1D(U, a, dt, dx, nx) result(NU)
@@ -48,7 +48,7 @@ module CFD
     ! on the boundary (periodic conditions enforced)
     NU(1) = U(1) - (a*dt/dx)*(U(2) - U(nx))/2 + (a*dt/dx)**2*(U(2) -&
       2*U(1) + U(nx))/2
-    NU(nx) = U(nx) -(a*dt/dx)*(U(1) +U(nx-1))/2 +(a*dt/dx)**2*(U(1) -&
+    NU(nx) = U(nx) -(a*dt/dx)*(U(nx-1) - U(1))/2 +(a*dt/dx)**2*(U(1) -&
       2*U(nx) + U(nx-1))/2
   end function LW_update_1D
 

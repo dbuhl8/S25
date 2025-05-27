@@ -1,11 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 fn = ['prob6.dat','prob7.dat','prob8.dat','prob9.dat']
 xstart = [0, -1, 0, -1]
 figtitle = ['Problem 6 Solutions','Problem 7 Solutions',\
     'Problem 8 Solutions','Problem 9 Solutions']
-plotfile = ['prob6.pdf','prob7.pdf','prob8.pdf','prob9.pdf']
+plotfile = ['prob6','prob7','prob8','prob9']
+ylow = [-1, -0.5, -1, -0.5]
+ytop = [1, 1.5, 1, 1.5]
 
 ptstp = 0
 
@@ -77,25 +80,28 @@ for i in range(4):
             break
     print('Done with 6th block')
 
+    minNt = min([len(u1[0,:]),len(u2[0,:]),len(u3[0,:]),len(u4[0,:]),\
+        len(u5[0,:]),len(u6[0,:])])
+    
     # plot all 6 solutions for this problem 
     fig, ax = plt.subplots(2,3,sharex=True,sharey=True,figsize=(16,9))
-    plt.ylim(-1,1)
+    plt.ylim(ylow[i],ytop[i])
 
     #plot 1
     x32 = np.linspace(xstart[i], 1, 32)
     x128 = np.linspace(xstart[i], 1, 128)
 
-    ax[0,0].plot(x32, u1[:,ptstp])
+    p1 = ax[0,0].plot(x32, u1[:,ptstp])[0]
     ax[0,0].set_title(r'Nx = 32, CFL = 0.8')
-    ax[0,1].plot(x32, u3[:,ptstp])
+    p2 = ax[0,1].plot(x32, u3[:,ptstp])[0]
     ax[0,1].set_title(r'Nx = 32, CFL = 1.0')
-    ax[0,2].plot(x32, u5[:,ptstp])
+    p3 = ax[0,2].plot(x32, u5[:,ptstp])[0]
     ax[0,2].set_title(r'Nx = 32, CFL = 1.2')
-    ax[1,0].plot(x128, u2[:,ptstp])
+    p4 = ax[1,0].plot(x128, u2[:,ptstp])[0]
     ax[1,0].set_title(r'Nx = 128, CFL = 0.8')
-    ax[1,1].plot(x128, u4[:,ptstp])
+    p5 = ax[1,1].plot(x128, u4[:,ptstp])[0]
     ax[1,1].set_title(r'Nx = 128, CFL = 1.0')
-    ax[1,2].plot(x128, u6[:,ptstp])
+    p6 = ax[1,2].plot(x128, u6[:,ptstp])[0]
     ax[1,2].set_title(r'Nx = 128, CFL = 1.2')
 
     fig.suptitle(figtitle[i])
@@ -105,7 +111,22 @@ for i in range(4):
             axis.set_xlabel(r'x') 
             axis.set_ylabel(r'U') 
 
-    plt.savefig(plotfile[i])
+    def update_frame(frame):
+        p1.set_ydata(u1[:,frame])
+        p2.set_ydata(u3[:,frame])
+        p3.set_ydata(u5[:,frame])
+        p4.set_ydata(u2[:,frame])
+        p5.set_ydata(u4[:,frame])
+        p6.set_ydata(u6[:,frame])
+        #plt.savefig(plotfile[i])
+        plt.savefig(plotfile[i]+'_frame{:0{}d}.png'.format(frame,5),dpi=800)
+        print('Done with frame:', frame)
+        return (p1, p2, p3, p4, p5, p6)
+
+    ani = animation.FuncAnimation(fig=fig,
+        func=update_frame,frames=minNt,interval=300,blit=True)
+    ani.save(plotfile[i]+'.gif')
+    #plt.savefig(plotfile[i])
 
     print('\n Finished with ',i+1,'th file\n\n')
     

@@ -47,7 +47,7 @@ program driver
       a = 1
       Nx = nx_array(j)
       dx = (xstop-xstart)/(Nx-1)
-      dt = a*dx*cfl
+      dt = dx*cfl/a
       Nt = ceiling((tstop-tstart)/dt)
       allocate(x(Nx,Nt), u(Nx,Nt))
       do i = 1, Nx
@@ -87,7 +87,7 @@ program driver
       a = 1
       Nx = nx_array(j)
       dx = (xstop-xstart)/(Nx-1)
-      dt = a*dx*cfl
+      dt = dx*cfl/a
       Nt = ceiling((tstop-tstart)/dt)
       allocate(x(Nx,Nt), u(Nx,Nt))
       do i = 1, Nx
@@ -131,7 +131,7 @@ program driver
       a = 1
       Nx = nx_array(j)
       dx = (xstop-xstart)/(Nx-1)
-      dt = a*dx*cfl
+      dt = dx*cfl/a
       Nt = ceiling((tstop-tstart)/dt)
       allocate(x(Nx,Nt), u(Nx,Nt))
       do i = 1, Nx
@@ -171,7 +171,7 @@ program driver
       a = 1
       Nx = nx_array(j)
       dx = (xstop-xstart)/(Nx-1)
-      dt = a*dx*cfl
+      dt = dx*cfl/a
       Nt = ceiling((tstop-tstart)/dt)
       allocate(x(Nx,Nt), u(Nx,Nt))
       do i = 1, Nx

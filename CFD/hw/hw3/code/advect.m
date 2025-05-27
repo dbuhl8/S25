@@ -28,8 +28,8 @@ ngc=2;
 
 % initialize your grid
 x(ngc+1:N+ngc)=linspace(xa+0.5*dx,xb-0.5*dx,N);
-for i=1:ngc;
-    x(i)       = x(ngc+1) - i*dx;
+for i=1:ngc
+    x(i)       = xa - (ngc-0.5)*dx + (i-1)*dx;
     x(i+N+ngc) = x(N+ngc) + i*dx;
 end
     
@@ -49,6 +49,7 @@ if (ICtype == 1)
     for i=ngc+1:N+ngc;
         if abs(x(i)-0.5)<0.2;
             u(i) = 1;
+            
         else
             u(i) = 0;
         end
@@ -96,9 +97,9 @@ pause
 
 while t<tmax;
     
-    for i=ngc+1:N+ngc;
+    for i=ngc+1:N+ngc; 
 
-        uNew(i) = upwind(u(i),u(i-1),c,dt,dx);
+        uNew(i) = upwind(u(i),u(i-1),c,dt,dx); 
 
     end
     
@@ -117,6 +118,7 @@ while t<tmax;
     % plot
     grid on;
     plot(x(ngc+1:N+ngc),u(ngc+1:N+ngc),'ro-')
+    ylim([-1,1])
     
     % make a movie
     pause(0.1)
@@ -125,6 +127,5 @@ end
 hold on
 plot(x(ngc+1:N+ngc),u(ngc+1:N+ngc),'ro-')
 plot(x(ngc+1:N+ngc),u_init(ngc+1:N+ngc),'b')
-
 
 

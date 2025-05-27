@@ -9,35 +9,35 @@ FFLAGS = -fdefault-real-8 -fdefault-double-8 -fbounds-check -g -llapack -lblas -
 .PHONY: clean
 
 
-main: driver.exe
-	./driver.exe
+main: driver.e
+	./driver.e
 
-final: driver.exe
-	./driver.exe 
+final: driver.e
+	./driver.e
 	gnuplot final_plot.p
 
-hw4: driver.exe
-	./driver.exe > output.txt
+hw4: driver.e
+	./driver.e > output.txt
 	gnuplot hw4_plot.p
 
-hw3: driver.exe
-	./driver.exe > output.txt
+hw3: driver.e
+	./driver.e > output.txt
 	gnuplot hw3_plot.p
 
-midterm: driver.exe
-	./driver.exe > output.txt
+midterm: driver.e
+	./driver.e > output.txt
 	gnuplot midterm_plot.p
 
-hw2: driver.exe
-	./driver.exe > output.txt
+hw2: driver.e
+	./driver.e > output.txt
 	gnuplot hw2_plot.p
 
-hw1: driver.exe
-	./driver.exe > output.txt
+hw1: driver.e
+	./driver.e > output.txt
 	gnuplot hw1_plot.p
 
-driver.exe: $(MODULES) $(OBJECTS)
-	gfortran $(OBJECTS) $(FFLAGS) -o driver.exe
+driver.e: $(MODULES) $(OBJECTS)
+	gfortran $(OBJECTS) $(FFLAGS) -o driver.e
 
 %.o: %.f90
 	gfortran -c $(FFLAGS) $<
@@ -46,4 +46,4 @@ driver.exe: $(MODULES) $(OBJECTS)
 	gfortran -c $(FFLAGS) $<
 
 clean:
-	rm -f $(OBJECTS) $(OUTPUTS) $(MODULES) driver.exe 
+	rm -f $(OBJECTS) $(OUTPUTS) $(MODULES) driver.e
