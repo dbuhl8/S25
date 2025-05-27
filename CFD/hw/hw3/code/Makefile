@@ -1,6 +1,6 @@
-OBJECTS = LinAl.o NumDE.o driver.o # Make sure the correct driver is in the objects variable
+OBJECTS = LinAl.o NumDE.o CFD.o driver.o # Make sure the correct driver is in the objects variable
 	
-MODULES = LinAl.mod NumDE.mod
+MODULES = LinAl.mod NumDE.mod CFD.mod
 
 OUTPUTS = *.png *.mod output.txt 
 
@@ -9,7 +9,7 @@ FFLAGS = -fdefault-real-8 -fdefault-double-8 -fbounds-check -g -llapack -lblas -
 .PHONY: clean
 
 
-scaling: driver.exe
+main: driver.exe
 	./driver.exe
 
 final: driver.exe
@@ -36,7 +36,7 @@ hw1: driver.exe
 	./driver.exe > output.txt
 	gnuplot hw1_plot.p
 
-%.exe: $(MODULES) $(OBJECTS)
+driver.exe: $(MODULES) $(OBJECTS)
 	gfortran $(OBJECTS) $(FFLAGS) -o driver.exe
 
 %.o: %.f90

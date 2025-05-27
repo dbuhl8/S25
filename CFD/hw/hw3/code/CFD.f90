@@ -11,7 +11,7 @@ module CFD
   implicit none
 
   ! Global vars
-  integer, parameter :: kr=kind(dble(1.0))
+  !integer, parameter :: kr=kind(dble(1.0))
   real(kind=kr) :: cfl_number
 
   contains 
@@ -20,37 +20,37 @@ module CFD
     implicit none
     ! here U and FU should be nx by 1 dimensional arrays, the output of the
     ! method should be another nx by 1 array 
-    real(kind=kr) :: U(:,:), FU(:,:), dt, dx
+    real(kind=kr) :: U(:), FU(:), dt, dx
     integer :: nx
 
-    real(kind=kr), dimension(nx, 1) :: NU
+    real(kind=kr), dimension(nx) :: NU
 
     ! inside the boundary
-    NU(2:nx-1,1) = (U(1:nx-2,1) + U(3:nx,1))/2 - (dt/dx)*(FU(1:nx-2,1) - FU(3:nx,1))/2
+    NU(2:nx-1) = (U(1:nx-2) + U(3:nx))/2 - (dt/dx)*(FU(1:nx-2) - FU(3:nx))/2
 
     ! on the boundary (periodic conditions)
-    NU(1,1) = (U(nx,1) + U(2,1))/2 - (dt/dx)*(FU(2,1) - FU(nx,1))/2
-    NU(nx,1) = (U(1,1) + U(nx-1,1))/2 - (dt/dx)*(FU(1,1) - FU(nx-1,1))/2
+    NU(1) = (U(nx) + U(2))/2 - (dt/dx)*(FU(2) - FU(nx))/2
+    NU(nx) = (U(1) + U(nx-1))/2 - (dt/dx)*(FU(1) - FU(nx-1))/2
   end function LF_update_1D
 
-  function LW_method_1D(U, a, dt, dx, nx) result(NU)
+  function LW_update_1D(U, a, dt, dx, nx) result(NU)
     implicit none
     ! input
-    real(kind=kr) :: U(:,:), a, dt, dx
+    real(kind=kr) :: U(:), a, dt, dx
     integer :: nx
     ! output 
-    real(kind=kr), dimension(nx, 1) :: NU
+    real(kind=kr), dimension(nx) :: NU
 
     ! in the boundary
-    NU(2:nx-1,1) = U(2:nx-1,1) - (a*dt/dx)(U(1:nx-2,1) - U(3:nx,1))/2 +&
-      (a*dt/dx)**2*(U(1:nx-2,1) -2*U(2:nx-1,1)+ U(3:nx,1))/2
+    NU(2:nx-1) = U(2:nx-1) - (a*dt/dx)*(U(1:nx-2) - U(3:nx))/2 +&
+      (a*dt/dx)**2*(U(1:nx-2) -2*U(2:nx-1)+ U(3:nx))/2
 
     ! on the boundary (periodic conditions enforced)
-    NU(1,1) = U(1,1) - (a*dt/dx)(U(2,1) - U(nx,1))/2 + (a*dt/dx)**2*(U(2,1) -&
-      2*U(1,1) + U(nx,1))/2
-    NU(nx,1) = U(nx,1) -(a*dt/dx)*(U(1,1) +U(nx-1,1))/2 +(a*dt/dx)**2*(U(1,1) -&
-      2*U(nx,1) + U(nx-1,1))/2
-  end function LW_method_1D
+    NU(1) = U(1) - (a*dt/dx)*(U(2) - U(nx))/2 + (a*dt/dx)**2*(U(2) -&
+      2*U(1) + U(nx))/2
+    NU(nx) = U(nx) -(a*dt/dx)*(U(1) +U(nx-1))/2 +(a*dt/dx)**2*(U(1) -&
+      2*U(nx) + U(nx-1))/2
+  end function LW_update_1D
 
 end module CFD
  

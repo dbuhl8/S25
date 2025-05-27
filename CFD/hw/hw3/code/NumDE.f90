@@ -9,6 +9,8 @@ module NumDE
 
   implicit none
 
+  integer, parameter :: kr=kind(dble(1.0))
+
   contains 
 
   subroutine writemat(A, ma, na, fn)
@@ -19,7 +21,7 @@ module NumDE
     integer :: ma, na, fn, i
 
     do i = 1, na
-      write(fn, "("//trim(str(ma))//"F15.7)") A(:,i)
+      write(fn, "("//trim(str(ma))//"(F32.16, ' '))") A(:,i)
     end do 
   end subroutine writemat
 
