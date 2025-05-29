@@ -4,7 +4,6 @@
 !statistically stationary state. 
 
 program driver
-
   use LinAl
   use NumDE
   use CFD
@@ -17,6 +16,7 @@ program driver
 
   ! Simvars
   real(kind=kr) :: cfl = 0.8
+  real(kind=kr), parameter :: fdt = 0.0001
   real(kind=kr) :: xstart, xstop, tstart, tstop, dx, dt
   real(kind=kr) :: a = 1
   integer :: Nx, Nt
@@ -48,7 +48,7 @@ program driver
       Nx = nx_array(j)
       dx = (xstop-xstart)/(Nx-1)
       dt = dx*cfl/a
-      Nt = ceiling((tstop-tstart)/dt)
+      Nt = ceiling((tstop-tstart)/fdt)
       allocate(x(Nx,Nt), u(Nx,Nt))
       do i = 1, Nx
         x(i,1) = xstart + (i-1)*dx
@@ -57,7 +57,7 @@ program driver
 
       ! running timestepper
       do i = 1, Nt-1
-        u(:,i+1) = LF_update_1D(u(:,i),u(:,i),dt,dx,Nx)
+        u(:,i+1) = LF_update_1D(u(:,i),u(:,i),fdt,dx,Nx)
       end do 
       write(fn,*) Nx, Nt
       call writemat(u, Nx, Nt, fn)
@@ -88,7 +88,7 @@ program driver
       Nx = nx_array(j)
       dx = (xstop-xstart)/(Nx-1)
       dt = dx*cfl/a
-      Nt = ceiling((tstop-tstart)/dt)
+      Nt = ceiling((tstop-tstart)/fdt)
       allocate(x(Nx,Nt), u(Nx,Nt))
       do i = 1, Nx
         x(i,1) = xstart + (i-1)*dx
@@ -101,7 +101,7 @@ program driver
 
       ! running timestepper
       do i = 1, Nt-1
-        u(:,i+1) = LF_update_1D(u(:,i),u(:,i),dt,dx,Nx)
+        u(:,i+1) = LF_update_1D(u(:,i),u(:,i),fdt,dx,Nx)
       end do 
       write(fn,*) Nx, Nt
       call writemat(u, Nx, Nt, fn)
@@ -132,7 +132,7 @@ program driver
       Nx = nx_array(j)
       dx = (xstop-xstart)/(Nx-1)
       dt = dx*cfl/a
-      Nt = ceiling((tstop-tstart)/dt)
+      Nt = ceiling((tstop-tstart)/fdt)
       allocate(x(Nx,Nt), u(Nx,Nt))
       do i = 1, Nx
         x(i,1) = xstart + (i-1)*dx
@@ -141,7 +141,7 @@ program driver
       
       ! running timestepper
       do i = 1, Nt-1
-        u(:,i+1) = LW_update_1D(u(:,i),a,dt,dx,Nx)
+        u(:,i+1) = LW_update_1D(u(:,i),a,fdt,dx,Nx)
       end do 
       write(fn,*) Nx, Nt
       call writemat(u, Nx, Nt, fn)
@@ -172,7 +172,7 @@ program driver
       Nx = nx_array(j)
       dx = (xstop-xstart)/(Nx-1)
       dt = dx*cfl/a
-      Nt = ceiling((tstop-tstart)/dt)
+      Nt = ceiling((tstop-tstart)/fdt)
       allocate(x(Nx,Nt), u(Nx,Nt))
       do i = 1, Nx
         x(i,1) = xstart + (i-1)*dx
@@ -185,7 +185,7 @@ program driver
       
       ! running timestepper
       do i = 1, Nt-1
-        u(:,i+1) = LW_update_1D(u(:,i),a,dt,dx,Nx)
+        u(:,i+1) = LW_update_1D(u(:,i),a,fdt,dx,Nx)
       end do 
       write(fn,*) Nx, Nt
       call writemat(u, Nx, Nt, fn)
