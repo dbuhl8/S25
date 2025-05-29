@@ -138,21 +138,14 @@
         \end{align*}
         \begin{gather*}
             \lim_{\Delta t, \Delta x \to 0} E_{LT} = \lim_{\Delta t, \Delta x
-            \to 0} \frac{1}{\Delta t}\left( U_j^{n+1} -
+            \to 0} \frac{1}{\Delta t}\left( U_j^{n+1} - 
             \frac{1}{2}\left(U_{j+1}^n + U_{j-1}^n\right) + \frac{a\Delta
-            t}{2\Delta x}\left(U_{j+1}^n - U_{j-1}^n\right)\\
+            t}{2\Delta x}\left(U_{j+1}^n - U_{j-1}^n\right)\right)\\
             = \lim_{\Delta t, \Delta x \to 0} U_{t, j}^n + 
             \frac{\Delta t}{2}U_{tt, j}^n + O(\Delta t^2) 
             + \frac{\Delta x^2}{2\Delta t}U_{xx, j}^n + O(\Delta x^3) +
             U_{x, j}^n + \frac{\Delta x^2}{6}U_{xxx,j}^n\\
             = \lim_{\Delta t, \Delta x \to 0}\frac{\Delta t}{2}U_{tt, j}^n+ 
-            \frac{\Delta x^2}{2\Delta t}U_{xx, j}^n + O(\Delta^2)
-        \end{gather*}
-        In order to simplify this, we take the limit (as $\Delta t = a\Delta x
-        \to 0$). 
-        \begin{gather*}
-            \lim_{\Delta t = a\Delta x \to 0} E_{LT} = 
-            \frac{\Delta t}{2}U_{tt, j}^n+ 
             \frac{\Delta x}{2a}U_{xx, j}^n + O(\Delta^2)
         \end{gather*}
         Therefore, we have shown that the local truncation error is bounded by
@@ -262,11 +255,57 @@ no condition on which $|G| \le 1$.
 
 \section{Modified Lax-Friedrichs Coefficient}
 
+We show the diffusion coefficient for the Lax-Friedrichs method by taylor
+expanding the original PDE. 
+\begin{gather*}
+    \Delta t u_t(x,t) + \frac{\Delta t^2}{2} u_{tt}(x,t)  =
+    \frac{1}{2}\left(\Delta x^2u_{xx}(x,t) + \frac{\Delta x^4}{12} \right) -
+    \frac{C_a}{2}\left(2\Delta x u_x + \frac{\Delta x^3}{3}u_{xxx}(x,t) \right)\\
+    u_t + a u_x = - \frac{\Delta t}{2} u_{tt} + \frac{\Delta x^2}{2\Delta
+    t}u_{xx} - \frac{a\Delta x^2}{6\Delta t}u_{xxx} + O(\Delta x^4, \Delta
+    t^2)\\
+    u_t + a u_x = \frac{\Delta x^2}{2\Delta t}\left(-\frac{a^2\Delta t^2}{\Delta
+    x^2} + 1\right)u_{xx} + O(\Delta x^2, \Delta t^2)\\
+    \kappa = \frac{\Delta x^2}{2\Delta t}\left(1-\frac{a^2\Delta t^2}{\Delta
+    x^2}\right)
+\end{gather*}
+
 \section{von Neumann Analysis of the Heat Equation}
+
+In order to show this, we substitute the von Neumann ansatz into the update
+function.  
+\begin{gather*}
+    G = 1 + C_k\left(e^{ik_x\Delta x} - 2 + e^{-ik_x\Delta x}\right)\\
+    G = 1 - 2C_k + 2C_k\cos(k_x\Delta x) \\
+    G = 1 + 2C_k(\cos(k_x\Delta x) -1))\\
+    1 - 4C_k \le G \le 1,\quad |G| \le 1  \implies C_k \le 0.5
+\end{gather*}
 
 \section{Sinusoidal Adv. with LF}
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=.6\textwidth]{../code/prob6_tstop.png}
+    \includegraphics[width=.6\textwidth]{../code/prob8_tstop.png}
+    \includegraphics[width=.6\textwidth]{../code/upwind_sin_tstop.png}
+    \caption{Sharp Discontinuous IC advected by Lax-Friedrichs Method (a),
+    Lax-Wendroff Method (b), and Upwind Method (c) for various grid sizes and
+    CFL numbers.}
+    \label{fig:sin_adv}
+\end{figure}
+
 \section{Discontinuous IC with LF}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=.6\textwidth]{../code/prob7_tstop.png}
+    \includegraphics[width=.6\textwidth]{../code/prob9_tstop.png}
+    \includegraphics[width=.6\textwidth]{../code/upwind_shock_tstop.png}
+    \caption{Sharp Discontinuous IC advected by Lax-Friedrichs Method (a),
+    Lax-Wendroff Method (b), and Upwind Method (c) for various grid sizes and
+    CFL numbers.}
+    \label{fig:discont_ic}
+\end{figure}
 
 \section{Sinusoidal Adv. with LW}
 

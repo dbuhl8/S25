@@ -16,21 +16,22 @@ module CFD
 
   contains 
 
-  function LF_update_1D(U,FU,dt,dx,nx) result(NU)
+  function LF_update_1D(U,a,dt,dx,nx) result(NU)
     implicit none
     ! here U and FU should be nx by 1 dimensional arrays, the output of the
     ! method should be another nx by 1 array 
-    real(kind=kr) :: U(:), FU(:), dt, dx
+    real(kind=kr) :: U(:), a, dt, dx
     integer :: nx
 
     real(kind=kr), dimension(nx) :: NU
 
     ! inside the boundary
-    NU(2:nx-1) = (U(1:nx-2) + U(3:nx))/2 - (dt/dx)*(FU(1:nx-2) - FU(3:nx))/2
+    !NU(2:nx-1) = (U(1:nx-2) + U(3:nx))/2 - (a*dt/dx)*(U(3:nx) - U(1:nx-2))/2
+    NU(2:nx-1) = (1 - a*dt/dx)*U(3:nx)/2 + (1 + a*dt/dx)*U(1:nx-2)/2
 
     ! on the boundary (periodic conditions)
-    NU(1) = (U(nx) + U(2))/2 - (dt/dx)*(FU(2) - FU(nx))/2
-    NU(nx) = (U(nx-1) + U(1))/2 - (dt/dx)*(FU(nx-1) - FU(1))/2
+    NU(1) = (U(nx) + U(2))/2 - (a*dt/dx)*(-U(nx) + U(2))/2
+    NU(nx) = (U(nx-1) + U(1))/2 - (a*dt/dx)*(U(1) - U(nx-1))/2
   end function LF_update_1D
 
   function LW_update_1D(U, a, dt, dx, nx) result(NU)
@@ -42,15 +43,27 @@ module CFD
     real(kind=kr), dimension(nx) :: NU
 
     ! in the boundary
-    NU(2:nx-1) = U(2:nx-1) - (a*dt/dx)*(U(1:nx-2) - U(3:nx))/2 +&
+    NU(2:nx-1) = U(2:nx-1) - (a*dt/dx)*(-U(1:nx-2) + U(3:nx))/2 +&
       (a*dt/dx)**2*(U(1:nx-2) -2*U(2:nx-1)+ U(3:nx))/2
 
     ! on the boundary (periodic conditions enforced)
     NU(1) = U(1) - (a*dt/dx)*(U(2) - U(nx))/2 + (a*dt/dx)**2*(U(2) -&
       2*U(1) + U(nx))/2
-    NU(nx) = U(nx) -(a*dt/dx)*(U(nx-1) - U(1))/2 +(a*dt/dx)**2*(U(1) -&
+    NU(nx) = U(nx) -(a*dt/dx)*(-U(nx-1) + U(1))/2 +(a*dt/dx)**2*(U(1) -&
       2*U(nx) + U(nx-1))/2
   end function LW_update_1D
+
+  function Upwind_update_1D(U,a,dt,dx,nx) result(NU)
+    implicit none
+    ! input
+    real(kind=kr) :: U(:), a, dt, dx
+    integer :: nx
+    ! output 
+    real(kind=kr), dimension(nx) :: NU
+
+    NU(2:nx) = U(2:nx) - (a*dt/dx)*(U(2:nx) - U(1:nx-1))
+    NU(1) = U(1) - (a*dt/dx)*(U(1) - U(nx))
+  end function Upwind_update_1D
 
 end module CFD
  
