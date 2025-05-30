@@ -281,35 +281,83 @@ function.
     1 - 4C_k \le G \le 1,\quad |G| \le 1  \implies C_k \le 0.5
 \end{gather*}
 
-\section{Sinusoidal Adv. with LF}
-
 \begin{figure}[t]
     \centering
-    \includegraphics[width=.6\textwidth]{../code/prob6_tstop.png}
-    \includegraphics[width=.6\textwidth]{../code/prob8_tstop.png}
-    \includegraphics[width=.6\textwidth]{../code/upwind_sin_tstop.png}
-    \caption{Sharp Discontinuous IC advected by Lax-Friedrichs Method (a),
-    Lax-Wendroff Method (b), and Upwind Method (c) for various grid sizes and
-    CFL numbers.}
-    \label{fig:sin_adv}
+    \bmp{.49}
+        \centering
+        \includegraphics[width=\textwidth]{../code/prob6_tstop.png}
+        \includegraphics[width=\textwidth]{../code/prob8_tstop.png}
+        \includegraphics[width=\textwidth]{../code/upwind_sin_tstop.png}
+    \emp
+    \bmp{.49}
+        \centering
+        \includegraphics[width=\textwidth]{../code/prob7_tstop.png}
+        \includegraphics[width=\textwidth]{../code/prob9_tstop.png}
+        \includegraphics[width=\textwidth]{../code/upwind_shock_tstop.png}
+    \emp
+    \caption{Various initial conditions advected by Lax-Friedrichs Method (top),
+    Lax-Wendroff Method (middle), and Upwind Method (bottom) for various grid sizes and
+    CFL numbers. The left column shows the ``Sin Wave'' initial condition and
+    the right column shows the ``Shock/Rarefraction Wave'' initial condition.}
+    \label{fig:solutions}
 \end{figure}
+
+\section{Sinusoidal Adv. with LF}
+My numerical implementation of the Lax-Friedrichs method for the sin wave initial
+condition was done in Fortran and then
+visualized using Python. The results can be seen in Figure \ref{fig:solutions}
+alongside comparisions of the same solution using the Lax-Wendroff method and
+the Upwind method. These are all plots of the solution at $t = t_{cycle}$ which
+is computed by considering the advection speed compared to the natural
+length scale of the system, i.e.
+\begin{gather*}
+    t_{cycle} = \frac{L_x}{c} = \frac{1}{1} = 1
+\end{gather*}
+Since the Lax-Friedrichs method is diffusive (as shown in an
+earlier homework problem), we expect the amplitude of the sin wave to decrease
+with time, which is indeed what we see for the lowest resolution result. As
+expected, once the CFL number approaches and then increases past one, the
+method is no longer stable. This is visualized by the oscillations seen in the
+CFL = 1.2 plots. 
+
+Compared to the upwind method, we see that the LF method appears to have slighly
+worse errors for the same grid sizes. This is most apparent in the $CFL = 1.2$
+cases where the oscillations away from the true solution have a much larger
+length scale compared to the upwind solutions. Otherwise, the method seems to be
+very similar to the upwind method. 
+
 
 \section{Discontinuous IC with LF}
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=.6\textwidth]{../code/prob7_tstop.png}
-    \includegraphics[width=.6\textwidth]{../code/prob9_tstop.png}
-    \includegraphics[width=.6\textwidth]{../code/upwind_shock_tstop.png}
-    \caption{Sharp Discontinuous IC advected by Lax-Friedrichs Method (a),
-    Lax-Wendroff Method (b), and Upwind Method (c) for various grid sizes and
-    CFL numbers.}
-    \label{fig:discont_ic}
-\end{figure}
+The same methodology and style of results for problem 6 can be seen in Figure
+\ref{fig:solutions}. Here is LF method is used in the same way as before, only
+with a different initial condition. Unlike before, where the upwind and LF
+method appears to be very similar, we see that the LF is much worse at resolving
+shocks and rarefraction waves. In the $Nx = 32$ and $CFL = 0.8$ we see very
+jagged edges on the contour of the shock front and rarefraction fan. This
+appears to be partially caused by the resolution of the system, but also speaks
+to the inability of the method. The upwind method does not preserve the shock
+front well either, but its solution is at least smooth. Both fail quite
+spectacularly (as expected) at $CFL = 1.2$. 
 
 \section{Sinusoidal Adv. with LW}
 
+See Figure \ref{fig:solutions} for the results. Unlike the LF method, this
+methods reaction to a large CFL number appears to to be quite erratic. The $Nx =
+128$ and $CFL = 1.2$ appears to have diffused completely, while the $Nx = 32$
+and $CFL = 1.2$ appears to have blown up completely. Besides this, the $CFL =
+0.8, 1$ are very reasonable solutions and appear to be quite stable. 
+
 \section{Discontinuous IC with LW}
+
+See Figure \ref{fig:solutions} for the results. Perhaps the most interesting
+aspect about the solutions to this method is that (because the method is not
+diffusive), we notice rather than a degredation of the shock front /
+rarefraction wave, we see oscillations (similar to Gibbs phenomenon) around the
+discontinuity points. This is especially visible in the $Nx = 128$ and $CFL =
+0.8$ plot. Again, the method appears to be highly sensitive to the $CFL$ number
+(the $1.2$ plots particularly). If I've learned anything its that I should never
+have a CFL number above $0.8$. 
 
 
 \end{document}
