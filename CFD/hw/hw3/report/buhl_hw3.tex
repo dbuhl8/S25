@@ -32,7 +32,7 @@
 
 \begin{document}
 
-\title{AM 260 - Computational Fluid Dynamis: Homework 3}
+\title{AM 260 - Computational Fluid Dynamics: Homework 3}
 \author{Dante Buhl}
 
 
@@ -173,6 +173,49 @@
 
     \item Rewrite the LF method in the conservative form, 
 
+    In order to solve for the fluxes $\hat{f}_{i+1/2}^n$ we will first solve for
+    $\hat{f}_{i+1/2}^n - \hat{f}_{i-1/2}^n$ and then isolate each term using
+    addition. 
+    \begin{gather*}
+        \hat{f}_{i+1/2}^n - \hat{f}_{i-1/2}^n = -\frac{\Delta x}{\Delta
+        t}\left(\frac{1}{2}U_{i+1}^n - U_{i}^n + \frac{1}{2}U_{i-1}^n\right) +
+        \frac{1}{2}\left(f(U_{i+1}^n - f(U_{i-1}^n)\right)
+    \end{gather*}
+    Since this holds for any arbitrary $i$ we can add additional terms to this
+    sum in order to increase the distance between the terms on the LHS. 
+    \begin{align*}
+        \hat{f}_{i+1/2}^n - \hat{f}_{i-1/2}^n &= -\frac{\Delta x}{\Delta
+        t}\left(\frac{1}{2}U_{i+1}^n - U_{i}^n + \frac{1}{2}U_{i-1}^n\right) +
+        \frac{1}{2}\left(f(U_{i+1}^n) - f(U_{i-1}^n)\right)\\
+        \hat{f}_{i+3/2}^n - \hat{f}_{i+1/2}^n &= -\frac{\Delta x}{\Delta
+        t}\left(\frac{1}{2}U_{i+2}^n - U_{i+1}^n + \frac{1}{2}U_{i}^n\right) +
+        \frac{1}{2}\left(f(U_{i+2}^n) - f(U_{i}^n)\right)\\
+        \hat{f}_{i-1/2}^n - \hat{f}_{i-3/2}^n &= -\frac{\Delta x}{\Delta
+        t}\left(\frac{1}{2}U_{i}^n - U_{i-1}^n + \frac{1}{2}U_{i-2}^n\right) +
+        \frac{1}{2}\left(f(U_{i}^n) - f(U_{i-2}^n)\right)
+    \end{align*}
+    Adding these three equations together, we find some terms cancel. We have
+    remaining, 
+    \begin{gather*}
+        \hat{f}_{i+3/2}^n - \hat{f}_{i-3/2}^n = -\frac{\Delta x}{2\Delta
+        t}\left(U_{i+2}^n - U_{i+1}^n +
+        U_{i-2}^n - U_{i-1}^n\right) +
+        \frac{1}{2}\left(f(U_{i+2}^n) + f(U_{i+1}^n) - f(U_{i-2}^n) - f(U_{i-1}^n)\right)
+    \end{gather*}
+    We are able to deduce the value for each of the LHS terms separately using
+    symmetry and by the fact that each flux should only have information from
+    the two indices adjacent ($i + 3/2$ should only be influenced by $i + 1,
+    i+2$ and similar argument for $i-3/2$). Thus we have,
+    \begin{align*}
+        \hat{f}_{i+3/2}^n &= -\frac{\Delta x}{2\Delta
+        t}\left(U_{i+2}^n - U_{i+1}^n\right) + 
+        \frac{1}{2}\left(f(U_{i+2}^n) + f(U_{i+1}^n)\right)\\
+        \hat{f}_{i+1/2}^n &= -\frac{\Delta x}{2\Delta
+        t}\left(U_{i+1}^n - U_{i}^n\right) + 
+        \frac{1}{2}\left(f(U_{i+1}^n) + f(U_{i}^n)\right)
+    \end{align*}
+
+
 
 \end{enumerate}
 
@@ -269,6 +312,13 @@ expanding the original PDE.
     \kappa = \frac{\Delta x^2}{2\Delta t}\left(1-\frac{a^2\Delta t^2}{\Delta
     x^2}\right)
 \end{gather*}
+
+This diffusion coefficient is interesting because it is inversely proportional
+to the temporal discretization, i.e. smaller timesteps make the method more
+diffuse. This will cause the velocity field to dampen more quickly as the
+timestep becomes smaller. At the same time it is stabilized by the gridsize,
+i.e. smaller spatial discretizations will cause the diffusion coefficient to
+become smaller (as it varies proportional to the square of $\Delta x$). 
 
 \section{von Neumann Analysis of the Heat Equation}
 
