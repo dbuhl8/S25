@@ -65,5 +65,13 @@ module CFD
     NU(1) = U(1) - (a*dt/dx)*(U(1) - U(nx))
   end function Upwind_update_1D
 
+  include 'fog.f90'
+  include 'plm.f90'
+  include 'bc.f90'
+  include 'cfl.f90'
+  include 'grid_init.f90'
+  include 'advect_init.f90' 
+  include 'write_data.f90'
+
 end module CFD
  

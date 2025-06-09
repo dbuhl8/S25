@@ -4,6 +4,8 @@ implicit none
 integer, save :: msize, nsize 
 real, parameter :: pi = acos(-1.d0)
 real, dimension(:,:), allocatable, save :: mat
+integer, parameter :: kr=kind(dble(0.))
+
 contains
 
 !********************************************************

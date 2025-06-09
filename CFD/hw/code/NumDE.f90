@@ -9,8 +9,6 @@ module NumDE
 
   implicit none
 
-  integer, parameter :: kr=kind(dble(1.0))
-
   contains 
 
   subroutine writemat(A, ma, na, fn)
@@ -1265,6 +1263,10 @@ module NumDE
     !w=(b-a)/((1-y(:,1)**2)*Lp**2)*(N2/N1)**2
     !w = 1
   !end subroutine lgwt
+
+  include 'mm_2arg.f90'
+  include 'mm_3arg.f90'
+  include 'vl.f90'
       
 end module NumDE
 
