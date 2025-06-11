@@ -1,10 +1,10 @@
 
 
-function centered(U, dx,nx) result(sl)  
+function centered(U, dx,nx,ngc) result(sl)  
   use NumDE 
   implicit none
   real(kind=kr) :: U(:), dx
-  integer :: nx
-  real(kind=kr), dimension(nx) :: sl
-  sl = (U(3:nx+2)-U(1:nx))/(2*dx)
+  integer :: nx, ngc
+  real(kind=kr), dimension(nx+2*ngc-2) :: sl
+  sl = (U(ngc+1:nx+ngc+2)-U(ngc-1:nx+ngc))/(2*dx)
 end function centered

@@ -1,11 +1,11 @@
 
 
-subroutine advect_init(U_cell, U_grid, x_grid, nx, dx,ic)
+subroutine advect_init(U_cell, U_grid, x_grid, nx,ngc, dx,ic)
   use NumDE
   implicit none
 
   real(kind=kr) :: U_grid(:), dx, U_cell(:), x_grid(:)
-  integer :: nx, i, ic
+  integer :: nx, i, ic, ngc
 
   if (ic .eq. 1) then ! 7.38
     where(x_grid .le. 0.5)
@@ -32,7 +32,7 @@ subroutine advect_init(U_cell, U_grid, x_grid, nx, dx,ic)
       U_grid = 1
     end where
   else if (ic .eq. 5) then  !7.42
-    U_grid(2:nx+1) = sin(2*pi*x_grid)
+    U_grid = sin(2*pi*x_grid)
   else if (ic .eq. 6) then  !7.43
     where(x_grid .le. 0.3)
       U_grid = 2
@@ -75,14 +75,14 @@ subroutine advect_init(U_cell, U_grid, x_grid, nx, dx,ic)
     end where
   else if (ic .eq. 11) then  !7.48
     ! sin wave IC
-    U_grid(2:nx+1) = sin(2*pi*x_grid)
+    U_grid = sin(2*pi*x_grid)
   else 
     print *, 'Initial Condition not recognized'
   end if
 
   ! cell averaging
   do i = 1, nx
-    U_cell(i+1) = cell_avg(U_grid(i:i+1), dx)
+    U_cell(i+ngc) = cell_avg(U_grid(i+ngc:i+ngc+1), dx)
   end do 
 
   contains 
