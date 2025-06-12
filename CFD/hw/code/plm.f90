@@ -7,57 +7,58 @@ function PLM(U, dt, dx, nx,ngc, sl_type) result(NU)
   ! need to compute the Godunov Fluxes (which at the cell boundaries are
   ! constant), and then return U(n+1)
   ! need a where construct in order to evalutate God_fluxes
-  real(kind=kr) :: U(:), dt, dx, s
+  real(kind=kr) :: U(:), dt, dx, s, c
   integer :: nx, i,ngc, k, j
   character :: sl_type
-  real(kind=kr), dimension(nx) :: NU, Fp, Fm
-  real(kind=kr), dimension(nx+2*ngc-2) :: sl
+  real(kind=kr), dimension(nx) :: NU
+  real(kind=kr), dimension(nx+2*ngc) :: sl, F
 
   ! this is programmed to have ghost cells at each end of the array
   ! these cells will be routinely updated after each update
 
   ! computing Fp and Fm
   sl = sl_limiter(sl_type, U, dx, nx,ngc)
-  do i = ngc+1, nx+ngc
-    k = i - ngc
-    j = i - 1
+  do i = 1, nx+ngc+1
+    !k = i - ngc
+    !j = i - 1
     ! Fp
+    s = (U(i) + U(i+1))/2
+    c = s*dt/dx
     if (U(i) .ge. U(i+1)) then
-      s = (U(i) + U(i+1))/2
       if (s .gt. 0) then
-        Fp(k) = ((U(i) + (dx/2)*sl(j)*(1 - s*dt/dx))**2)/2
+        F(i) = ((U(i) + (dx/2)*sl(i)*(1 - c))**2)/2
       else 
-        Fp(k) = ((U(i+1) - (dx/2)*sl(j+1)*(1 + s*dt/dx))**2)/2
+        F(i) = ((U(i+1) - (dx/2)*sl(i+1)*(1 + c))**2)/2
       end if
     else 
       if (U(i) .ge. 0) then 
-        Fp(k) = ((U(i) + (dx/2)*sl(j)*(1 - s*dt/dx))**2)/2
-      else if ((U(i) .lt. 0) .and. (0 .lt. U(i+1))) then
-        Fp(k) = 0
+        F(i) = ((U(i) + (dx/2)*sl(i)*(1 - c))**2)/2
+      else if (U(i+1) .le. 0) then
+        F(i) = ((U(i+1) - (dx/2)*sl(i+1)*(1 + c))**2)/2
       else 
-        Fp(k) = ((U(i+1) + (dx/2)*sl(j+1)*(1 + s*dt/dx))**2)/2
+        F(i) = 0
       end if
     end if 
     ! Fm
-    if (U(i-1) .ge. U(i)) then
-      s = (U(i-1) + U(i))/2
-      if (s .gt. 0) then
-        Fm(k) = ((U(i-1) + (dx/2)*sl(j-1)*(1 - s*dt/dx))**2)/2
-      else 
-        Fm(k) = ((U(i) - (dx/2)*sl(j)*(1 + s*dt/dx))**2)/2
-      end if
-    else 
-      if (U(i-1) .ge. 0) then 
-        Fm(k) = ((U(i-1) + (dx/2)*sl(j-1)*(1 - s*dt/dx))**2)/2
-      else if ((U(i-1) .lt. 0) .and. (0 .lt. U(i))) then
-        Fm(k) = 0
-      else 
-        Fm(k) = ((U(i) - (dx/2)*sl(j)*(1 + s*dt/dx))**2)/2
-      end if
-    end if 
+    !if (U(i-1) .ge. U(i)) then
+      !s = (U(i-1) + U(i))/2
+      !if (s .gt. 0) then
+        !Fm(k) = ((U(i-1) + (dx/2)*sl(j-1)*(1 - s*dt/dx))**2)/2
+      !else 
+        !Fm(k) = ((U(i) - (dx/2)*sl(j)*(1 + s*dt/dx))**2)/2
+      !end if
+    !else 
+      !if (U(i-1) .ge. 0) then 
+        !Fm(k) = ((U(i-1) + (dx/2)*sl(j-1)*(1 - s*dt/dx))**2)/2
+      !else if ((U(i-1) .lt. 0) .and. (0 .lt. U(i))) then
+        !Fm(k) = 0
+      !else 
+        !Fm(k) = ((U(i) - (dx/2)*sl(j)*(1 + s*dt/dx))**2)/2
+      !end if
+    !end if 
   end do 
 
-  NU = U(ngc+1:nx+ngc) - (dt/dx)*(Fp-Fm)
+  NU = U(ngc+1:nx+ngc) - (dt/dx)*(F(ngc+1:nx+ngc)-F(ngc:ngc+nx-1))
 
   contains 
     include 'upwind.f90'
@@ -72,7 +73,7 @@ function PLM(U, dt, dx, nx,ngc, sl_type) result(NU)
       character :: sl_type  
       real(kind=kr) :: U(:), dx
       integer :: nx,ngc
-      real(kind=kr), dimension(nx+2*ngc-2) :: sl
+      real(kind=kr), dimension(nx+2*ngc) :: sl
 
       if (sl_type .eq. 'u') then
       ! upwind slope limiter

@@ -5,6 +5,6 @@ function upwind(U, dx,nx,ngc) result(sl)
   implicit none
   real(kind=kr) :: U(:), dx
   integer :: nx, ngc
-  real(kind=kr), dimension(nx+2*ngc-2) :: sl
-  sl = (U(ngc:nx+ngc+1)-U(ngc-1:nx+ngc))/dx
+  real(kind=kr), dimension(nx+2*ngc) :: sl
+  sl(2:nx+2*ngc-1) = (U(3:nx+2*ngc)-U(2:nx+2*ngc-1))/dx
 end function upwind

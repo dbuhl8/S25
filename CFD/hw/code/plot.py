@@ -6,12 +6,16 @@ IC = [1,2,3,4,5,6,7,8,9,10,11]
 method = ['fu','pu','pd','pc','pm','po','pv']
 xstart = 0
 xstop = 1
+ylow = -6
+yhigh = 6
 figtitle = ['FOG','PLM + Upwind SL',\
     'PLM + Downwind SL','PLM + Centered SL','PLM + Minmod SL',\
     'PLM + MC SL','PLM + VanLeers SL']
 
 
 ptstp = -1
+
+
 
 for i in range(11):
     for j in range(7):
@@ -39,10 +43,14 @@ for i in range(11):
 
         file = open("t_"+fn+".dat",'r')
         for k in range(Nt):
-            t[k] = float(file.readline())
+            try:
+                t[k] = float(file.readline())
+            except:
+                t[k] = 0
+
 
         idx = np.where(t >= 0.3)
-        print(idx)
+        #print(idx)
         if (len(idx[0]) == 0):
             nidx = np.where(u1 > 0)
             pNt = max(nidx[1])
@@ -53,34 +61,28 @@ for i in range(11):
         # plot all 6 solutions for this problem 
         fig = plt.figure()
         ax1 = fig.add_subplot()
-        #plt.ylim(ylow[i],ytop[i])
-
-        ax1.plot(x,u1[:,pNt])
-
+        plt.ylim(ylow,yhigh)
+        p1 = ax1.plot(x,u1[:,pNt],'o-')[0]
         fig.suptitle('IC'+str(IC[i])+' '+figtitle[j])
         fig.tight_layout()
         plt.savefig(fn+'_plot.png',dpi=800)
+
+        def update_frame(frame):
+            p1.set_ydata(u1[:,frame])
+            #print(p1)
+            #plt.savefig(fn+'_frame{:0{}d}.png'.format(frame,5),dpi=800)
+            print('Done with frame:', frame)
+            return (p1,p1)
+
+        ani = animation.FuncAnimation(fig=fig,
+            func=update_frame,frames=pNt,interval=66,blit=True)
+        ani.save(fn+'_animation.gif')
+
         plt.close()
         plt.clf()
         plt.cla()
 
 
-def update_frame(frame):
-    fr = frame
-    p1.set_ydata(u1[:,fr])
-    p2.set_ydata(u3[:,fr])
-    p3.set_ydata(u5[:,fr])
-    p4.set_ydata(u2[:,fr])
-    p5.set_ydata(u4[:,fr])
-    p6.set_ydata(u6[:,fr])
-    #plt.savefig(plotfile[i])
-    plt.savefig(plotfile[i]+'_frame{:0{}d}.png'.format(frame,5),dpi=800)
-    print('Done with frame:', frame)
-    return (p1, p2, p3, p4, p5, p6)
-
-#ani = animation.FuncAnimation(fig=fig,
-    #func=update_frame,frames=minNt,interval=66,blit=True)
-#ani.save(plotfile[i]+'.gif')
 #plt.savefig(plotfile[i])
 
 #print('\n Finished with ',i+1,'th file\n\n')

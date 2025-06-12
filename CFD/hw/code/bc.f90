@@ -18,5 +18,4 @@ subroutine bc(U, nx,ngc, type)
   else 
     print *, ' Boundary Condition Type not recognized '
   end if
-
 end subroutine bc

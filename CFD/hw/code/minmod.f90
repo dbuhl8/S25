@@ -6,9 +6,10 @@ function minmod(U, dx, nx,ngc) result(sl)
 
   real(kind=kr) :: U(:), dx
   integer :: nx, i, ngc
-  real(kind=kr), dimension(nx+2*ngc-2) :: sl
+  real(kind=kr), dimension(nx+2*ngc) :: sl
 
-  do i = ngc-1, nx+ngc
-    sl(i) = mm_2arg((U(i+1)-U(i))/dx, (U(i+2)-U(i+1))/dx)
+  sl = 0
+  do i = 2, nx+2*ngc-1
+    sl(i) = mm_2arg((U(i)-U(i-1))/dx, (U(i+1)-U(i))/dx)
   end do 
 end function minmod

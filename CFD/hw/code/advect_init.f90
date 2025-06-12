@@ -89,6 +89,6 @@ subroutine advect_init(U_cell, U_grid, x_grid, nx,ngc, dx,ic)
     function cell_avg(U,dx) result(avg)
       implicit none
       real(kind=kr) :: U(:), dx, avg
-      avg = sum(U)/dx
+      avg = sum(U)/2
     end function cell_avg
 end subroutine advect_init

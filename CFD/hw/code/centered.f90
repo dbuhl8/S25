@@ -5,6 +5,7 @@ function centered(U, dx,nx,ngc) result(sl)
   implicit none
   real(kind=kr) :: U(:), dx
   integer :: nx, ngc
-  real(kind=kr), dimension(nx+2*ngc-2) :: sl
-  sl = (U(ngc+1:nx+ngc+2)-U(ngc-1:nx+ngc))/(2*dx)
+  real(kind=kr), dimension(nx+2*ngc) :: sl
+  sl = 0
+  sl(2:nx+2*ngc-1) = (U(3:nx+2*ngc)-U(1:nx+2*ngc-2))/(2*dx)
 end function centered
