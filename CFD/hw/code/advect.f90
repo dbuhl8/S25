@@ -40,10 +40,12 @@ program advect
 
       ! run code with selected submethod
       allocate(U(Nx+2*ngc,Nt), U_grid(Nx+1+2*ngc,Nt), t(1,Nt))
+      U = 0
+      U_grid = 0
+      t = 0
       t(1,1) = tstart
 
-      ! this specifies which IC to use (1-11)
-      ! 1 corresponds to IC 7.38
+      ! this specifies which IC to use (1-11) ! 1 corresponds to IC 7.38
       ! 11 corresponds to IC 7.48
       ic = lv1
       if (lv1 .eq. 11) then
