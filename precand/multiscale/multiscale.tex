@@ -1,0 +1,420 @@
+\documentclass{article}
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry} \usepackage{amsmath}
+\usepackage{amsthm} %proof environment
+\usepackage{amsthm} %proof environment
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{enumitem} %nice lists
+\usepackage{verbatim} %useful for something 
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{blindtext} % I have no idea what this is 
+\usepackage{caption}  % need this for unnumbered captions/figures
+\usepackage{natbib}
+\usepackage{appendix}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\titleformat{\section}{\bfseries\Large}{\thesection. }{5pt}{}
+
+\begin{document}
+
+\title{Multiscale Expansion for Rotating Stratified Turbulence}
+\author{Dante Buhl, Pascale Garaud, Gregory P. Chini}
+
+
+\newcommand{\wrms}{w_{\text{rms}}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\bmp}[1]{\begin{minipage}{#1\textwidth}}
+\newcommand{\emp}{\end{minipage}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathcal{N}}
+%\newcommand{\K}{\bs{\mathrm{K}}}
+\newcommand{\m}{\bs{\mu}_*}
+\newcommand{\s}{\bs{\Sigma}_*}
+\newcommand{\dt}{\Delta t}
+\newcommand{\dx}{\Delta x}
+\newcommand{\tr}[1]{\text{Tr}(#1)}
+\newcommand{\Tr}[1]{\text{Tr}(#1)}
+\newcommand{\Div}{\nabla \cdot}
+\renewcommand{\div}{\nabla \cdot}
+\newcommand{\Curl}{\nabla \times}
+\newcommand{\Grad}{\nabla}
+\newcommand{\grad}{\nabla}
+\newcommand{\gradhs}{\nabla_{\perp S}}
+\newcommand{\gradhf}{\nabla_{\perp F}}
+\newcommand{\grads}{\nabla_s}
+\newcommand{\gradf}{\nabla_f}
+\newcommand{\xs}{x_s}
+\newcommand{\x}{\bs{x}}
+\newcommand{\xf}{x_f}
+\newcommand{\ts}{t_s}
+\newcommand{\tf}{t_f}
+\newcommand{\pt}{\partial t}
+\newcommand{\pz}{\partial z}
+\newcommand{\uvec}{\bs{u}}
+\newcommand{\uvecp}{\bs{u}_{\perp}}
+\newcommand{\bvec}{\bs{B}}
+\newcommand{\nvec}{\hat{\bs{n}}}
+\newcommand{\tu}{\tilde{\uvec}}
+\newcommand{\B}{\bs{B}}
+\newcommand{\A}{\bs{A}}
+\newcommand{\jvec}{\bs{j}}
+\newcommand{\bracket}[1]{\left<#1\right>}
+\newcommand{\F}{\bs{F}}
+\newcommand{\T}{\tilde{T}}
+\newcommand{\ez}{\bs{e}_z}
+\newcommand{\ex}{\bs{e}_x}
+\newcommand{\ey}{\bs{e}_y}
+\newcommand{\eo}{\bs{e}_{\bs{\Omega}}}
+\newcommand{\ppt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\pp}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pptwo}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\ddtwo}[2]{\frac{d^2 #1}{d #2^2}}
+\newcommand{\DDt}[1]{\frac{D #1}{D t}}
+\newcommand{\ppts}[1]{\frac{\partial #1}{\partial t_s}}
+\newcommand{\pptf}[1]{\frac{\partial #1}{\partial t_f}}
+\newcommand{\ppz}[1]{\frac{\partial #1}{\partial z}}
+\newcommand{\ddz}[1]{\frac{d #1}{d z}}
+\newcommand{\ppzetas}[1]{\frac{\partial^2 #1}{\partial \zeta^2}}
+\newcommand{\ppzs}[1]{\frac{\partial #1}{\partial z_s}}
+\newcommand{\ppzf}[1]{\frac{\partial #1}{\partial z_f}}
+\newcommand{\ppx}[1]{\frac{\partial #1}{\partial x}}
+\newcommand{\ddx}[1]{\frac{d #1}{d x}}
+\newcommand{\ppxi}[1]{\frac{\partial #1}{\partial x_i}}
+\newcommand{\ppxj}[1]{\frac{\partial #1}{\partial x_j}}
+\newcommand{\ppy}[1]{\frac{\partial #1}{\partial y}}
+\newcommand{\ppzeta}[1]{\frac{\partial #1}{\partial \zeta}}
+\renewcommand{\k}{\bs{k}}
+\newcommand{\real}[1]{\text{Re}\left[#1\right]}
+\newcommand{\bexp}{\left(\bracket{b} + \bar{b} + b'\right)}
+\newcommand{\upexp}{\left(\bracket{\uvec_{\perp}} + \bar{\uvec}_{\perp} + \uvec'_{\perp}\right)}
+\newcommand{\wexp}{\left(\bracket{w} + \bar{w} + w'\right)}
+\newcommand{\pexp}{\left(\bracket{p} + \bar{p} + p'\right)}
+
+
+\maketitle 
+% This line removes the automatic indentation on new paragraphs
+
+\setlength{\parindent}{0pt}
+\section{Equations, Component Expansion, and Scales}
+
+\subsection{Governing Equations for Rotating Stratified Flows}
+\begin{align}
+    \partial_t \uvec + \uvec\cdot\grad\uvec + \frac{1}{Ro}\left(\ez \times
+    \uvec\right) = - \grad p + \frac{1}{Fr^2}b\ez + \F +
+    \frac{1}{Re}\grad^2\uvec \label{eq:NS}\\
+    \partial_t b + \uvec\cdot\grad b + w = \frac{1}{Pe}\grad^2b \label{eq:buoy}\\
+    \grad\cdot\uvec = 0 \label{eq:div}
+\end{align}
+Here we define our nondimensionalized equations along with the
+nondimensional numbers: the Rossby $Ro$,
+Reynolds $Re$, Froude $Fr$ and P\'eclet $Pe$ numbers defined according to the
+following characteristic scales. 
+\begin{gather*}
+    \uvec = U\uvec',\quad t = \frac{L}{U}t',\quad \x = L\x ',\quad p = \frac{U^2\rho}{L}p',
+    \quad b = N^2L\\
+    Re = \frac{UL}{\nu}, \quad Pe = \frac{UL}{\kappa}, \quad Ro =
+    \frac{U}{2\Omega L}, \quad Fr = \frac{U}{NL}
+\end{gather*}
+
+\subsection{Choice of Fast and Slow Spatial/Time Scales}
+
+To create a multiscale model for the statistically steady state of
+rotating stratified turbulence, we define the crucial length scales that
+specific dynamics occur on. Specifically, we expect both large/slow and
+small/fast scales in the horizontal, vertical, and temporal coordinates of the
+flow. We take all of our unit coordinates ($x,y,z$) to be defined with respect to the
+characteristic horizontal length scale of the flow taken from the stochastic
+forcing process ($L_h = 2\pi/\sqrt{2} = \sqrt{2}\pi$). Furthermore, we take our
+unit time to be scaled according to the advection timescale of the flow $L_h/U$.
+We then define our
+small/fast coordinates to be rescaled by the aspect ratio $\alpha = l_z/L_h$,
+which compares the small vertical length scale typical of layered anistropic
+stratified turbulence to the horizontal forcing length scale $L_h$. 
+\begin{gather*}
+    \chi = \frac{x}{\alpha}, \quad \xi = \frac{y}{\alpha}, \quad \eta =
+    \frac{z}{\alpha}, \quad \tau = \frac{t}{\alpha}
+\end{gather*}
+
+Derivative operators are also expanded in order to resolve dynamics over the
+various spatio-temporal scales. We have specifically, 
+\begin{gather*}
+    \grad_{\perp} = \gradhs + \frac{1}{\alpha}\gradhf = \left(\partial_x,
+    \partial_y\right)+ \frac{1}{\alpha}\left(\partial_{\chi},
+    \partial_{\xi}\right)\\
+    \partial_z = \partial_z + \frac{1}{\alpha}\partial_{\eta}\\
+    \partial_t = \partial_t + \frac{1}{\alpha}\partial_{\tau}
+\end{gather*}
+
+\subsection{Component Expansion of the Primary Variables}
+We will continue with a decomposition of our scalar (and each component of our
+vector) fields as defined below,
+\begin{gather}
+    q = \bracket{q}(x,y,z,t) + \bar{q}(x,y,z,\eta,t) +
+    q'(x,\chi,y,\xi,z,\eta,t,\tau) \label{eq:flow_components}
+\end{gather}
+This decomposition introduces a ``bracket'' component which is invariant
+under the following isotropic fast-averaging method defined using the same
+notation.
+\begin{gather}
+    \bracket{(\cdot)} \equiv \int_{\tau}\int_{\eta}\int_{\xi}\int_{\chi} (\cdot)
+    d\chi d\xi d\eta d\tau \label{eq:fast_avg_iso}
+\end{gather}
+The ``bar'' component, which varies on the slow scales and only the fast
+vertical scale, is invariant under the horizontal fast-averaging method defined
+similarly. By contrast, it is not invariant under the ``bracket'' average, as it
+averages over the small vertical scales to zero. The ``bracket'' component of the flow
+is also invariant under the ``bar'' average as it only varies on the slow
+scales. 
+\begin{gather}
+    \bar{(\cdot)} \equiv \int_{\tau}\int_{\xi}\int_{\chi} (\cdot)
+    d\chi d\xi d\tau \label{eq:fast_avg_horiz}
+\end{gather}
+Finally, the ``prime'' or perturbation component of the decomposition varies on
+all of the fast and slow scale variables. This particular component of the
+decomposition averages to zero under both of the fast-averaging operators.
+
+
+\section{Multi-scale expansion of the Governing Equations}
+
+
+We begin the multi-scale expansion of the governing equations and proceed to
+isolate the governing dynamics of each component of our flow by utilizing the
+averaging operators. We begin with the expansion of the divergence-free
+condition.
+
+\begin{align}
+    \grad\cdot\uvec = 0\\
+    \left(\grad_{\perp S} + \frac{1}{\alpha}\grad_{\perp
+    F}\right)\cdot\left(\bracket{\uvec}_{\perp} + \bar{\uvec}_{\perp} +
+    \uvec'_{\perp}\right) + \left(\partial_z +
+    \frac{1}{\alpha}\partial_{\eta}\right)\left(\bracket{w} + \bar{w} + w'\right)
+    = 0 \\
+    \grad_{\perp S} \cdot \bracket{\uvec}_{\perp} + \grad_{\perp S} \cdot
+    \bar{\uvec}_{\perp} + \grad_{\perp S} \cdot \uvec'_{\perp} +
+    \frac{1}{\alpha}\grad_{\perp F} \cdot \uvec'_{\perp} + \partial_z\bracket{w}
+    + \partial_z\bar{w} + \partial_zw' + \frac{1}{\alpha}\partial_{\eta}\bar{w}
+    + \frac{1}{\alpha}\partial_{\eta}w'= 0 \label{eq:exp_div}\\
+    \bracket{(\ref{eq:exp_div})} \to  \grad_{\perp S} \cdot \bracket{\uvec}_{\perp} +
+    \partial_z\bracket{w} = 0 \label{eq:div_1st_avg}\\
+    \overline{(\ref{eq:exp_div}) - \bracket{(\ref{eq:exp_div})}} \to \grad_{\perp
+    S} \cdot \bar{\uvec}_{\perp} + \partial_z\bar{w} +
+    \frac{1}{\alpha}\partial_{\eta}\bar{w} = 0 \\
+    (\ref{eq:exp_div}) - \bracket{(\ref{eq:exp_div})} -
+    \overline{(\ref{eq:exp_div}) - \bracket{(\ref{eq:exp_div})}} \to \grad_{\perp
+    S} \cdot \uvec'_{\perp} + \frac{1}{\alpha}\grad_{\perp F} \cdot
+    \uvec'_{\perp} + \partial_zw' + \frac{1}{\alpha}\partial_{\eta}w' = 0 
+\end{align}
+
+\subsection{The Buoyancy Equation}
+
+%\begin{equation}
+%\begin{split}
+\begin{multline}
+    \partial_t\bexp +
+    \frac{1}{\alpha}\partial_{\tau}b' + \upexp\cdot\left(\grad_{\perp S} +
+    \frac{1}{\alpha}\grad_{\perp F}\right)\bexp \\+ \wexp\left(\partial_z +
+    \frac{1}{\alpha}\partial_{\eta}\right)\bexp + \wexp \label{eq:b_exp}\\
+     = \frac{1}{Pe}\left[\left(\grad_{\perp S} + \frac{1}{\alpha}\grad_{\perp F}\right)^2
+    \bexp + \left(\partial_z +
+    \frac{1}{\alpha}\partial_{\eta}\right)^2\bexp\right]
+\end{multline}
+%\end{split}
+%\end{equation}
+%\begin{equation}
+%%\begin{split}
+\begin{multline}
+    \bracket{(\ref{eq:b_exp})} \to \partial_t \bracket{b} +
+    \bracket{\uvec_{\perp}}\cdot\gradhs\bracket{b} 
+     + \bracket{w}\partial_z\bracket{b} 
+     + \bracket{w}\\
+    = -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{b}} -
+    \gradhs\cdot\bracket{\uvec'_{\perp} b'}-\partial_z\bracket{\bar{w}\bar{b}} - \partial_z\bracket{w'b'}
+    + \frac{1}{Pe}\left(\gradhs^2\bracket{b} + \partial_z^2\bracket{b}\right) 
+    \label{eq:b_bracket_eq}
+\end{multline}
+%\end{split}
+%\end{equation}
+%%\begin{equation}
+%\begin{split}
+\begin{multline}
+    \overline{(\ref{eq:b_exp}) - \bracket{(\ref{eq:b_exp})}} \to \partial_t \bar{b} +
+    \left(\bracket{\uvecp} + \bar{\uvec}_{\perp}\right)\cdot\gradhs \bar{b} +
+    \bar{\uvecp} \cdot\gradhs\left(\bracket{b} + \bar{b}\right) + \bar{w} \\
+    = \gradhs\cdot\bracket{\bar{\uvec}_{\perp}\bar{b}}+ 
+    \gradhs\cdot\bracket{\uvecp'b'} + \partial_z\bracket{\bar{w}\bar{b}} +
+    \partial_z\bracket{w'b'} \\
+    - \gradhs\cdot\overline{\uvecp'b'} -
+    \partial_z\overline{w'b'} - \frac{1}{\alpha}\partial_{\eta}\overline{w'b'} +
+    \frac{1}{Pe}\left(\gradhs^2\bar{b} + \partial_z^2\bar{b} +
+    \frac{1}{\alpha^2}\partial_{\eta}^2\bar{b} +
+    \frac{2}{\alpha}\partial_z\partial_{\eta}\bar{b}\right)
+    \label{eq:b_bar_eq}
+\end{multline}
+%%\end{split}
+%\end{equation}
+\begin{multline}
+    (\ref{eq:b_exp}) - \bracket{(\ref{eq:b_exp})} - \overline{(\ref{eq:b_exp}) -
+    \bracket{(\ref{eq:b_exp})}} \to \partial_t b' +
+    \frac{1}{\alpha}\partial_{\tau} b' + \left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhs b' +\\
+    \frac{1}{\alpha}\left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhf b'
+    + \uvecp'\cdot\gradhs\left(\bracket{b} + \bar{b}\right)
+    + \wexp\partial_zb' \\
+    + \frac{1}{\alpha}\wexp\partial_{\eta}b'  +  w'\partial_z\left(\bracket{b} +
+    \bar{b}\right) + \frac{1}{\alpha}w'\partial_{\eta}\bar{b}
+    +w' = \gradhs\cdot\overline{\uvecp'b'} +
+    \partial_z\overline{w'b'} + \frac{1}{\alpha}\partial_{\eta}\overline{w'b'}
+    \\+ \frac{1}{Pe}\left(\gradhs^2b' + \frac{2}{\alpha}\gradhs\gradhf b' +
+    \frac{1}{\alpha^2}\gradhf b' + \partial_z^2b' +
+    \frac{2}{\alpha}\partial_z\partial_{\eta}b' +
+    \frac{1}{\alpha^2}\partial_{\eta}^2b'\right)
+    \label{eq:b_pert_eq}
+\end{multline}
+
+\subsection{The Vertical Momentum Equation}
+
+\begin{multline}
+    \partial_t\wexp +
+    \frac{1}{\alpha}\partial_{\tau}w' + \upexp\cdot\left(\grad_{\perp S} +
+    \frac{1}{\alpha}\grad_{\perp F}\right)\wexp \\+ \wexp\left(\partial_z +
+    \frac{1}{\alpha}\partial_{\eta}\right)\wexp  \label{eq:w_exp}
+     = -\left(\partial_z + \frac{1}{\alpha}\partial_{\eta}\right)\pexp +
+     \frac{1}{Fr^2}\bexp \\
+    + \frac{1}{Re}\left[\left(\grad_{\perp S} + \frac{1}{\alpha}\grad_{\perp F}\right)^2
+    \wexp + \left(\partial_z +\frac{1}{\alpha}\partial_{\eta}\right)\wexp\right]
+\end{multline}
+
+
+
+\begin{multline}
+    \bracket{(\ref{eq:w_exp})} \to \partial_t \bracket{w} +
+    \bracket{\uvec_{\perp}}\cdot\gradhs\bracket{w} 
+     + \bracket{w}\partial_z\bracket{w} = - \partial_z\bracket{p} +
+     \frac{1}{Fr^2}\bracket{b}\\
+    = -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{w}} -
+    \gradhs\cdot\bracket{\uvec'_{\perp} w'}-\partial_z\bracket{\bar{w}\bar{w}} - \partial_z\bracket{w'w'}
+    + \frac{1}{Re}\left(\gradhs^2\bracket{w} + \partial_z^2\bracket{w}\right)
+    \label{eq:w_bracket_eq}
+\end{multline}
+%\end{split}
+%\end{equation}
+%%\begin{equation}
+%\begin{split}
+\begin{multline}
+    \overline{(\ref{eq:w_exp}) - \bracket{(\ref{eq:w_exp})}} \to \partial_t \bar{w} +
+    \left(\bracket{\uvecp} + \bar{\uvec}_{\perp}\right)\cdot\gradhs \bar{w} +
+    \bar{\uvecp} \cdot\gradhs\left(\bracket{w} + \bar{w}\right) \\= - \partial_z
+    \bar{p} - \frac{1}{\alpha}\partial_{\eta}\bar{p} + \frac{1}{Fr^2}\bar{b}
+    + \gradhs\cdot\bracket{\bar{\uvec}_{\perp}\bar{w}}+ 
+    \gradhs\cdot\bracket{\uvecp'w'} + \partial_z\bracket{\bar{w}\bar{w}} +
+    \partial_z\bracket{w'w'} \\
+    - \gradhs\cdot\overline{\uvecp'w'} -
+    \partial_z\overline{w'w'} - \frac{1}{\alpha}\partial_{\eta}\overline{w'w'} +
+    \frac{1}{Re}\left(\gradhs^2\bar{w} + \partial_z^2\bar{w} +
+    \frac{1}{\alpha^2}\partial_{\eta}^2\bar{w} +
+    \frac{2}{\alpha}\partial_z\partial_{\eta}\bar{w}\right)\label{eq:w_bar_eq}
+\end{multline}
+\begin{multline}
+    (\ref{eq:w_exp}) - \bracket{(\ref{eq:w_exp})} - \overline{(\ref{eq:w_exp}) -
+    \bracket{(\ref{eq:w_exp})}} \to \partial_t w' +
+    \frac{1}{\alpha}\partial_{\tau} w' + \left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhs w' +\\
+    \frac{1}{\alpha}\left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhf w'
+    + \uvecp'\cdot\gradhs\left(\bracket{w} + \bar{w}\right)
+    + \wexp\partial_zw' + \frac{1}{\alpha}\wexp\partial_{\eta}w'  \\
+    +  w'\partial_z\left(\bracket{w} +
+    \bar{w}\right) + \frac{1}{\alpha}w'\partial_{\eta}\bar{w}
+     = -\partial_z p' - \frac{1}{\alpha}\partial_{\eta}p' + \frac{1}{Fr^2}b' + 
+     \gradhs\cdot\overline{\uvecp'w'} +
+    \partial_z\overline{w'w'} + \frac{1}{\alpha}\partial_{\eta}\overline{w'w'}\\
+    + \frac{1}{Re}\left(\gradhs^2w' + \frac{2}{\alpha}\gradhs\gradhf w' +
+    \frac{1}{\alpha^2}\gradhf w' + \partial_z^2w' +
+    \frac{2}{\alpha}\partial_z\partial_{\eta}w' +
+    \frac{1}{\alpha^2}\partial_{\eta}^2w'\right) \label{eq:w_pert_eq}
+\end{multline}
+
+\subsection{The Horizontal Momentum Equation}
+
+\begin{multline}
+    \partial_t \upexp + \frac{1}{\alpha}\partial_{\eta} \uvec_{\perp}' +
+    \upexp\cdot\left(\gradhs + \frac{1}{\alpha}\gradhf\right)\upexp \\
+    + \wexp\left(\partial_z + \frac{1}{\alpha}\partial_{\eta}\right)\upexp +
+    \frac{1}{Ro}\left(\ez \times \upexp)\right) \\
+    = -\left(\gradhs +
+    \frac{1}{\alpha}\gradhf\right) \pexp + \F \\
+    +\frac{1}{Re}\left[\left(\gradhs +
+    \frac{1}{\alpha}\gradhf\right)^2\upexp + \left(\partial_z +
+    \frac{1}{\alpha}\partial_{\eta}\right)^2\upexp\right]\label{eq:up_exp}
+\end{multline}
+
+\begin{multline}
+    \bracket{(\ref{eq:up_exp})} \to \partial_t \bracket{\uvecp} +
+    \bracket{\uvec_{\perp}}\cdot\gradhs\bracket{\uvecp} 
+     + \bracket{w}\partial_z\bracket{\uvecp} +
+     \frac{1}{Ro}\left(\ez\times\bracket{\uvec}\right)_{\perp} = -\gradhs\bracket{p} +\\
+    = -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{\uvec}_{\perp}} -
+    \gradhs\cdot\bracket{\uvec'_{\perp} \uvec'_{\perp}} -
+    \partial_z\bracket{\bar{w}\bar{\uvec}_{\perp}} -
+    \partial_z\bracket{w'\uvec'_{\perp}}
+    + \frac{1}{Re}\left(\gradhs^2\bracket{\uvecp} + \partial_z^2\bracket{\uvecp}\right)
+    \label{eq:up_bracket_eq}
+\end{multline}
+\begin{multline}
+    \overline{(\ref{eq:up_exp}) - \bracket{(\ref{eq:up_exp})}} \to \partial_t \bar{w} +
+    \left(\bracket{\uvecp} + \bar{\uvec}_{\perp}\right)\cdot\gradhs \bar{w} +
+    \bar{\uvecp} \cdot\gradhs\left(\bracket{w} + \bar{w}\right) \\= - \partial_z
+    \bar{p} - \frac{1}{\alpha}\partial_{\eta}\bar{p} + \frac{1}{Fr^2}\bar{b}
+    + \gradhs\cdot\bracket{\bar{\uvec}_{\perp}\bar{w}}+ 
+    \gradhs\cdot\bracket{\uvecp'w'} + \partial_z\bracket{\bar{w}\bar{w}} +
+    \partial_z\bracket{w'w'} \\
+    - \gradhs\cdot\overline{\uvecp'w'} -
+    \partial_z\overline{w'w'} - \frac{1}{\alpha}\partial_{\eta}\overline{w'w'} +
+    \frac{1}{Re}\left(\gradhs^2\bar{w} + \partial_z^2\bar{w} +
+    \frac{1}{\alpha^2}\partial_{\eta}^2\bar{w} +
+    \frac{2}{\alpha}\partial_z\partial_{\eta}\bar{w}\right)\label{eq:up_bar_eq}
+\end{multline}
+\begin{multline}
+    (\ref{eq:up_exp}) - \bracket{(\ref{eq:up_exp})} - \overline{(\ref{eq:up_exp}) -
+    \bracket{(\ref{eq:up_exp})}} \to \partial_t w' +
+    \frac{1}{\alpha}\partial_{\tau} w' + \left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhs w' +\\
+    \frac{1}{\alpha}\left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhf w'
+    + \uvecp'\cdot\gradhs\left(\bracket{w} + \bar{w}\right)
+    + \wexp\partial_zw' + \frac{1}{\alpha}\wexp\partial_{\eta}w'  \\
+    +  w'\partial_z\left(\bracket{w} +
+    \bar{w}\right) + \frac{1}{\alpha}w'\partial_{\eta}\bar{w}
+     = -\partial_z p' - \frac{1}{\alpha}\partial_{\eta}p' + \frac{1}{Fr^2}b' + 
+     \gradhs\cdot\overline{\uvecp'w'} +
+    \partial_z\overline{w'w'} + \frac{1}{\alpha}\partial_{\eta}\overline{w'w'}\\
+    + \frac{1}{Re}\left(\gradhs^2w' + \frac{2}{\alpha}\gradhs\gradhf w' +
+    \frac{1}{\alpha^2}\gradhf w' + \partial_z^2w' +
+    \frac{2}{\alpha}\partial_z\partial_{\eta}w' +
+    \frac{1}{\alpha^2}\partial_{\eta}^2w'\right) \label{eq:up_pert_eq}
+\end{multline}
+
+
+
+\section{Adding fast time dependence to Bracket Component}
+
+
+\end{document}

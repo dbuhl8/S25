@@ -1,4 +1,5 @@
 load "paddim_v3_rotation.dat"
+load "highres_rotation.dat"
 set terminal postscript enh col "Times-Roman,30"
 set output "epsilon_plot.eps"
 set xlabel "1/Ro"
