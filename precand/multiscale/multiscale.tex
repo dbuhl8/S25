@@ -69,6 +69,9 @@
 \newcommand{\pz}{\partial z}
 \newcommand{\uvec}{\bs{u}}
 \newcommand{\uvecp}{\bs{u}_{\perp}}
+\newcommand{\baruvecp}{\bar{\bs{u}}_{\perp}}
+\newcommand{\brauvecp}{\bracket{\bs{u}_{\perp}}}
+\newcommand{\perpuvecp}{\bs{u}'_{\perp}}
 \newcommand{\bvec}{\bs{B}}
 \newcommand{\nvec}{\hat{\bs{n}}}
 \newcommand{\tu}{\tilde{\uvec}}
@@ -104,6 +107,7 @@
 \newcommand{\real}[1]{\text{Re}\left[#1\right]}
 \newcommand{\bexp}{\left(\bracket{b} + \bar{b} + b'\right)}
 \newcommand{\upexp}{\left(\bracket{\uvec_{\perp}} + \bar{\uvec}_{\perp} + \uvec'_{\perp}\right)}
+\newcommand{\uexp}{\left(\bracket{\uvec} + \bar{\uvec} + \uvec'\right)}
 \newcommand{\wexp}{\left(\bracket{w} + \bar{w} + w'\right)}
 \newcommand{\pexp}{\left(\bracket{p} + \bar{p} + p'\right)}
 
@@ -229,8 +233,10 @@ condition.
 \begin{multline}
     \partial_t\bexp +
     \frac{1}{\alpha}\partial_{\tau}b' + \upexp\cdot\left(\grad_{\perp S} +
-    \frac{1}{\alpha}\grad_{\perp F}\right)\bexp \\+ \wexp\left(\partial_z +
-    \frac{1}{\alpha}\partial_{\eta}\right)\bexp + \wexp \label{eq:b_exp}\\
+    \frac{1}{\alpha}\grad_{\perp F}\right)\bexp 
+    \\+ \wexp\left(\partial_z +
+    \frac{1}{\alpha}\partial_{\eta}\right)\bexp + \wexp \label{eq:b_exp}
+    \\
      = \frac{1}{Pe}\left[\left(\grad_{\perp S} + \frac{1}{\alpha}\grad_{\perp F}\right)^2
     \bexp + \left(\partial_z +
     \frac{1}{\alpha}\partial_{\eta}\right)^2\bexp\right]
@@ -243,23 +249,26 @@ condition.
     \bracket{(\ref{eq:b_exp})} \to \partial_t \bracket{b} +
     \bracket{\uvec_{\perp}}\cdot\gradhs\bracket{b} 
      + \bracket{w}\partial_z\bracket{b} 
-     + \bracket{w}\\
+     + \bracket{w}
+     \\
     = -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{b}} -
     \gradhs\cdot\bracket{\uvec'_{\perp} b'}-\partial_z\bracket{\bar{w}\bar{b}} - \partial_z\bracket{w'b'}
     + \frac{1}{Pe}\left(\gradhs^2\bracket{b} + \partial_z^2\bracket{b}\right) 
     \label{eq:b_bracket_eq}
 \end{multline}
-%\end{split}
-%\end{equation}
-%%\begin{equation}
-%\begin{split}
+
 \begin{multline}
     \overline{(\ref{eq:b_exp}) - \bracket{(\ref{eq:b_exp})}} \to \partial_t \bar{b} +
     \left(\bracket{\uvecp} + \bar{\uvec}_{\perp}\right)\cdot\gradhs \bar{b} +
-    \bar{\uvecp} \cdot\gradhs\left(\bracket{b} + \bar{b}\right) + \bar{w} \\
+    \bar{\uvecp} \cdot\gradhs\left(\bracket{b} + \bar{b}\right) +
+    \left(\bracket{w} + \bar{w}\right)\left(\partial_z +
+    \frac{1}{\alpha}\partial_{\eta}\right)\bar{b} 
+    \\
+    + \bar{w}\partial_z\bracket{b} + \bar{w} 
     = \gradhs\cdot\bracket{\bar{\uvec}_{\perp}\bar{b}}+ 
     \gradhs\cdot\bracket{\uvecp'b'} + \partial_z\bracket{\bar{w}\bar{b}} +
-    \partial_z\bracket{w'b'} \\
+    \partial_z\bracket{w'b'} 
+    \\
     - \gradhs\cdot\overline{\uvecp'b'} -
     \partial_z\overline{w'b'} - \frac{1}{\alpha}\partial_{\eta}\overline{w'b'} +
     \frac{1}{Pe}\left(\gradhs^2\bar{b} + \partial_z^2\bar{b} +
@@ -267,22 +276,24 @@ condition.
     \frac{2}{\alpha}\partial_z\partial_{\eta}\bar{b}\right)
     \label{eq:b_bar_eq}
 \end{multline}
-%%\end{split}
-%\end{equation}
+
 \begin{multline}
     (\ref{eq:b_exp}) - \bracket{(\ref{eq:b_exp})} - \overline{(\ref{eq:b_exp}) -
     \bracket{(\ref{eq:b_exp})}} \to \partial_t b' +
     \frac{1}{\alpha}\partial_{\tau} b' + \left(\bracket{\uvecp} +
-    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhs b' +\\
-    \frac{1}{\alpha}\left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhs b' 
+    \\
+    +\frac{1}{\alpha}\left(\bracket{\uvecp} +
     \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhf b'
     + \uvecp'\cdot\gradhs\left(\bracket{b} + \bar{b}\right)
-    + \wexp\partial_zb' \\
+    + \wexp\partial_zb' 
+    \\
     + \frac{1}{\alpha}\wexp\partial_{\eta}b'  +  w'\partial_z\left(\bracket{b} +
     \bar{b}\right) + \frac{1}{\alpha}w'\partial_{\eta}\bar{b}
     +w' = \gradhs\cdot\overline{\uvecp'b'} +
     \partial_z\overline{w'b'} + \frac{1}{\alpha}\partial_{\eta}\overline{w'b'}
-    \\+ \frac{1}{Pe}\left(\gradhs^2b' + \frac{2}{\alpha}\gradhs\gradhf b' +
+    \\
+    + \frac{1}{Pe}\left(\gradhs^2b' + \frac{2}{\alpha}\gradhs\gradhf b' +
     \frac{1}{\alpha^2}\gradhf b' + \partial_z^2b' +
     \frac{2}{\alpha}\partial_z\partial_{\eta}b' +
     \frac{1}{\alpha^2}\partial_{\eta}^2b'\right)
@@ -297,7 +308,8 @@ condition.
     \frac{1}{\alpha}\grad_{\perp F}\right)\wexp \\+ \wexp\left(\partial_z +
     \frac{1}{\alpha}\partial_{\eta}\right)\wexp  \label{eq:w_exp}
      = -\left(\partial_z + \frac{1}{\alpha}\partial_{\eta}\right)\pexp +
-     \frac{1}{Fr^2}\bexp \\
+     \frac{1}{Fr^2}\bexp 
+     \\
     + \frac{1}{Re}\left[\left(\grad_{\perp S} + \frac{1}{\alpha}\grad_{\perp F}\right)^2
     \wexp + \left(\partial_z +\frac{1}{\alpha}\partial_{\eta}\right)\wexp\right]
 \end{multline}
@@ -308,7 +320,8 @@ condition.
     \bracket{(\ref{eq:w_exp})} \to \partial_t \bracket{w} +
     \bracket{\uvec_{\perp}}\cdot\gradhs\bracket{w} 
      + \bracket{w}\partial_z\bracket{w} = - \partial_z\bracket{p} +
-     \frac{1}{Fr^2}\bracket{b}\\
+     \frac{1}{Fr^2}\bracket{b}
+     \\
     = -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{w}} -
     \gradhs\cdot\bracket{\uvec'_{\perp} w'}-\partial_z\bracket{\bar{w}\bar{w}} - \partial_z\bracket{w'w'}
     + \frac{1}{Re}\left(\gradhs^2\bracket{w} + \partial_z^2\bracket{w}\right)
@@ -321,31 +334,41 @@ condition.
 \begin{multline}
     \overline{(\ref{eq:w_exp}) - \bracket{(\ref{eq:w_exp})}} \to \partial_t \bar{w} +
     \left(\bracket{\uvecp} + \bar{\uvec}_{\perp}\right)\cdot\gradhs \bar{w} +
-    \bar{\uvecp} \cdot\gradhs\left(\bracket{w} + \bar{w}\right) \\= - \partial_z
+    \bar{\uvecp} \cdot\gradhs\left(\bracket{w} + \bar{w}\right)  + 
+    \left(\bracket{w} + \bar{w}\right)\left(\partial_z +
+    \frac{1}{\alpha}\partial_{\eta}\right)\bar{w}
+    \\
+    + \bar{w}\partial_z\bracket{w}
+    = - \partial_z
     \bar{p} - \frac{1}{\alpha}\partial_{\eta}\bar{p} + \frac{1}{Fr^2}\bar{b}
     + \gradhs\cdot\bracket{\bar{\uvec}_{\perp}\bar{w}}+ 
     \gradhs\cdot\bracket{\uvecp'w'} + \partial_z\bracket{\bar{w}\bar{w}} +
-    \partial_z\bracket{w'w'} \\
+    \partial_z\bracket{w'w'} 
+    \\
     - \gradhs\cdot\overline{\uvecp'w'} -
     \partial_z\overline{w'w'} - \frac{1}{\alpha}\partial_{\eta}\overline{w'w'} +
     \frac{1}{Re}\left(\gradhs^2\bar{w} + \partial_z^2\bar{w} +
     \frac{1}{\alpha^2}\partial_{\eta}^2\bar{w} +
-    \frac{2}{\alpha}\partial_z\partial_{\eta}\bar{w}\right)\label{eq:w_bar_eq}
+    \frac{2}{\alpha}\partial_z\partial_{\eta}\bar{w}\right)
+    \label{eq:w_bar_eq}
 \end{multline}
 \begin{multline}
     (\ref{eq:w_exp}) - \bracket{(\ref{eq:w_exp})} - \overline{(\ref{eq:w_exp}) -
     \bracket{(\ref{eq:w_exp})}} \to \partial_t w' +
     \frac{1}{\alpha}\partial_{\tau} w' + \left(\bracket{\uvecp} +
-    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhs w' +\\
-    \frac{1}{\alpha}\left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhs w' 
+    \\
+    +\frac{1}{\alpha}\left(\bracket{\uvecp} +
     \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhf w'
     + \uvecp'\cdot\gradhs\left(\bracket{w} + \bar{w}\right)
-    + \wexp\partial_zw' + \frac{1}{\alpha}\wexp\partial_{\eta}w'  \\
+    + \wexp\partial_zw' + \frac{1}{\alpha}\wexp\partial_{\eta}w'  
+    \\
     +  w'\partial_z\left(\bracket{w} +
     \bar{w}\right) + \frac{1}{\alpha}w'\partial_{\eta}\bar{w}
      = -\partial_z p' - \frac{1}{\alpha}\partial_{\eta}p' + \frac{1}{Fr^2}b' + 
      \gradhs\cdot\overline{\uvecp'w'} +
-    \partial_z\overline{w'w'} + \frac{1}{\alpha}\partial_{\eta}\overline{w'w'}\\
+    \partial_z\overline{w'w'} + \frac{1}{\alpha}\partial_{\eta}\overline{w'w'}
+    \\
     + \frac{1}{Re}\left(\gradhs^2w' + \frac{2}{\alpha}\gradhs\gradhf w' +
     \frac{1}{\alpha^2}\gradhf w' + \partial_z^2w' +
     \frac{2}{\alpha}\partial_z\partial_{\eta}w' +
@@ -356,11 +379,14 @@ condition.
 
 \begin{multline}
     \partial_t \upexp + \frac{1}{\alpha}\partial_{\eta} \uvec_{\perp}' +
-    \upexp\cdot\left(\gradhs + \frac{1}{\alpha}\gradhf\right)\upexp \\
+    \upexp\cdot\left(\gradhs + \frac{1}{\alpha}\gradhf\right)\upexp 
+    \\
     + \wexp\left(\partial_z + \frac{1}{\alpha}\partial_{\eta}\right)\upexp +
-    \frac{1}{Ro}\left(\ez \times \upexp)\right) \\
+    \frac{1}{Ro}\left(\ez \times \uexp\right) 
+    \\
     = -\left(\gradhs +
-    \frac{1}{\alpha}\gradhf\right) \pexp + \F \\
+    \frac{1}{\alpha}\gradhf\right) \pexp + \F 
+    \\
     +\frac{1}{Re}\left[\left(\gradhs +
     \frac{1}{\alpha}\gradhf\right)^2\upexp + \left(\partial_z +
     \frac{1}{\alpha}\partial_{\eta}\right)^2\upexp\right]\label{eq:up_exp}
@@ -370,51 +396,121 @@ condition.
     \bracket{(\ref{eq:up_exp})} \to \partial_t \bracket{\uvecp} +
     \bracket{\uvec_{\perp}}\cdot\gradhs\bracket{\uvecp} 
      + \bracket{w}\partial_z\bracket{\uvecp} +
-     \frac{1}{Ro}\left(\ez\times\bracket{\uvec}\right)_{\perp} = -\gradhs\bracket{p} +\\
-    = -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{\uvec}_{\perp}} -
+     \frac{1}{Ro}\left(\ez\times\bracket{\uvec}\right) = -\gradhs\bracket{p} +
+     \bracket{\F}
+     \\
+     -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{\uvec}_{\perp}} -
     \gradhs\cdot\bracket{\uvec'_{\perp} \uvec'_{\perp}} -
     \partial_z\bracket{\bar{w}\bar{\uvec}_{\perp}} -
     \partial_z\bracket{w'\uvec'_{\perp}}
     + \frac{1}{Re}\left(\gradhs^2\bracket{\uvecp} + \partial_z^2\bracket{\uvecp}\right)
     \label{eq:up_bracket_eq}
 \end{multline}
+
 \begin{multline}
-    \overline{(\ref{eq:up_exp}) - \bracket{(\ref{eq:up_exp})}} \to \partial_t \bar{w} +
-    \left(\bracket{\uvecp} + \bar{\uvec}_{\perp}\right)\cdot\gradhs \bar{w} +
-    \bar{\uvecp} \cdot\gradhs\left(\bracket{w} + \bar{w}\right) \\= - \partial_z
-    \bar{p} - \frac{1}{\alpha}\partial_{\eta}\bar{p} + \frac{1}{Fr^2}\bar{b}
-    + \gradhs\cdot\bracket{\bar{\uvec}_{\perp}\bar{w}}+ 
-    \gradhs\cdot\bracket{\uvecp'w'} + \partial_z\bracket{\bar{w}\bar{w}} +
-    \partial_z\bracket{w'w'} \\
-    - \gradhs\cdot\overline{\uvecp'w'} -
-    \partial_z\overline{w'w'} - \frac{1}{\alpha}\partial_{\eta}\overline{w'w'} +
-    \frac{1}{Re}\left(\gradhs^2\bar{w} + \partial_z^2\bar{w} +
-    \frac{1}{\alpha^2}\partial_{\eta}^2\bar{w} +
-    \frac{2}{\alpha}\partial_z\partial_{\eta}\bar{w}\right)\label{eq:up_bar_eq}
-\end{multline}
-\begin{multline}
-    (\ref{eq:up_exp}) - \bracket{(\ref{eq:up_exp})} - \overline{(\ref{eq:up_exp}) -
-    \bracket{(\ref{eq:up_exp})}} \to \partial_t w' +
-    \frac{1}{\alpha}\partial_{\tau} w' + \left(\bracket{\uvecp} +
-    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhs w' +\\
-    \frac{1}{\alpha}\left(\bracket{\uvecp} +
-    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhf w'
-    + \uvecp'\cdot\gradhs\left(\bracket{w} + \bar{w}\right)
-    + \wexp\partial_zw' + \frac{1}{\alpha}\wexp\partial_{\eta}w'  \\
-    +  w'\partial_z\left(\bracket{w} +
-    \bar{w}\right) + \frac{1}{\alpha}w'\partial_{\eta}\bar{w}
-     = -\partial_z p' - \frac{1}{\alpha}\partial_{\eta}p' + \frac{1}{Fr^2}b' + 
-     \gradhs\cdot\overline{\uvecp'w'} +
-    \partial_z\overline{w'w'} + \frac{1}{\alpha}\partial_{\eta}\overline{w'w'}\\
-    + \frac{1}{Re}\left(\gradhs^2w' + \frac{2}{\alpha}\gradhs\gradhf w' +
-    \frac{1}{\alpha^2}\gradhf w' + \partial_z^2w' +
-    \frac{2}{\alpha}\partial_z\partial_{\eta}w' +
-    \frac{1}{\alpha^2}\partial_{\eta}^2w'\right) \label{eq:up_pert_eq}
+    \overline{(\ref{eq:up_exp}) - \bracket{(\ref{eq:up_exp})}} \to \partial_t
+    \baruvecp +
+    \left(\bracket{\uvecp} + \bar{\uvec}_{\perp}\right)\cdot\gradhs \baruvecp +
+    \baruvecp \cdot\gradhs\left(\brauvecp + \baruvecp\right) 
+    + \left(\bracket{w} + \bar{w}\right)\left(\partial_z +
+    \frac{1}{\alpha}\partial_{\eta}\right)\baruvecp 
+    \\
+    + \bar{w}\partial_z\brauvecp = - \gradhs
+    \bar{p}  + \bar{\F} 
+    + \gradhs\cdot\bracket{\bar{\uvec}_{\perp}\baruvecp}+ 
+    \gradhs\cdot\bracket{\uvecp'\perpuvecp} +
+    \partial_z\bracket{\bar{w}\baruvecp} +
+    \partial_z\bracket{w'\perpuvecp} \\
+    - \gradhs\cdot\overline{\uvecp'\perpuvecp} -
+    \partial_z\overline{w'\perpuvecp} -
+    \frac{1}{\alpha}\partial_{\eta}\overline{w'\perpuvecp} +
+    \frac{1}{Re}\left(\gradhs^2\baruvecp + \partial_z^2\baruvecp +
+    \frac{1}{\alpha^2}\partial_{\eta}^2\baruvecp +
+    \frac{2}{\alpha}\partial_z\partial_{\eta}\baruvecp\right)\label{eq:up_bar_eq}
 \end{multline}
 
+\begin{multline}
+    (\ref{eq:up_exp}) - \bracket{(\ref{eq:up_exp})} - \overline{(\ref{eq:up_exp}) -
+    \bracket{(\ref{eq:up_exp})}} \to \partial_t \perpuvecp +
+    \frac{1}{\alpha}\partial_{\tau} \perpuvecp + \left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhs \perpuvecp +
+    \\
+    \frac{1}{\alpha}\left(\bracket{\uvecp} +
+    \bar{\uvec}_{\perp} + \uvecp'\right)\cdot\gradhf \perpuvecp
+    + \uvecp'\cdot\gradhs\left(\brauvecp + \baruvecp\right)
+    + \wexp\partial_z\perpuvecp + \frac{1}{\alpha}\wexp\partial_{\eta}\perpuvecp  
+    \\
+    +  w'\partial_z\left(\brauvecp +
+    \baruvecp\right) + \frac{1}{\alpha}w'\partial_{\eta}\baruvecp +
+    \frac{1}{Ro}\left(\ez \times \uvec'\right)
+     = -\gradhs p' - \frac{1}{\alpha}\gradhf p' + \F' + 
+     \gradhs\cdot\overline{\uvecp'\perpuvecp} +
+    \partial_z\overline{w'\perpuvecp} 
+    \\
+    +\frac{1}{\alpha}\partial_{\eta}\overline{w'\perpuvecp}
+    + \frac{1}{Re}\left(\gradhs^2\perpuvecp + \frac{2}{\alpha}\gradhs\gradhf
+    \perpuvecp +
+    \frac{1}{\alpha^2}\gradhf \perpuvecp + \partial_z^2\perpuvecp +
+    \frac{2}{\alpha}\partial_z\partial_{\eta}\perpuvecp +
+    \frac{1}{\alpha^2}\partial_{\eta}^2\perpuvecp\right) \label{eq:up_pert_eq}
+\end{multline}
+
+\subsection{Scaling Arguments for multiscale expansion}
 
 
 \section{Adding fast time dependence to Bracket Component}
+
+Here we introduce a fast-time dependence to the ``bracket'' component of the
+flow variables. 
+\begin{gather*}
+    \bracket{q} = \bracket{q}(x, y, z, t, \tau)
+\end{gather*}
+This will affect the leading order of the ``bracket'' equations, i.e. the
+fast-time derivative will dominate the dynamics of ``bracket'' components. We
+see that equations (\ref{eq:b_bracket_eq}), (\ref{eq:w_bracket_eq}), and
+(\ref{eq:up_bracket_eq}) are modified.
+
+\begin{multline}
+    (\ref{eq:b_bracket_eq}) \to \partial_t \bracket{b} +
+    \frac{1}{\alpha}\partial_{\tau}\bracket{b} + 
+    \bracket{\uvec_{\perp}}\cdot\gradhs\bracket{b} 
+     + \bracket{w}\partial_z\bracket{b} 
+     + \bracket{w}
+     \\
+    = -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{b}} -
+    \gradhs\cdot\bracket{\uvec'_{\perp} b'}-\partial_z\bracket{\bar{w}\bar{b}} - \partial_z\bracket{w'b'}
+    + \frac{1}{Pe}\left(\gradhs^2\bracket{b} + \partial_z^2\bracket{b}\right) 
+    \label{eq:new_b_bracket_eq}
+\end{multline}
+
+\begin{multline}
+    (\ref{eq:w_bracket_eq}) \to \partial_t \bracket{w}
+    +\frac{1}{\alpha}\partial_{\tau}\bracket{w} + 
+    \bracket{\uvec_{\perp}}\cdot\gradhs\bracket{w} 
+     + \bracket{w}\partial_z\bracket{w} = - \partial_z\bracket{p} +
+     \frac{1}{Fr^2}\bracket{b}
+     \\
+    = -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{w}} -
+    \gradhs\cdot\bracket{\uvec'_{\perp} w'}-\partial_z\bracket{\bar{w}\bar{w}} - \partial_z\bracket{w'w'}
+    + \frac{1}{Re}\left(\gradhs^2\bracket{w} + \partial_z^2\bracket{w}\right)
+    \label{eq:new_w_bracket_eq}
+\end{multline}
+
+\begin{multline}
+    (\ref{eq:up_bracket_eq}) \to \partial_t \bracket{\uvecp} +
+    \frac{1}{\alpha}\partial_{\tau}\bracket{\uvecp} + 
+    \bracket{\uvec_{\perp}}\cdot\gradhs\bracket{\uvecp} 
+     + \bracket{w}\partial_z\bracket{\uvecp} +
+     \frac{1}{Ro}\left(\ez\times\bracket{\uvec}\right) = -\gradhs\bracket{p} +
+     \bracket{\F}
+     \\
+     -\gradhs\cdot\bracket{\bar{\uvec}_{\perp} \bar{\uvec}_{\perp}} -
+    \gradhs\cdot\bracket{\uvec'_{\perp} \uvec'_{\perp}} -
+    \partial_z\bracket{\bar{w}\bar{\uvec}_{\perp}} -
+    \partial_z\bracket{w'\uvec'_{\perp}}
+    + \frac{1}{Re}\left(\gradhs^2\bracket{\uvecp} + \partial_z^2\bracket{\uvecp}\right)
+    \label{eq:new_up_bracket_eq}
+\end{multline}
 
 
 \end{document}

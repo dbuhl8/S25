@@ -25,7 +25,7 @@ subroutine soln_update(dt)
 
   !! get updated primitive vars from the updated conservative vars
   do i = gr_ibeg, gr_iend
-     ! Eos is automatically callled inside cons2prim
+     ! Eos is automatically called inside cons2prim
      call cons2prim(gr_U(DENS_VAR:ENER_VAR,i),gr_V(DENS_VAR:GAME_VAR,i))
   end do
   

@@ -63,6 +63,11 @@ contains
     return
   end subroutine bc_reflect
 
+  subroutine bc_periodic(V)
+    implicit none
+    real, dimension(NUMB_VAR,gr_imax), intent(INOUT) :: V
+    return
+  end subroutine bc_periodic
 
   subroutine bc_user(V)
     implicit none
