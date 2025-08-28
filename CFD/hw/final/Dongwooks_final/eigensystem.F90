@@ -63,7 +63,7 @@ contains
     else
        !! Primitive eigenvector
        !! STUDENTS: PLEASE FINISH THIS PRIMITIVE RIGHT EIGEN VECTORS
-       print*,'eigeysystem.F90: right eigenvectors'
+       print*,'eigensystem.F90: right eigenvectors'
        stop
     endif
     

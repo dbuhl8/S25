@@ -1,9 +1,9 @@
 load "paddim_v3_rotation.dat"
 load "highres_rotation.dat"
 load "newIC_rotation.dat"
-set terminal postscript enh col "Times-Roman,14"
+set terminal postscript enh col "Times-Roman,14" size 8in,12in
 set output "highres_subplots.eps"
-set multiplot layout 2,2 columnsfirst margins 0.1,0.99,0.02,0.99 spacing 0.12, .15
+set multiplot layout 3,2 columnsfirst #margins 0.1,0.99,0.02,0.99 spacing 0.12, .15
 
 # first plot
 set ylabel "|{/Bold u}_h|_{rms}" rotate by 0
@@ -27,6 +27,7 @@ plot sample\
 
 # second plot
 
+unset yrange
 set xlabel "1/Ro"
 set ylabel "{/Symbol c}" rotate by 0
 set format y "10^{%T}"
@@ -91,5 +92,49 @@ plot sample\
  [i=6:8] '+' using (invRo[i]):(mix[i]):(mixerr[i]) w yerrorbars pt 6 ps 2 lw 2 lc rgb "blue" notitle,\
  [i=9:12] '+' using (invRo[i]):(mix[i]):(mixerr[i]) w yerrorbars pt 7 ps 2 lw 2 lc rgb "red" title "   Re= 600, Fr=0.1 ",\
  [i=13:15] '+' using (invRo[i]):(mix[i]):(mixerr[i]) w yerrorbars pt 6 ps 2 lw 2 lc rgb "red" notitle
+
+
+# -------------------------------------------------------------
+
+# fifth plot
+
+set xlabel "1/Ro"
+set ylabel "T" rotate by 0
+set key bottom left spacing 1.3 font ",8"
+set log xy
+set xrange [0.4:10]
+set yrange [0.01:0.2]
+
+plot sample\
+ [i=1:1] '+' using (invRo_hr[i]):(trms_hr[i]):(terr_hr[i]) w yerrorbars pt 9 ps 2 lw 2 lc rgb "blue" title "TG Re=1000, Fr=0.18",\
+ [i=2:2] '+' using (invRo_hr[i]):(trms_hr[i]):(terr_hr[i]) w yerrorbars pt 9 ps 2 lw 2 lc rgb "red" title "TG Re=1000, Fr=0.1 ",\
+ [i=1:2] '+' using (invRo_ic[i]):(trms_ic[i]):(terr_ic[i]) w yerrorbars pt 5 ps 2 lw 2 lc rgb "blue" title "TG Re= 600, Fr=0.18",\
+ [i=3:4] '+' using (invRo_ic[i]):(trms_ic[i]):(terr_ic[i]) w yerrorbars pt 5 ps 2 lw 2 lc rgb "red" title "TG Re= 600, Fr=0.1 ",\
+ [i=1:5] '+' using (invRo[i]):(trms[i]):(terr[i]) w yerrorbars pt 7 ps 2 lw 2 lc rgb "blue" title "   Re= 600, Fr=0.18",\
+ [i=6:8] '+' using (invRo[i]):(trms[i]):(terr[i]) w yerrorbars pt 6 ps 2 lw 2 lc rgb "blue" notitle,\
+ [i=9:12] '+' using (invRo[i]):(trms[i]):(terr[i]) w yerrorbars pt 7 ps 2 lw 2 lc rgb "red" title "   Re= 600, Fr=0.1 ",\
+ [i=13:15] '+' using (invRo[i]):(trms[i]):(terr[i]) w yerrorbars pt 6 ps 2 lw 2 lc rgb "red" notitle
+
+
+# -------------------------------------------------------------
+
+# sixth plot
+
+set xlabel "1/Ro"
+set ylabel "{/Symbol w}_{z}" rotate by 0
+set key bottom left spacing 1.3 font ",8"
+set log xy
+set xrange [0.4:10]
+set yrange [1:10]
+
+plot sample\
+ [i=1:1] '+' using (invRo_hr[i]):(wzrms_hr[i]):(wzerr_hr[i]) w yerrorbars pt 9 ps 2 lw 2 lc rgb "blue" title "TG Re=1000, Fr=0.18",\
+ [i=2:2] '+' using (invRo_hr[i]):(wzrms_hr[i]):(wzerr_hr[i]) w yerrorbars pt 9 ps 2 lw 2 lc rgb "red" title "TG Re=1000, Fr=0.1 ",\
+ [i=1:2] '+' using (invRo_ic[i]):(wzrms_ic[i]):(wzerr_ic[i]) w yerrorbars pt 5 ps 2 lw 2 lc rgb "blue" title "TG Re= 600, Fr=0.18",\
+ [i=3:4] '+' using (invRo_ic[i]):(wzrms_ic[i]):(wzerr_ic[i]) w yerrorbars pt 5 ps 2 lw 2 lc rgb "red" title "TG Re= 600, Fr=0.1 ",\
+ [i=1:5] '+' using (invRo[i]):(wzrms[i]):(wzerr[i]) w yerrorbars pt 7 ps 2 lw 2 lc rgb "blue" title "   Re= 600, Fr=0.18",\
+ [i=6:8] '+' using (invRo[i]):(wzrms[i]):(wzerr[i]) w yerrorbars pt 6 ps 2 lw 2 lc rgb "blue" notitle,\
+ [i=9:12] '+' using (invRo[i]):(wzrms[i]):(wzerr[i]) w yerrorbars pt 7 ps 2 lw 2 lc rgb "red" title "   Re= 600, Fr=0.1 ",\
+ [i=13:15] '+' using (invRo[i]):(wzrms[i]):(wzerr[i]) w yerrorbars pt 6 ps 2 lw 2 lc rgb "red" notitle
 
 

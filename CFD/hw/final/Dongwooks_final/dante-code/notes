@@ -13,13 +13,13 @@ General Notes on code structure:
     - the sim_order variables stores the order of the solver, i.e. order 1 is a 1st order solver such as the FOG method. 
 
 THINGS TO DO:
-    - primitive right eigenvectors
-    - prim and cons left eigenvector
-    - slope limiters (mc & vanLeers)
+    - primitive right eigenvectors (pg. 131 Lect Note)
+    - prim and cons left eigenvector (pg. 131 & 132 Lect Note)
+    X slope limiters (mc & vanLeers)
     - Characteristic Limiting and ROE section for PLM
     - PPM method
     - ROE riemann solver
-    - BC for Periodic and Shu-Osher problem
+    X BC for Periodic and Shu-Osher problem
 
 driver_euler1d.f90: the driver file which calls all other files as needed. The file begins by initializing a grid and simulation configuration (specifically with the grid_init and sim_init subroutines). This file calls the following subroutines (and subsequent files),
     calls: 
