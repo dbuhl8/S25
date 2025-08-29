@@ -17,7 +17,7 @@ subroutine soln_PPM(dt)
   real, dimension(NSYS_VAR) :: vecL,vecR,sigL,sigR,sig2L,sig2R,vec2L,vec2R
   integer :: kWaveNum
   real :: lambdaDtDx, delC1, delC2
-  real, dimension(NUMB_VAR)  :: delV,delL,delR,aLR,delLL,dVL,dVC,dVR
+  real, dimension(NUMB_VAR)  :: delV,delL,delR,aLR,delLL,delRR,dVL,dVC,dVR
   real, dimension(NUMB_VAR,3) :: C
   real, dimension(NUMB_WAVE) :: delW
   integer :: nVar
@@ -52,12 +52,12 @@ subroutine soln_PPM(dt)
       endif
     end do 
      
-    vecL = 0.5*(gr_V(DENS_VAR:PRES_VAR,i-1)+gr_V(DENS_VAR:PRES_VAR,i)) - (1./6)*&
+    vecL(DENS_VAR:PRES_VAR) = 0.5*(gr_V(DENS_VAR:PRES_VAR,i-1)+gr_V(DENS_VAR:PRES_VAR,i)) - (1./6)*&
       (dvC - dvL)
-    vecR = 0.5*(gr_V(DENS_VAR:PRES_VAR,i)+gr_V(DENS_VAR:PRES_VAR,i+1)) - (1./6)*&
+    vecR(DENS_VAR:PRES_VAR) = 0.5*(gr_V(DENS_VAR:PRES_VAR,i)+gr_V(DENS_VAR:PRES_VAR,i+1)) - (1./6)*&
       (dvR - dvC)
 
-    C(:,3) = (6./(gr_dx**2))*(0.5*(vecL+vecR) - gr_V(DENS_VAR:PRES_VAR))
+    C(:,3) = (6./(gr_dx**2))*(0.5*(vecL+vecR) - gr_V(DENS_VAR:PRES_VAR,i))
     C(:,2) = (vecR-vecL)/gr_dx
     C(:,1) = gr_V(DENS_VAR:PRES_VAR,i) - C(:,3)*(gr_dx**2)/12.
 
@@ -66,14 +66,17 @@ subroutine soln_PPM(dt)
     ! the parameters vecL, vecR, C
     do nVar = DENS_VAR, PRES_VAR 
       if ((vecR(nvar) - gr_V(nvar,i))*(-vecL(nvar) + gr_V(nvar,i)) .le. 0) then
-        C(nVar,2:3) = 0
+        C(:,2:3) = 0
+        exit
       else
         if (-(vecR(nVar)-vecL(nVar))**2 .gt. 6*(vecR(nVar)-vecL(nVar))*&
           (gr_V(nVar,i)-(vecR(nVar)+vecL(nVar))/2)) then
           vecR(nVar) = 3*gr_V(nVar,i) - 2*vecL(nVar)
+          exit
         elseif (-(vecR(nVar)-vecL(nVar))**2 .gt. 6*(vecR(nVar)-vecL(nVar))*&
           (gr_V(nVar,i)-(vecR(nVar)+vecL(nVar))/2)) then
           vecL(nVar) = 3*gr_V(nVar,i) - 2*vecR(nVar)
+          exit
         endif
       endif
     end do 
@@ -162,8 +165,8 @@ subroutine soln_PPM(dt)
      do kWaveNum = 1, NUMB_WAVE
         ! lambdaDtDx = lambda*dt/dx
         lambdaDtDx = lambda(kWaveNum)*dt/gr_dx
-        delC1 = gr_dx*dot_product(leig(DENS_VAR:PRES_VAR,nWaveNum),C(:,2))
-        delC2 = (gr_dx**2)*dot_product(leig(DENS_VAR:PRES_VAR,nWaveNum),C(:,3))
+        delC1 = gr_dx*dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),C(:,2))
+        delC2 = (gr_dx**2)*dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),C(:,3))
         !if (sim_riemann == 'roe') then
         ! pretty sure that this solver only uses ROE
           if (lambdaDtDx .gt. 0) then
@@ -171,13 +174,13 @@ subroutine soln_PPM(dt)
             vec2R(DENS_VAR:PRES_VAR) = 0.25*(1.0 - 2*lambdaDtDx+(4./3)*lambdaDtDx**2)*&
               reig(DENS_VAR:PRES_VAR,kWaveNum)*delC2
             sigR(DENS_VAR:PRES_VAR) = sigR(DENS_VAR:PRES_VAR) + vecR(DENS_VAR:PRES_VAR)
-            sig2R(DENSE_VAR:PRES_VAR) = sig2R(DENS_VAR:PRES_VAR) + vec2R(DENS_VAR:PRES_VAR)
+            sig2R(DENS_VAR:PRES_VAR) = sig2R(DENS_VAR:PRES_VAR) + vec2R(DENS_VAR:PRES_VAR)
           else
             vecL(DENS_VAR:PRES_VAR) = 0.5*(-1.0 - lambdaDtDx)*reig(DENS_VAR:PRES_VAR,kWaveNum)*delC1
             vec2L(DENS_VAR:PRES_VAR) = 0.25*(1.0 + 2*lambdaDtDx+(4./3)*lambdaDtDx**2)*&
               reig(DENS_VAR:PRES_VAR,kWaveNum)*delC2
             sigL(DENS_VAR:PRES_VAR) = sigL(DENS_VAR:PRES_VAR) + vecL(DENS_VAR:PRES_VAR)
-            sig2L(DENSE_VAR:PRES_VAR) = sig2L(DENS_VAR:PRES_VAR) + vec2L(DENS_VAR:PRES_VAR)
+            sig2L(DENS_VAR:PRES_VAR) = sig2L(DENS_VAR:PRES_VAR) + vec2L(DENS_VAR:PRES_VAR)
           end if
         !elseif (sim_riemann == 'hll') then
           !vecR(DENS_VAR:PRES_VAR) = 0.5*(1.0 - lambdaDtDx)*reig(DENS_VAR:PRES_VAR,kWaveNum)*delW(kWaveNum)

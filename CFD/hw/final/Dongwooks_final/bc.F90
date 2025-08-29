@@ -65,6 +65,7 @@ contains
   subroutine bc_periodic(V)
     implicit none
     real, dimension(NUMB_VAR,gr_imax), intent(INOUT) :: V
+    real :: k0, k1
 
     k0 = 2*gr_ngc+1
     k1 = gr_iend-gr_ngc
@@ -84,8 +85,8 @@ contains
     V(PRES_VAR,:gr_ngc) = 10.33333
 
     V(DENS_VAR,gr_iend:) = 1 + 0.2*sin(5.0*gr_xCoord(gr_iend:))
-    V(VELX_VAR,) = 0.0
-    V(PRES_VAR,) = 1.0
+    V(VELX_VAR,gr_iend:) = 0.0
+    V(PRES_VAR,gr_iend:) = 1.0
     return
   end subroutine bc_user
 

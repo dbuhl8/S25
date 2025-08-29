@@ -123,17 +123,17 @@ contains
        !! STUDENTS: PLEASE FINISH THIS PRIMITIVE LEFT EIGEN VECTORS
        !print*,'eigeysystem.F90: left prim eigenvectors'
        !stop
-       reig(DENS_VAR,SHOCKLEFT) = 0
-       reig(VELX_VAR,SHOCKLEFT) = 1.
-       reig(PRES_VAR,SHOCKLEFT) = 0
+       leig(DENS_VAR,SHOCKLEFT) = 0
+       leig(VELX_VAR,SHOCKLEFT) = 1.
+       leig(PRES_VAR,SHOCKLEFT) = 0
 
-       reig(DENS_VAR,CTENTROPY) = 1.
-       reig(VELX_VAR,CTENTROPY) = 0
-       reig(PRES_VAR,CTENTROPY) = 1.
+       leig(DENS_VAR,CTENTROPY) = 1.
+       leig(VELX_VAR,CTENTROPY) = 0
+       leig(PRES_VAR,CTENTROPY) = 1.
        
-       reig(DENS_VAR,SHOCKRGHT) = -1./(d*a)
-       reig(VELX_VAR,SHOCKRGHT) = -1./(a**2)
-       reig(PRES_VAR,SHOCKRGHT) = 1./(d*a)
+       leig(DENS_VAR,SHOCKRGHT) = -1./(d*a)
+       leig(VELX_VAR,SHOCKRGHT) = -1./(a**2)
+       leig(PRES_VAR,SHOCKRGHT) = 1./(d*a)
 
     endif
     
