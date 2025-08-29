@@ -7,7 +7,7 @@ subroutine averageState(vL,vR,vAvg)
   real, dimension(NUMB_VAR), intent(OUT) :: vAvg  !average state
 
   ! STUDENTS: PLEASE FINISH THIS SIMPLE AVERAGING SCHEME
-  stop
-  
+  vAvg = (vL + vR)/2
+   
   return
 end subroutine averageState

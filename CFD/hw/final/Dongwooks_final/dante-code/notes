@@ -13,13 +13,18 @@ General Notes on code structure:
     - the sim_order variables stores the order of the solver, i.e. order 1 is a 1st order solver such as the FOG method. 
 
 THINGS TO DO:
-    - primitive right eigenvectors (pg. 131 Lect Note)
-    - prim and cons left eigenvector (pg. 131 & 132 Lect Note)
+    X write the Average State script
+    X primitive right eigenvectors (pg. 130 Lect Note)
+    X prim and cons left eigenvector (pg. 130 & 131 Lect Note)
     X slope limiters (mc & vanLeers)
-    - Characteristic Limiting and ROE section for PLM (pg. 156 Char Limit, pg ? for ROE)
-    - PPM method (pg. 157 - 162)
-    - ROE riemann solver (pg. 140-147)
+    X Characteristic Limiting for PLM (pg. 156 Char Limit)
+    X ROE section for PLM 
+    X PPM method (pg. 157 - 162)
+    X ROE riemann solver (pg. 140-147)
     X BC for Periodic and Shu-Osher problem
+    - Implement all test cases
+    - make plots
+    - write report (can be very bad as long as code and results are decent)
 
 driver_euler1d.f90: the driver file which calls all other files as needed. The file begins by initializing a grid and simulation configuration (specifically with the grid_init and sim_init subroutines). This file calls the following subroutines (and subsequent files),
     calls: 
@@ -204,3 +209,4 @@ bc.f90: a module file responsible for all boundary condition subroutines. The Sh
         - grid_data
         - sim_data
 
+averageState.f90: a subroutine which computes the average of the left and right values

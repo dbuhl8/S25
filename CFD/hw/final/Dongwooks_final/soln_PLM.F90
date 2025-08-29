@@ -52,9 +52,45 @@ subroutine soln_PLM(dt)
            delW(kWaveNum) = dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),delV(DENS_VAR:PRES_VAR))
         enddo
      elseif (sim_charLimiting) then
-        stop
+        !stop
         !STUDENTS: PLEASE FINISH THIS CHARACTERISTIC LIMITING
         !(THE IMPLEMENTATION SHOULD NOT BE LONGER THAN THE PRIMITIVE LIMITING CASE)
+        do kWaveNum = 1, NUMB_WAVE
+           ! slope limiting
+           ! deltas in primitive vars
+           delL(DENS_VAR:PRES_VAR) = gr_V(DENS_VAR:PRES_VAR,i  )-gr_V(DENS_VAR:PRES_VAR,i-1)
+           delR(DENS_VAR:PRES_VAR) = gr_V(DENS_VAR:PRES_VAR,i+1)-gr_V(DENS_VAR:PRES_VAR,i  )
+           !do nVar = DENS_VAR,PRES_VAR
+           if (sim_limiter == 'minmod') then
+              !call minmod(delL(nVar),delR(nVar),delV(nVar))
+              call minmod(&
+                dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),&
+                  delL(DENS_VAR:PRES_VAR)),&
+                dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),&
+                  delR(DENS_VAR:PRES_VAR)),&
+                delW(kWaveNum))
+           elseif (sim_limiter == 'vanLeer') then
+              !call vanLeer(delL(nVar),delR(nVar),delV(nVar))
+              call vanLeer(&
+                dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),&
+                  delL(DENS_VAR:PRES_VAR)),&
+                dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),&
+                  delR(DENS_VAR:PRES_VAR)),&
+                delW(kWaveNum))
+           elseif (sim_limiter == 'mc') then
+              !call mc(delL(nVar),delR(nVar),delV(nVar))
+              call mc(&
+                dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),&
+                  delL(DENS_VAR:PRES_VAR)),&
+                dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),&
+                  delR(DENS_VAR:PRES_VAR)),&
+                delW(kWaveNum))
+           endif
+           !enddo
+           !delW(kWaveNum) = dot_product(leig(DENS_VAR:PRES_VAR,kWaveNum),delV(DENS_VAR:PRES_VAR))
+           ! project primitive delta to characteristic vars
+        enddo
+
      endif
 
 
@@ -71,9 +107,17 @@ subroutine soln_PLM(dt)
 
         
         if (sim_riemann == 'roe') then
-           stop
+           !stop
            ! STUDENTS: PLEASE FINISH THIS ROE SOLVER CASE
            ! THIS SHOULDN'T BE LONGER THAN THE HLL CASE
+           if (lambdaDtDx .gt. 0) then
+             vecR(DENS_VAR:PRES_VAR) = 0.5*(1.0 - lambdaDtDx)*reig(DENS_VAR:PRES_VAR,kWaveNum)*delW(kWaveNum)
+             sigR(DENS_VAR:PRES_VAR) = sigR(DENS_VAR:PRES_VAR) + vecR(DENS_VAR:PRES_VAR)
+           else
+             vecL(DENS_VAR:PRES_VAR) = 0.5*(-1.0 - lambdaDtDx)*reig(DENS_VAR:PRES_VAR,kWaveNum)*delW(kWaveNum)
+             sigL(DENS_VAR:PRES_VAR) = sigL(DENS_VAR:PRES_VAR) + vecL(DENS_VAR:PRES_VAR)
+           end if
+
         elseif (sim_riemann == 'hll') then
               vecR(DENS_VAR:PRES_VAR) = 0.5*(1.0 - lambdaDtDx)*reig(DENS_VAR:PRES_VAR,kWaveNum)*delW(kWaveNum)
               sigR(DENS_VAR:PRES_VAR) = sigR(DENS_VAR:PRES_VAR) + vecR(DENS_VAR:PRES_VAR)

@@ -59,13 +59,25 @@ contains
        reig(VELX_VAR,SHOCKRGHT) = u + a
        reig(PRES_VAR,SHOCKRGHT) = ekin + a**2/g + a*u
        reig(:,SHOCKRGHT) = hdai*reig(:,SHOCKRGHT)
+
+  else
+  !! Primitive eigenvector
+  !! STUDENTS: PLEASE FINISH THIS PRIMITIVE RIGHT EIGEN VECTORS
+  !print*,'eigensystem.F90: right eigenvectors'
+  !stop
+       reig(DENS_VAR,SHOCKLEFT) = -hdai
+       reig(VELX_VAR,SHOCKLEFT) = 0.5
+       reig(PRES_VAR,SHOCKLEFT) = -hda
+
+       reig(DENS_VAR,CTENTROPY) = 1.
+       reig(VELX_VAR,CTENTROPY) = 0
+       reig(PRES_VAR,CTENTROPY) = 0
        
-    else
-       !! Primitive eigenvector
-       !! STUDENTS: PLEASE FINISH THIS PRIMITIVE RIGHT EIGEN VECTORS
-       print*,'eigensystem.F90: right eigenvectors'
-       stop
-    endif
+       reig(DENS_VAR,SHOCKRGHT) = hdai
+       reig(VELX_VAR,SHOCKRGHT) = 0.5
+       reig(PRES_VAR,SHOCKRGHT) = hda
+  endif
+
     
     return
   end subroutine right_eigenvectors
@@ -91,14 +103,37 @@ contains
     if (conservative) then
        !! Conservative eigenvector
        !! STUDENTS: PLEASE FINISH THIS CONSERVATIVE LEFT EIGEN VECTORS
-       print*,'eigeysystem.F90: left conservative eigenvectors'
-       stop
+       !print*,'eigeysystem.F90: left conservative eigenvectors'
+       !stop
+       leig(DENS_VAR,SHOCKLEFT) = -ekin - a*u/g
+       leig(VELX_VAR,SHOCKLEFT) = (d/a)*(-ekin + (a**2)/g)
+       leig(PRES_VAR,SHOCKLEFT) = ekin - a*u/g
+
+       leig(DENS_VAR,CTENTROPY) = u + a/g
+       leig(VELX_VAR,CTENTROPY) = u*d/a
+       leig(PRES_VAR,CTENTROPY) = -u + a/g
+       
+       leig(DENS_VAR,SHOCKRGHT) = -1.
+       leig(VELX_VAR,SHOCKRGHT) = -d/a
+       leig(PRES_VAR,SHOCKRGHT) = 1.
+       leig(:,:) = (g/(d*a))*leig(:,:)
        
     else
        !! Primitive eigenvector
        !! STUDENTS: PLEASE FINISH THIS PRIMITIVE LEFT EIGEN VECTORS
-       print*,'eigeysystem.F90: left prim eigenvectors'
-       stop
+       !print*,'eigeysystem.F90: left prim eigenvectors'
+       !stop
+       reig(DENS_VAR,SHOCKLEFT) = 0
+       reig(VELX_VAR,SHOCKLEFT) = 1.
+       reig(PRES_VAR,SHOCKLEFT) = 0
+
+       reig(DENS_VAR,CTENTROPY) = 1.
+       reig(VELX_VAR,CTENTROPY) = 0
+       reig(PRES_VAR,CTENTROPY) = 1.
+       
+       reig(DENS_VAR,SHOCKRGHT) = -1./(d*a)
+       reig(VELX_VAR,SHOCKRGHT) = -1./(a**2)
+       reig(PRES_VAR,SHOCKRGHT) = 1./(d*a)
 
     endif
     

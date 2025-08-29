@@ -38,7 +38,11 @@ subroutine roe(vL,vR,Flux)
 
   do kWaveNum = 1, NUMB_WAVE
      ! STUDENTS: PLEASE FINISH THIS ROE SOLVER
-     stop
+     !stop
+    sigma(DENS_VAR:ENER_VAR) = sigma(DENS_VAR:ENER_VAR) + &
+      dot_product(leig(DENS_VAR:ENER_VAR,kWaveNum),&
+        uR(DENS_VAR:ENER_VAR)-uL(DENS_VAR:ENER_VAR))*abs(lambda(kWaveNum))*&
+      reig(DENS_VAR:ENER_VAR,kWaveNum)
   end do
   
   ! numerical flux
