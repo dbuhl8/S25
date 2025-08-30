@@ -1,6 +1,6 @@
 FC	= gfortran
 
-LDFLAGS = -framework accelerate
+LDFLAGS = 
 
 FFLAGS_OPT = -ggdb -O3 -fdefault-real-8 -fdefault-double-8\
         -ffree-line-length-none -Wuninitialized -fimplicit-none

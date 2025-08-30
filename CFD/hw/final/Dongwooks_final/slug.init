@@ -2,14 +2,14 @@
 # name, and a space, followed by values 
 
 # sim variables
-sim_name 'sod_fog'
+sim_name 'sod_ppm_minmod'
 sim_cfl 0.8 
 sim_tmax 0.2
 sim_nStep 100000
 sim_riemann 'hll'
 sim_limiter 'minmod'
 sim_charLimiting .false.
-sim_order 1
+sim_order 3
 
 # grid variables
 gr_nx 128

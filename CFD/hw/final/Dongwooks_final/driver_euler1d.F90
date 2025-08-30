@@ -4,7 +4,7 @@ program driver_euler1d
   
   use sim_data
   use grid_data
-  use io, only : io_writeOutput
+  use io, only : io_writeOutput, io_writeGridConfig
   use bc
   use eos, only : eos_all
 
@@ -105,9 +105,10 @@ program driver_euler1d
   call io_writeOutput(t, nStep,ioCounter+1)
 
   !! finalize and deallocate memories
+  call io_writeGridConfig(ioCounter+1)
   call grid_finalize()
 
 900 format(1x,i5,f16.8,1x,f16.8)
-  
+
   return
 end program driver_euler1d

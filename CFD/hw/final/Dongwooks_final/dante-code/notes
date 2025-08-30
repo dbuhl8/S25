@@ -23,7 +23,7 @@ THINGS TO DO:
     X ROE riemann solver (pg. 140-147)
     X BC for Periodic and Shu-Osher problem
     - DEBUG PPM sovler (need to fix the shapes of several arrays)
-    - Implement all test cases
+    - Implement all test cases (1, 2, 3, 4, 5)
     - make plots
     - write report (can be very bad as long as code and results are decent)
 
