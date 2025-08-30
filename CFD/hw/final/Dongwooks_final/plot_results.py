@@ -48,7 +48,9 @@ for i in range(3):
 
     print('Finished reading file: ',fn_slug[i])
 
-    tidx = np.argmax(t == tstop)
+    tidx = np.argmax(t == tstop) - 1
+    #print(t)
+    #print(tidx)
     ax[i].plot(x, dens[tidx,:], 'ro-', x, vel[tidx,:], 'go-', x, pres[tidx,:], 'bo-')
     ax[i].set_title(sbplt_title[i])
 
