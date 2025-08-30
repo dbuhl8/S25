@@ -22,9 +22,8 @@ THINGS TO DO:
     X PPM method (pg. 157 - 162)
     X ROE riemann solver (pg. 140-147)
     X BC for Periodic and Shu-Osher problem
-    - DEBUG PPM sovler (need to fix the shapes of several arrays)
-    - Implement all test cases (1, 2, 3, 4, 5)
-    - make plots
+    X DEBUG PPM sovler (need to fix the shapes of several arrays)
+    - Implement all test cases (X, 2, 3, 4, 5)
     - write report (can be very bad as long as code and results are decent)
 
 driver_euler1d.f90: the driver file which calls all other files as needed. The file begins by initializing a grid and simulation configuration (specifically with the grid_init and sim_init subroutines). This file calls the following subroutines (and subsequent files),

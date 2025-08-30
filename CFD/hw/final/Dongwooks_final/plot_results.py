@@ -1,19 +1,18 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-fn_grid = ['grid_sod_fog.dat', 'grid_sod_plm_minmod.dat', 'grid_sod_ppm_minmod.dat']
-fn_slug = ['slug_sod_fog_tot.dat', 'slug_sod_plm_minmod_tot.dat',
-    'slug_sod_ppm_minmod_tot.dat']
-sbplt_title = ['FOG + HLL', 'PLM + Minmod + Hll', 'PPM + Minmod + Hll']
+fn_grid = ['grid_rfw_plm_minmod_hll.dat', 'grid_rfw_plm_minmod_roe.dat']
+fn_slug = ['slug_rfw_plm_minmod_hll_tot.dat', 'slug_rfw_plm_minmod_roe_tot.dat']
+sbplt_title = ['PLM + Minmod + Hll', 'PLM + Minmod + ROE']
 
-fig, ax = plt.subplots(3,1)
+fig, ax = plt.subplots(2,1)
 
-for i in range(3):
+for i in range(2):
     file = open(fn_grid[i],'r')
     nt, nx, xstart, xstop = [float(x) for x in file.readline().split()]
     nt = int(nt)
     nx = int(nx)
-    tstop = 0.2
+    tstop = 0.15
 
     t = np.zeros(nt)
     x = np.linspace(xstart, xstop, nx+1, True) + (xstop-xstart)/(2.*nx)
@@ -54,6 +53,6 @@ for i in range(3):
     ax[i].plot(x, dens[tidx,:], 'ro-', x, vel[tidx,:], 'go-', x, pres[tidx,:], 'bo-')
     ax[i].set_title(sbplt_title[i])
 
-plt.show()
+plt.savefig('part2_sol.png',dpi=800)
 
     
