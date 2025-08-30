@@ -5,9 +5,9 @@ fn_grid = ['grid_rfw_plm_minmod_hll.dat', 'grid_rfw_plm_minmod_roe.dat']
 fn_slug = ['slug_rfw_plm_minmod_hll_tot.dat', 'slug_rfw_plm_minmod_roe_tot.dat']
 sbplt_title = ['PLM + Minmod + Hll', 'PLM + Minmod + ROE']
 
-fig, ax = plt.subplots(2,1)
+fig, ax = plt.subplots()
 
-for i in range(2):
+for i in range(1):
     file = open(fn_grid[i],'r')
     nt, nx, xstart, xstop = [float(x) for x in file.readline().split()]
     nt = int(nt)
@@ -50,8 +50,8 @@ for i in range(2):
     tidx = np.argmax(t == tstop) - 1
     #print(t)
     #print(tidx)
-    ax[i].plot(x, dens[tidx,:], 'ro-', x, vel[tidx,:], 'go-', x, pres[tidx,:], 'bo-')
-    ax[i].set_title(sbplt_title[i])
+    ax.plot(x, dens[tidx,:], 'ro-', x, vel[tidx,:], 'go-', x, pres[tidx,:], 'bo-')
+    ax.set_title(sbplt_title[i])
 
 plt.savefig('part2_sol.png',dpi=800)
 

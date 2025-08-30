@@ -134,8 +134,6 @@ subroutine soln_PLM(dt)
         ! Now PLM reconstruction for dens, velx, and pres
         gr_vL(DENS_VAR:PRES_VAR,i) = gr_V(DENS_VAR:PRES_VAR,i) + sigL(DENS_VAR:PRES_VAR)
         gr_vR(DENS_VAR:PRES_VAR,i) = gr_V(DENS_VAR:PRES_VAR,i) + sigR(DENS_VAR:PRES_VAR)
-
-        
      end do
   end do
   
